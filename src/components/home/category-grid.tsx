@@ -36,15 +36,13 @@ export function CategoryGrid({ categories, counts, limit, hideTitle }: CategoryG
               key={cat.id}
               href={`/categories/${cat.id}`}
               className={cn(
-                "group relative overflow-hidden flex flex-col items-start gap-4 rounded-2xl border p-5 sm:p-6 transition-all duration-500 outline-none text-left",
-                "border-border/60 bg-gradient-to-b from-secondary/30 to-transparent hover:-translate-y-1 hover:border-foreground/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.03)]"
+                "group flex flex-col items-start gap-4 rounded-2xl border border-border/40 bg-card p-6 transition-all duration-300 outline-none text-left",
+                "hover:-translate-y-0.5 hover:border-border/80 hover:bg-secondary/20 hover:shadow-sm"
               )}
             >
-              {/* Subtle top inner glow on hover */}
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="flex w-full items-center justify-between">
                 <div 
-                  className="flex size-11 items-center justify-center rounded-[14px] border border-border/80 bg-background/80 backdrop-blur-sm shadow-sm transition-transform duration-500 group-hover:scale-105"
+                  className="flex size-10 items-center justify-center rounded-lg border border-border/50 bg-secondary/50 shadow-sm transition-transform duration-300 group-hover:scale-105"
                 >
                   <CategoryIcon 
                     icon={cat.icon} 
@@ -52,16 +50,16 @@ export function CategoryGrid({ categories, counts, limit, hideTitle }: CategoryG
                     style={{ color: `var(--color-${cat.color || "cyan"})` }}
                   />
                 </div>
-                <span className="font-mono text-[11px] font-bold px-2.5 py-1 rounded-full bg-background border border-border text-text-muted transition-colors group-hover:border-foreground/20 group-hover:text-foreground shadow-sm">
+                <span className="font-mono text-[11px] font-medium text-text-muted transition-colors group-hover:text-foreground">
                   {counts[cat.id] ?? 0} Questions
                 </span>
               </div>
               
-              <div className="flex flex-col mt-2">
-                <span className="font-sans text-[18px] font-semibold tracking-tight text-foreground">
+              <div className="flex flex-col gap-1.5 mt-2">
+                <span className="font-sans text-[16px] font-semibold tracking-tight text-foreground">
                   {cat.label}
                 </span>
-                <span className="text-[14px] text-text-muted mt-2 leading-relaxed">
+                <span className="text-[14px] text-text-muted leading-relaxed">
                   {cat.description}
                 </span>
               </div>
@@ -73,19 +71,18 @@ export function CategoryGrid({ categories, counts, limit, hideTitle }: CategoryG
           <Link
             href="/categories"
             className={cn(
-              "group relative overflow-hidden flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed p-5 sm:p-6 transition-all duration-500 outline-none text-center",
-              "border-border/60 hover:-translate-y-1 hover:border-foreground/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.03)]"
+              "group flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-border/40 p-6 transition-all duration-300 outline-none text-center",
+              "hover:-translate-y-0.5 hover:border-border/80 hover:bg-secondary/10 hover:shadow-sm"
             )}
           >
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="flex size-11 items-center justify-center rounded-[14px] border border-border/80 bg-background/80 backdrop-blur-sm text-text-muted transition-all duration-500 group-hover:scale-105 group-hover:text-foreground">
+            <div className="flex size-10 items-center justify-center rounded-lg border border-border/50 bg-secondary/50 text-text-muted transition-all duration-300 group-hover:scale-105 group-hover:text-foreground">
               <ArrowRight className="size-5" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-sans text-[18px] font-semibold tracking-tight text-foreground">
+            <div className="flex flex-col gap-1.5 mt-2">
+              <span className="font-sans text-[16px] font-semibold tracking-tight text-foreground">
                 Show More
               </span>
-              <span className="text-[14px] text-text-muted mt-1">
+              <span className="text-[14px] text-text-muted">
                 Explore all {categories.length} categories
               </span>
             </div>
