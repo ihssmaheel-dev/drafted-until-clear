@@ -1,0 +1,88 @@
+import type { Question } from "../types";
+
+export const jsQuestions: Question[] = [
+  {
+    id: "js-var-let-const",
+    level: "Beginner",
+    q: "What's the real difference between var, let, and const?",
+    wrong: "const makes the whole object <bad>immutable</bad>, and let and var are interchangeable.",
+    why: "const only freezes the binding, not the contents — and var and let behave very differently around scope and hoisting.",
+    steps: [
+      { icon: "box", title: "Scope", text: "<code>var</code> is function-scoped and ignores block boundaries; <code>let</code> and <code>const</code> are <kw>block-scoped</kw>." },
+      { icon: "flag", title: "Hoisting behaviour", text: "<code>var</code> is hoisted and initialised as <code>undefined</code>; <code>let</code>/<code>const</code> are hoisted into a <kw>temporal dead zone</kw> and throw if accessed early." },
+      { icon: "key", title: "What const actually locks", text: "<code>const</code> prevents reassigning the <flow>binding</flow> — an object declared with <code>const</code> can still have its properties mutated." },
+      { icon: "check", title: "Practical default", text: "Reach for <code>const</code> first, <code>let</code> when reassignment is genuinely needed, and treat <code>var</code> as legacy." },
+    ],
+    takeaway: "const protects the <good>reference</good>, not the value. Mutable objects behind a const binding are still fully mutable.",
+  },
+  {
+    id: "js-event-loop",
+    level: "Beginner",
+    q: "How does the event loop order microtasks versus macrotasks?",
+    wrong: "Everything just runs in the <bad>order it was written</bad>.",
+    why: "Promises and timers are queued on entirely separate queues that drain at different points in each loop iteration.",
+    steps: [
+      { icon: "loop", title: "Call stack clears first", text: "Synchronous code always finishes running before any queued callback gets a turn." },
+      { icon: "flag", title: "Microtasks next", text: "Promise <code>.then</code> callbacks and <code>queueMicrotask</code> calls run as <flow>microtasks</flow> — and the queue is fully drained each time, including new ones added during draining." },
+      { icon: "clock", title: "Then macrotasks", text: "Only after microtasks are exhausted does the loop pick up the next <sys>macrotask</sys> — a <code>setTimeout</code> callback, an I/O event, and so on." },
+      { icon: "check", title: "Why it surprises people", text: "A <code>Promise.resolve().then()</code> will always fire before a <code>setTimeout(fn, 0)</code>, even though the timeout was scheduled first." },
+    ],
+    takeaway: "Microtasks always drain completely before the next macrotask runs — that <good>ordering</good>, not source order, decides what fires first.",
+  },
+  {
+    id: "js-closures",
+    level: "Intermediate",
+    q: "What is a closure, and why does it actually matter in practice?",
+    wrong: "A closure is just a <bad>function inside another function</bad>.",
+    why: "Nesting alone doesn't create a closure — what matters is that the inner function keeps access to variables from its outer scope after that scope has finished running.",
+    steps: [
+      { icon: "box", title: "The core mechanic", text: "A function remembers the <kw>variables from where it was defined</kw>, not where it gets called." },
+      { icon: "key", title: "Why it survives", text: "Even after the outer function returns, its variables stay alive in memory because the inner function still <flow>references</flow> them." },
+      { icon: "gear", title: "Where it shows up", text: "Private state in module patterns, memoized functions, and callback-based counters all lean on this." },
+      { icon: "flag", title: "The trade-off", text: "Careless closures — especially in loops or long-lived event listeners — are a common source of <bad>memory leaks</bad>." },
+    ],
+    takeaway: "A closure is a function bundled with the <good>scope it was born in</good> — that's what lets it keep state private and persistent.",
+  },
+  {
+    id: "js-prototypal-inheritance",
+    level: "Intermediate",
+    q: "How does prototypal inheritance differ from classical inheritance?",
+    wrong: "JavaScript classes work <bad>exactly like classes in Java or C++</bad>.",
+    why: "The class keyword is syntax on top of prototype chains — objects still inherit by delegating to another live object, not by copying a blueprint.",
+    steps: [
+      { icon: "net", title: "Delegation, not copying", text: "When a property isn't found on an object, JavaScript walks up its <kw>prototype chain</kw> looking for it — nothing gets duplicated." },
+      { icon: "box", title: "Objects link to objects", text: "Every object has an internal link to another object (its <flow>prototype</flow>), forming a chain rather than a fixed class hierarchy." },
+      { icon: "gear", title: "class is sugar", text: "<code>class</code> and <code>extends</code> compile down to the same <sys>prototype-chain mechanics</sys> under the hood." },
+      { icon: "check", title: "Why it matters", text: "You can change an object's prototype at runtime — something a truly classical, compile-time inheritance model would never allow." },
+    ],
+    takeaway: "Prototypal inheritance is <good>live delegation between objects</good>, not instantiation from a fixed class template.",
+  },
+  {
+    id: "js-promises",
+    level: "Intermediate",
+    q: "What's the difference between Promise.all, Promise.allSettled, and Promise.race?",
+    wrong: "They all <bad>do the same thing</bad> — run promises in parallel.",
+    why: "They differ in how they handle rejection and what value they resolve with — choosing the wrong one silently swallows errors or crashes early.",
+    steps: [
+      { icon: "check", title: "Promise.all", text: "Resolves when <flow>all</flow> promises resolve. Rejects immediately if <bad>any</bad> one rejects — the first rejection wins." },
+      { icon: "flag", title: "Promise.allSettled", text: "Resolves when <flow>all</flow> promises settle (resolve or reject). Returns an array of <code>{status, value}</code> or <code>{status, reason}</code> objects." },
+      { icon: "clock", title: "Promise.race", text: "Resolves or rejects with the <flow>first</flow> settled promise — whether it resolved or rejected." },
+      { icon: "key", title: "When to use which", text: "Use <code>all</code> when all results are required. Use <code>allSettled</code> when you want partial results. Use <code>race</code> for timeouts or fallbacks." },
+    ],
+    takeaway: "Pick the combinator based on your <good>failure semantics</good>: fail-fast, fail-never, or first-wins.",
+  },
+  {
+    id: "js-destructuring",
+    level: "Advanced",
+    q: "What can you actually destructure, and what are the gotchas?",
+    wrong: "Destructuring only works on <bad>arrays and objects</bad>.",
+    why: "You can destructure anything iterable, functions parameters, and even nested structures — but there are subtle traps with defaults, renaming, and non-existent keys.",
+    steps: [
+      { icon: "box", title: "What's destructurable", text: "Arrays (positional), objects (by key), function parameters, strings (iterable), Maps, Sets, and anything with an iterator protocol." },
+      { icon: "flag", title: "Defaults", text: "You can provide fallback values: <code>const {x = 10} = {}</code>. The default triggers when the value is <kw>undefined</kw>, not null." },
+      { icon: "key", title: "Renaming", text: "<code>const {name: userName} = obj</code> pulls <code>obj.name</code> into a variable called <code>userName</code>." },
+      { icon: "gear", title: "Nested & rest", text: "Nested: <code>const {a: {b}} = obj</code>. Rest: <code>const {a, ...rest} = obj</code> collects remaining keys." },
+    ],
+    takeaway: "Destructuring is <good>pattern matching for data</good> — it works on anything iterable, not just plain objects.",
+  },
+];
