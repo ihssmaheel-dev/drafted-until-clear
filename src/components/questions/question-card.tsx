@@ -11,7 +11,6 @@ import { cn } from "@/lib/utils";
 
 interface QuestionCardProps {
   question: Question;
-  index: number;
 }
 
 import { MDXRemote } from "next-mdx-remote";
@@ -42,65 +41,35 @@ const components = {
   ),
 };
 
-export function QuestionCard({ question, index }: QuestionCardProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
+export function QuestionCard({ question }: QuestionCardProps) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 4 }}
+      key={question.id}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, delay: index * 0.02, ease: "easeOut" }}
-      className={cn(
-        "card-base overflow-hidden rounded-md border",
-        isOpen ? "border-text-faint" : "border-border"
-      )}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="card-base overflow-hidden rounded-xl border border-border shadow-sm"
+      id="active-question-pane"
     >
-      <button
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full cursor-pointer items-start gap-4 p-4 text-left select-none"
-      >
-        <span className="shrink-0 font-mono text-[11px] font-medium text-text-muted mt-[3px]">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-
-        <span className="flex-1 font-[family-name:var(--font-sans)] text-[15px] font-medium leading-snug text-foreground sm:text-[16px]">
+      <div className="flex flex-col gap-4 p-5 sm:p-7 border-b border-border bg-card">
+        <h2 className="font-sans text-xl sm:text-2xl font-bold tracking-tight text-foreground leading-snug">
           {question.q}
-        </span>
+        </h2>
+      </div>
 
-        <div className="flex size-6 shrink-0 items-center justify-center text-text-muted mt-[1px]">
-          <ChevronRight
-            className={cn(
-              "size-4 transition-transform duration-200 ease-out",
-              isOpen ? "rotate-90" : ""
-            )}
-          />
+      <div className="px-5 py-6 sm:px-7 sm:py-8 bg-secondary/30">
+        <WrongAnswer wrong={question.wrong} why={""} />
+        
+        <div className="mdx-content mt-6">
+          {question.mdxSource && (
+            <MDXRemote {...question.mdxSource} components={components} />
+          )}
         </div>
-      </button>
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="overflow-hidden"
-          >
-            <div className="border-t border-border px-4 pt-4 pb-6 sm:px-5 sm:pt-5 sm:pb-6 bg-secondary/50">
-              <WrongAnswer wrong={question.wrong} why={""} />
-              
-              <div className="mdx-content mt-4">
-                {question.mdxSource && (
-                  <MDXRemote {...question.mdxSource} components={components} />
-                )}
-              </div>
-
-              <Takeaway text={question.takeaway} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        <div className="mt-8">
+          <Takeaway text={question.takeaway} />
+        </div>
+      </div>
     </motion.article>
   );
 }

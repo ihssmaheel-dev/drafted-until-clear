@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Category, Question, QuestionLevel } from "@/data/types";
 import { SearchBar } from "@/components/questions/search-bar";
@@ -9,6 +9,7 @@ import { useSearch } from "@/hooks/use-search";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { CategoryIcon } from "@/components/icons/category-icon";
+import { cn } from "@/lib/utils";
 
 interface CategoryViewProps {
   category: Category;
@@ -43,6 +44,22 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
         LEVEL_ORDER[levelA as QuestionLevel] - LEVEL_ORDER[levelB as QuestionLevel]
     );
   }, [filtered]);
+
+  const [activeQuestionId, setActiveQuestionId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (filtered.length > 0) {
+      if (!activeQuestionId || !filtered.find(q => q.id === activeQuestionId)) {
+        setActiveQuestionId(filtered[0].id);
+      }
+    } else {
+      setActiveQuestionId(null);
+    }
+  }, [filtered, activeQuestionId]);
+
+  const activeQuestion = useMemo(() => {
+    return filtered.find(q => q.id === activeQuestionId) || null;
+  }, [filtered, activeQuestionId]);
 
   return (
     <div className="flex-1 flex flex-col gap-8 py-6 sm:py-8">
@@ -96,31 +113,51 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
               </p>
             </motion.div>
           ) : (
-            grouped.map(([level, qs]) => (
-              <motion.div 
-                key={level}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="flex flex-col gap-4"
-              >
-                <div className="flex items-center gap-4">
-                  <h2 className="font-sans text-xl font-bold tracking-tight text-foreground">
-                    {level}
-                  </h2>
-                  <div className="h-px flex-1 bg-border/60" />
-                </div>
-                <div className="flex flex-col gap-4">
-                  {qs.map((q, i) => (
-                    <QuestionCard
-                      key={q.id}
-                      question={q}
-                      index={i}
-                    />
-                  ))}
-                </div>
-              </motion.div>
-            ))
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              {/* Left Pane: Question List */}
+              <div className="lg:col-span-4 flex flex-col gap-8 lg:sticky lg:top-6 lg:h-[calc(100vh-120px)] lg:overflow-y-auto pr-2">
+                {grouped.map(([level, qs]) => (
+                  <div key={level} className="flex flex-col gap-3">
+                    <h3 className="font-sans text-[11px] font-bold uppercase tracking-wider text-text-muted px-3">
+                      {level}
+                    </h3>
+                    <div className="flex flex-col gap-1">
+                      {qs.map((q) => {
+                        const isActive = q.id === activeQuestionId;
+                        return (
+                          <button
+                            key={q.id}
+                            onClick={() => {
+                              setActiveQuestionId(q.id);
+                              if (window.innerWidth < 1024) {
+                                document.getElementById("active-question-pane")?.scrollIntoView({ behavior: "smooth" });
+                              }
+                            }}
+                            className={cn(
+                              "text-left px-3 py-3 rounded-lg text-[14px] leading-snug font-medium transition-all",
+                              isActive
+                                ? "bg-foreground text-background shadow-sm"
+                                : "text-text-muted hover:bg-secondary hover:text-foreground"
+                            )}
+                          >
+                            {q.q}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Right Pane: Active Question Detail */}
+              <div className="lg:col-span-8 min-w-0 flex flex-col gap-6">
+                <AnimatePresence mode="wait">
+                  {activeQuestion && (
+                    <QuestionCard question={activeQuestion} />
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
           )}
         </AnimatePresence>
       </section>
