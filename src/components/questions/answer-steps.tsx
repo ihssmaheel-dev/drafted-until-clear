@@ -27,8 +27,8 @@ export function Step({ icon, title, children }: StepProps) {
       transition={{ duration: 0.3 }}
       className="relative pl-10 pb-6 last:pb-2"
     >
-      {/* Centered exactly on the 2px line (size-8 = 32px; 32/2 - 2/2 = 15px offset) */}
-      <div className="absolute -left-[15px] top-0 flex size-8 items-center justify-center rounded-full border border-border/80 bg-[#0f0f12] text-foreground shadow-sm">
+      {/* Centered exactly on the 2px line (size-8 = 32px; center of 2px border is at -1px from padding box. -17px + 16px = -1px) */}
+      <div className="absolute -left-[17px] top-0 flex size-8 items-center justify-center rounded-full border border-border/80 bg-[#0f0f12] text-foreground shadow-sm">
         <StepIcon name={icon} className="size-4 text-text-muted" />
       </div>
 
