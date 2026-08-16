@@ -27,10 +27,10 @@ export function Navbar() {
       </Link>
       
       <div className="flex items-center gap-4">
-        <Link href="#explore" className="text-[14px] font-medium text-text-muted hover:text-foreground transition-colors">
+        <Link href="/#explore" className="text-[14px] font-medium text-text-muted hover:text-foreground transition-colors">
           Explore
         </Link>
-        <Link href="#about" className="text-[14px] font-medium text-text-muted hover:text-foreground transition-colors">
+        <Link href="/#about" className="text-[14px] font-medium text-text-muted hover:text-foreground transition-colors">
           About
         </Link>
         <a 
