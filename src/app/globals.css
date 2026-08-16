@@ -90,28 +90,7 @@
   }
 }
 
-/* ── Rich text highlight tokens ── */
-@layer utilities {
-  .hl-kw    { color: var(--color-violet); font-weight: 500; }
-  .hl-flow  { color: var(--color-cyan); font-weight: 500; }
-  .hl-sys   { color: var(--color-amber); font-weight: 500; }
-  .hl-bad   { color: var(--color-red); font-weight: 500; }
-  .hl-good  { color: var(--color-green); font-weight: 500; }
-}
 
-/* ── Code chip ── */
-@layer utilities {
-  .code-chip {
-    font-family: var(--font-mono);
-    background: #09090b; /* Zinc 950 */
-    border: 1px solid #27272a; /* Zinc 800 */
-    padding: 2px 6px;
-    border-radius: 4px;
-    color: #e4e4e7;
-    font-size: 0.85em;
-    white-space: nowrap;
-  }
-}
 
 /* ── Card hover ── */
 .card-base {

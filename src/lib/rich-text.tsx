@@ -2,11 +2,11 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 const TAG_MAP: Record<string, string> = {
-  kw: "hl-kw font-semibold",
-  flow: "hl-flow font-semibold",
-  sys: "hl-sys font-semibold",
-  bad: "hl-bad font-semibold",
-  good: "hl-good font-semibold",
+  kw: "text-violet font-semibold tracking-tight",
+  flow: "text-cyan font-semibold tracking-tight",
+  sys: "text-amber font-mono text-[0.9em] font-semibold tracking-tight",
+  bad: "text-red font-semibold tracking-tight",
+  good: "text-green font-semibold tracking-tight",
 };
 
 function parseSegment(text: string): ReactNode[] {
@@ -25,13 +25,13 @@ function parseSegment(text: string): ReactNode[] {
 
     if (tagLower === "code") {
       result.push(
-        <code key={match.index} className="rounded bg-foreground/10 px-1 py-0.5 font-mono text-[0.85em] text-foreground">
+        <code key={match.index} className="rounded-md border border-border/50 bg-secondary/50 px-1.5 py-0.5 font-mono text-[0.85em] font-medium text-foreground whitespace-nowrap">
           {content}
         </code>
       );
     } else {
       result.push(
-        <span key={match.index} className={cn("font-semibold", TAG_MAP[tagLower])}>
+        <span key={match.index} className={TAG_MAP[tagLower]}>
           {content}
         </span>
       );

@@ -20,13 +20,13 @@ import { Steps, Step } from "./answer-steps";
 const components = {
   Steps,
   Step,
-  Bad: ({ children }: { children: React.ReactNode }) => <span className="font-semibold text-destructive">{children}</span>,
-  Good: ({ children }: { children: React.ReactNode }) => <span className="font-semibold text-green">{children}</span>,
-  Kw: ({ children }: { children: React.ReactNode }) => <span className="font-semibold text-foreground">{children}</span>,
-  Flow: ({ children }: { children: React.ReactNode }) => <span className="font-semibold italic text-foreground">{children}</span>,
-  Sys: ({ children }: { children: React.ReactNode }) => <span className="font-mono text-[0.9em] text-foreground">{children}</span>,
+  Bad: ({ children }: { children: React.ReactNode }) => <span className="text-red font-semibold tracking-tight">{children}</span>,
+  Good: ({ children }: { children: React.ReactNode }) => <span className="text-green font-semibold tracking-tight">{children}</span>,
+  Kw: ({ children }: { children: React.ReactNode }) => <span className="text-violet font-semibold tracking-tight">{children}</span>,
+  Flow: ({ children }: { children: React.ReactNode }) => <span className="text-cyan font-semibold tracking-tight">{children}</span>,
+  Sys: ({ children }: { children: React.ReactNode }) => <span className="text-amber font-mono text-[0.9em] font-semibold tracking-tight">{children}</span>,
   code: ({ children }: { children: React.ReactNode }) => (
-    <code className="rounded bg-foreground/10 px-1 py-0.5 font-mono text-[0.85em] text-foreground">
+    <code className="rounded-md border border-border/50 bg-secondary/50 px-1.5 py-0.5 font-mono text-[0.85em] font-medium text-foreground whitespace-nowrap">
       {children}
     </code>
   ),
