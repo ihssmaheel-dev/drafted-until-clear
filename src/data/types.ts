@@ -46,22 +46,18 @@ export type TechIcon =
   | "network"
   | "lock";
 
-export interface Step {
-  icon: StepIcon;
-  title: string;
-  text: string;
-}
+import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 
 export type QuestionLevel = "Beginner" | "Intermediate" | "Advanced";
 
 export interface Question {
   id: string;
+  categoryId: string;
   q: string;
   level: QuestionLevel;
   wrong: string;
-  why: string;
-  steps: Step[];
   takeaway: string;
+  mdxSource?: MDXRemoteSerializeResult;
 }
 
 export interface Category {

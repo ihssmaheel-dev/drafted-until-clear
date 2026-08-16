@@ -9,7 +9,7 @@ export function useSearch() {
   const matchesQuery = useCallback(
     (item: Question): boolean => {
       if (!query) return true;
-      const haystack = (item.q + " " + item.wrong + " " + item.why + " " + item.takeaway)
+      const haystack = (item.q + " " + item.wrong + " " + item.takeaway)
         .replace(/<[^>]+>/g, " ")
         .toLowerCase();
       return haystack.includes(query.toLowerCase());

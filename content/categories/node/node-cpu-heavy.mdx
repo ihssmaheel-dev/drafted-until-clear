@@ -1,0 +1,25 @@
+---
+id: "node-cpu-heavy"
+level: "Intermediate"
+q: "Why is running CPU-heavy work directly in a request handler a problem in Node?"
+wrong: "It's fine <bad>as long as the function is marked async</bad>."
+takeaway: "async/await manages waiting, not computing. Heavy computation needs to <good>leave the main thread entirely</good>, not just get an await in front of it."
+---
+
+# Why it misses
+async only helps with I/O-bound waiting — it does nothing to stop synchronous CPU work from occupying the single thread.
+
+<Steps>
+  <Step icon="cpu" title="One thread, one thing at a time">
+    A tight synchronous loop — image resizing, heavy JSON parsing, hashing — runs to completion before anything else gets a turn.
+  </Step>
+  <Step icon="users" title="Everyone else waits">
+    Every other request queued behind it stalls, even ones that have <flow>nothing to do</flow> with the CPU-bound task.
+  </Step>
+  <Step icon="gear" title="Where the work belongs">
+    Offload it to <code>worker_threads</code>, a child process, or an external queue/service so the main thread stays <good>responsive</good>.
+  </Step>
+  <Step icon="check" title="Rule of thumb">
+    If a task takes more than a few milliseconds of pure CPU time, it doesn't belong on the <kw>request-handling thread</kw>.
+  </Step>
+</Steps>

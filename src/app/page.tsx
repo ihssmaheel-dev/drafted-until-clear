@@ -1,4 +1,4 @@
-import { categories, questions, getTotalCount } from "@/data";
+import { categories, getAllQuestionsMetadata, getTotalCount } from "@/data";
 import { Header } from "@/components/layout/header";
 import { HeroDiagram } from "@/components/layout/hero-diagram";
 import { Footer } from "@/components/layout/footer";
@@ -9,10 +9,10 @@ import { Features } from "@/components/home/features";
 export default function HomePage() {
   const count = getTotalCount();
   
-  // Calculate counts for categories
+  const metadata = getAllQuestionsMetadata();
   const counts: Record<string, number> = {};
-  Object.entries(questions).forEach(([catId, qs]) => {
-    counts[catId] = qs.length;
+  metadata.forEach((q) => {
+    counts[q.categoryId] = (counts[q.categoryId] || 0) + 1;
   });
 
   return (

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { WrongAnswer } from "./wrong-answer";
-import { AnswerSteps } from "./answer-steps";
+
 import { Takeaway } from "./takeaway";
 import type { Question } from "@/data/types";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,34 @@ interface QuestionCardProps {
   question: Question;
   index: number;
 }
+
+import { MDXRemote } from "next-mdx-remote";
+import { Steps, Step } from "./answer-steps";
+
+const components = {
+  Steps,
+  Step,
+  bad: ({ children }: { children: React.ReactNode }) => <span className="font-semibold text-destructive">{children}</span>,
+  good: ({ children }: { children: React.ReactNode }) => <span className="font-semibold text-green">{children}</span>,
+  kw: ({ children }: { children: React.ReactNode }) => <span className="font-semibold text-foreground">{children}</span>,
+  flow: ({ children }: { children: React.ReactNode }) => <span className="font-semibold italic text-foreground">{children}</span>,
+  sys: ({ children }: { children: React.ReactNode }) => <span className="font-mono text-[0.9em] text-foreground">{children}</span>,
+  code: ({ children }: { children: React.ReactNode }) => (
+    <code className="rounded bg-foreground/10 px-1 py-0.5 font-mono text-[0.85em] text-foreground">
+      {children}
+    </code>
+  ),
+  h1: ({ children }: { children: React.ReactNode }) => (
+    <h3 className="font-mono text-[11px] font-bold uppercase tracking-wider text-green mb-3 mt-8">
+      {children}
+    </h3>
+  ),
+  p: ({ children }: { children: React.ReactNode }) => (
+    <p className="text-[14.5px] leading-relaxed text-text-muted mb-6">
+      {children}
+    </p>
+  ),
+};
 
 export function QuestionCard({ question, index }: QuestionCardProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,8 +88,14 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
             className="overflow-hidden"
           >
             <div className="border-t border-border px-5 pt-6 pb-8 sm:px-6 sm:pt-7 sm:pb-9 bg-secondary/50">
-              <WrongAnswer wrong={question.wrong} why={question.why} />
-              <AnswerSteps steps={question.steps} />
+              <WrongAnswer wrong={question.wrong} why={""} />
+              
+              <div className="mdx-content mt-8">
+                {question.mdxSource && (
+                  <MDXRemote {...question.mdxSource} components={components} />
+                )}
+              </div>
+
               <Takeaway text={question.takeaway} />
             </div>
           </motion.div>

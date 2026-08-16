@@ -1,0 +1,25 @@
+---
+id: "js-prototypal-inheritance"
+level: "Intermediate"
+q: "How does prototypal inheritance differ from classical inheritance?"
+wrong: "JavaScript classes work <bad>exactly like classes in Java or C++</bad>."
+takeaway: "Prototypal inheritance is <good>live delegation between objects</good>, not instantiation from a fixed class template."
+---
+
+# Why it misses
+The class keyword is syntax on top of prototype chains — objects still inherit by delegating to another live object, not by copying a blueprint.
+
+<Steps>
+  <Step icon="net" title="Delegation, not copying">
+    When a property isn't found on an object, JavaScript walks up its <kw>prototype chain</kw> looking for it — nothing gets duplicated.
+  </Step>
+  <Step icon="box" title="Objects link to objects">
+    Every object has an internal link to another object (its <flow>prototype</flow>), forming a chain rather than a fixed class hierarchy.
+  </Step>
+  <Step icon="gear" title="class is sugar">
+    <code>class</code> and <code>extends</code> compile down to the same <sys>prototype-chain mechanics</sys> under the hood.
+  </Step>
+  <Step icon="check" title="Why it matters">
+    You can change an object's prototype at runtime — something a truly classical, compile-time inheritance model would never allow.
+  </Step>
+</Steps>

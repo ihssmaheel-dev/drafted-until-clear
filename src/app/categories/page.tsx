@@ -1,4 +1,4 @@
-import { categories, questions, getTotalCount } from "@/data";
+import { categories, getAllQuestionsMetadata, getTotalCount } from "@/data";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { CategoryGrid } from "@/components/home/category-grid";
@@ -8,9 +8,10 @@ import Link from "next/link";
 export default function AllCategoriesPage() {
   const count = getTotalCount();
   
+  const metadata = getAllQuestionsMetadata();
   const counts: Record<string, number> = {};
-  Object.entries(questions).forEach(([catId, qs]) => {
-    counts[catId] = qs.length;
+  metadata.forEach((q) => {
+    counts[q.categoryId] = (counts[q.categoryId] || 0) + 1;
   });
 
   return (

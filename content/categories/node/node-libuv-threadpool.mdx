@@ -1,0 +1,25 @@
+---
+id: "node-libuv-threadpool"
+level: "Intermediate"
+q: "What actually uses the libuv thread pool, and what doesn't?"
+wrong: "<bad>All</bad> asynchronous operations in Node run through the thread pool."
+takeaway: "Network I/O mostly bypasses the thread pool entirely — it's the <sys>filesystem, DNS, and certain crypto calls</sys> that queue up on those 4 threads."
+---
+
+# Why it misses
+Most network I/O — TCP, HTTP — is handled by the OS's async primitives directly, not the thread pool at all.
+
+<Steps>
+  <Step icon="box" title="Two async paths">
+    Node's async I/O splits into <sys>OS-level async</sys> (sockets, most networking) and <code>libuv</code>'s own <sys>worker pool</sys> for things the OS can't do async.
+  </Step>
+  <Step icon="gear" title="What lands in the pool">
+    File system calls, DNS lookups via <code>dns.lookup()</code>, and some crypto functions like <code>pbkdf2</code> run on the <sys>pool</sys>.
+  </Step>
+  <Step icon="users" title="The pool is small">
+    By default it has only <flow>4 threads</flow>, so piling on filesystem-heavy work can create a real bottleneck.
+  </Step>
+  <Step icon="check" title="Tuning it">
+    The pool size is adjustable via the <code>UV_THREADPOOL_SIZE</code> environment variable when that becomes the constraint.
+  </Step>
+</Steps>

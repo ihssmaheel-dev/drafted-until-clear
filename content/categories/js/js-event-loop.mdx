@@ -1,0 +1,25 @@
+---
+id: "js-event-loop"
+level: "Beginner"
+q: "How does the event loop order microtasks versus macrotasks?"
+wrong: "Everything just runs in the <bad>order it was written</bad>."
+takeaway: "Microtasks always drain completely before the next macrotask runs — that <good>ordering</good>, not source order, decides what fires first."
+---
+
+# Why it misses
+Promises and timers are queued on entirely separate queues that drain at different points in each loop iteration.
+
+<Steps>
+  <Step icon="loop" title="Call stack clears first">
+    Synchronous code always finishes running before any queued callback gets a turn.
+  </Step>
+  <Step icon="flag" title="Microtasks next">
+    Promise <code>.then</code> callbacks and <code>queueMicrotask</code> calls run as <flow>microtasks</flow> — and the queue is fully drained each time, including new ones added during draining.
+  </Step>
+  <Step icon="clock" title="Then macrotasks">
+    Only after microtasks are exhausted does the loop pick up the next <sys>macrotask</sys> — a <code>setTimeout</code> callback, an I/O event, and so on.
+  </Step>
+  <Step icon="check" title="Why it surprises people">
+    A <code>Promise.resolve().then()</code> will always fire before a <code>setTimeout(fn, 0)</code>, even though the timeout was scheduled first.
+  </Step>
+</Steps>

@@ -6,7 +6,7 @@ import { RichText } from "@/lib/rich-text";
 
 interface WrongAnswerProps {
   wrong: string;
-  why: string;
+  why?: string;
 }
 
 export function WrongAnswer({ wrong, why }: WrongAnswerProps) {
@@ -29,9 +29,11 @@ export function WrongAnswer({ wrong, why }: WrongAnswerProps) {
             <RichText text={wrong} />
           </div>
         </div>
-        <div className="text-[13.5px] leading-relaxed text-text-muted">
-          <RichText text={why} />
-        </div>
+        {why && (
+          <div className="text-[13.5px] leading-relaxed text-text-muted">
+            <RichText text={why} />
+          </div>
+        )}
       </div>
     </motion.div>
   );

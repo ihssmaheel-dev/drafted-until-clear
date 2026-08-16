@@ -1,0 +1,25 @@
+---
+id: "db-sql-nosql"
+level: "Intermediate"
+q: "What actually separates SQL databases from NoSQL ones?"
+wrong: "SQL is for <bad>small apps</bad> and NoSQL is for big, modern apps."
+takeaway: "This is a <good>data-modeling decision</good>, not a maturity ranking — plenty of large-scale systems run on relational databases."
+---
+
+# Why it misses
+The real distinction is about data shape and consistency guarantees, not scale or how 'modern' a project is.
+
+<Steps>
+  <Step icon="box" title="Schema shape">
+    SQL databases enforce a <kw>fixed schema</kw> with relations between tables; most NoSQL stores allow flexible, often nested, document shapes.
+  </Step>
+  <Step icon="key" title="Consistency model">
+    Relational databases typically guarantee strong <flow>ACID consistency</flow>; many NoSQL stores trade some of that for availability and horizontal scale.
+  </Step>
+  <Step icon="net" title="Query patterns">
+    SQL excels at complex joins across normalized data; document and key-value stores excel when you mostly fetch a whole record by key.
+  </Step>
+  <Step icon="check" title="The actual decision">
+    Pick based on how <good>relational the data is</good> and what consistency guarantees the domain needs — not on perceived modernity.
+  </Step>
+</Steps>

@@ -1,0 +1,25 @@
+---
+id: "sys-cap-theorem"
+level: "Intermediate"
+q: "Can you explain the CAP theorem without the jargon?"
+wrong: "CAP means you can <bad>never have consistency and availability</bad> at the same time."
+takeaway: "CAP is a statement about behaviour <good>during a partition</good>, not a permanent trade-off you're locked into all the time."
+---
+
+# Why it misses
+CAP only forces a trade-off during a network partition — outside of a partition, a system can offer both.
+
+<Steps>
+  <Step icon="net" title="The three properties">
+    <kw>Consistency</kw> (every read gets the latest write), <kw>Availability</kw> (every request gets a response), <kw>Partition tolerance</kw> (the system keeps working despite dropped network links).
+  </Step>
+  <Step icon="flag" title="The forced choice">
+    Partitions are a fact of distributed networks, so partition tolerance isn't optional — the real choice is between consistency and availability when one occurs.
+  </Step>
+  <Step icon="db" title="CP systems">
+    Prioritise <flow>consistency</flow> — they may refuse requests during a partition rather than return stale data.
+  </Step>
+  <Step icon="gear" title="AP systems">
+    Prioritise <flow>availability</flow> — they keep responding, possibly with data that hasn't fully synced yet.
+  </Step>
+</Steps>

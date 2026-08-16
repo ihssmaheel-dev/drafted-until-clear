@@ -1,0 +1,25 @@
+---
+id: "js-promises"
+level: "Intermediate"
+q: "What's the difference between Promise.all, Promise.allSettled, and Promise.race?"
+wrong: "They all <bad>do the same thing</bad> — run promises in parallel."
+takeaway: "Pick the combinator based on your <good>failure semantics</good>: fail-fast, fail-never, or first-wins."
+---
+
+# Why it misses
+They differ in how they handle rejection and what value they resolve with — choosing the wrong one silently swallows errors or crashes early.
+
+<Steps>
+  <Step icon="check" title="Promise.all">
+    Resolves when <flow>all</flow> promises resolve. Rejects immediately if <bad>any</bad> one rejects — the first rejection wins.
+  </Step>
+  <Step icon="flag" title="Promise.allSettled">
+    Resolves when <flow>all</flow> promises settle (resolve or reject). Returns an array of <code>&#123;status, value&#125;</code> or <code>&#123;status, reason&#125;</code> objects.
+  </Step>
+  <Step icon="clock" title="Promise.race">
+    Resolves or rejects with the <flow>first</flow> settled promise — whether it resolved or rejected.
+  </Step>
+  <Step icon="key" title="When to use which">
+    Use <code>all</code> when all results are required. Use <code>allSettled</code> when you want partial results. Use <code>race</code> for timeouts or fallbacks.
+  </Step>
+</Steps>

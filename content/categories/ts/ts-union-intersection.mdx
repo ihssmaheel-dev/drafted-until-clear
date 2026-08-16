@@ -1,0 +1,25 @@
+---
+id: "ts-union-intersection"
+level: "Intermediate"
+q: "What's the difference between union types and intersection types?"
+wrong: "They're <bad>basically the same</bad> — both combine types."
+takeaway: "Unions narrow possibilities; intersections accumulate properties. They're <good>complementary tools</good>, not interchangeable ones."
+---
+
+# Why it misses
+Unions say 'it's one of these' (narrowing), intersections say 'it's all of these simultaneously' (merging) — they have opposite semantics.
+
+<Steps>
+  <Step icon="flag" title="Union: OR">
+    <code>A | B</code> means the value is <kw>either A or B</kw>. You must narrow before accessing properties unique to one side.
+  </Step>
+  <Step icon="box" title="Intersection: AND">
+    <code>A & B</code> means the value is <kw>both A and B</kw>. It must satisfy all constraints simultaneously — the result has all properties from both.
+  </Step>
+  <Step icon="gear" title="When each breaks">
+    Unions break when you forget to narrow — accessing a property not on the common shape throws. Intersections break when the types contradict — <code>string & number</code> becomes <code>never</code>.
+  </Step>
+  <Step icon="check" title="Practical pattern">
+    Use unions for variants (success/error), intersections for mixins (adding fields to an existing type).
+  </Step>
+</Steps>

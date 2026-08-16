@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { categories, questions, getTotalCount } from "@/data";
+import { categories, getQuestionsByCategory, getTotalCount } from "@/data";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { CategoryView } from "@/components/categories/category-view";
@@ -13,9 +13,9 @@ export function generateStaticParams() {
 export default async function CategoryPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const category = categories.find((c) => c.id === id);
-  const categoryQuestions = questions[id];
+  const categoryQuestions = await getQuestionsByCategory(id);
 
-  if (!category || !categoryQuestions) {
+  if (!category || categoryQuestions.length === 0) {
     notFound();
   }
 

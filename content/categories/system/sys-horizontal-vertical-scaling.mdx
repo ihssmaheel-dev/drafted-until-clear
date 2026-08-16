@@ -1,0 +1,25 @@
+---
+id: "sys-horizontal-vertical-scaling"
+level: "Intermediate"
+q: "What's the actual difference between horizontal and vertical scaling?"
+wrong: "They both just mean <bad>'making the system handle more load.'</bad>"
+takeaway: "Vertical scaling buys time; horizontal scaling is what actually removes the ceiling — at the cost of <good>distributed-systems complexity</good>."
+---
+
+# Why it misses
+They solve the same problem through opposite mechanisms, with very different limits and failure modes.
+
+<Steps>
+  <Step icon="cpu" title="Vertical scaling">
+    Add more CPU, RAM, or disk to a <sys>single machine</sys> — simple, but capped by the biggest hardware you can buy.
+  </Step>
+  <Step icon="users" title="Horizontal scaling">
+    Add more machines and distribute load across them — theoretically unbounded, but needs the system to <flow>coordinate state</flow>.
+  </Step>
+  <Step icon="net" title="The real complexity">
+    Horizontal scaling forces decisions about <kw>load balancing</kw>, session/state sharing, and data consistency across nodes.
+  </Step>
+  <Step icon="check" title="In practice">
+    Most systems scale vertically first because it's cheap, then horizontally once a single machine becomes the ceiling.
+  </Step>
+</Steps>

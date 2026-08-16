@@ -1,0 +1,25 @@
+---
+id: "ts-generics"
+level: "Intermediate"
+q: "Why are generics more than just 'any with extra steps'?"
+wrong: "Generics are just <bad>any with a type parameter</bad>."
+takeaway: "Generics let you write <good>type-safe reusable code</good> where types flow through — they're the opposite of <code>any</code>."
+---
+
+# Why it misses
+Generics preserve type relationships across inputs and outputs — they let you write functions where the return type depends on the input type.
+
+<Steps>
+  <Step icon="key" title="Type relationships">
+    A function <code>first&lt;T&gt;(arr: T[]): T</code> returns the <kw>same type</kw> as the array element. <code>any</code> loses that link.
+  </Step>
+  <Step icon="flag" title="Constraints">
+    <code>T extends HasId</code> restricts <code>T</code> to types with an <code>id</code> field — you get autocomplete and safety simultaneously.
+  </Step>
+  <Step icon="gear" title="Inference">
+    TypeScript infers <code>T</code> from usage: <code>getId(&#123;id: 1, name: 'x'&#125;)</code> → <code>T</code> is inferred as <code>&#123;id: number, name: string&#125;</code>.
+  </Step>
+  <Step icon="check" title="Real-world use">
+    API wrappers, data fetching hooks, form validators, and any function where the output type is derived from the input.
+  </Step>
+</Steps>

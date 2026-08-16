@@ -1,12 +1,10 @@
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { serialize } from "next-mdx-remote/serialize";
 import type { Category, Question } from "./types";
-import { jsQuestions } from "./categories/js";
-import { tsQuestions } from "./categories/typescript";
-import { reactQuestions } from "./categories/react";
-import { nodeQuestions } from "./categories/node";
-import { systemQuestions } from "./categories/system";
-import { dbQuestions } from "./categories/db";
 
-export type { Category, Question, Step, StepIcon, TechIcon } from "./types";
+export type { Category, Question, StepIcon, TechIcon, QuestionLevel } from "./types";
 
 export const categories: Category[] = [
   // Tier 1 — Foundations
@@ -18,27 +16,66 @@ export const categories: Category[] = [
   { id: "db", label: "Databases", icon: "database", color: "#C792EA", tier: 4, description: "Indexing, ACID transactions, and query optimization." },
 ];
 
-export const questions: Record<string, Question[]> = {
-  js: jsQuestions,
-  ts: tsQuestions,
-  react: reactQuestions,
-  node: nodeQuestions,
-  system: systemQuestions,
-  db: dbQuestions,
-};
+const CONTENT_DIR = path.join(process.cwd(), "content", "categories");
 
-export function getAllQuestions(): (Question & { categoryId: string })[] {
-  return Object.entries(questions).flatMap(([catId, qs]) =>
-    qs.map((q) => ({ ...q, categoryId: catId }))
-  );
+export function getAllQuestionsMetadata(): Omit<Question, "mdxSource">[] {
+  const questions: Omit<Question, "mdxSource">[] = [];
+  if (!fs.existsSync(CONTENT_DIR)) return [];
+
+  const categoriesDirs = fs.readdirSync(CONTENT_DIR);
+  for (const catId of categoriesDirs) {
+    const catPath = path.join(CONTENT_DIR, catId);
+    if (!fs.statSync(catPath).isDirectory()) continue;
+
+    const files = fs.readdirSync(catPath).filter((f) => f.endsWith(".mdx"));
+    for (const file of files) {
+      const filePath = path.join(catPath, file);
+      const fileContent = fs.readFileSync(filePath, "utf-8");
+      const { data } = matter(fileContent);
+
+      questions.push({
+        id: data.id,
+        categoryId: catId,
+        q: data.q,
+        level: data.level,
+        wrong: data.wrong,
+        takeaway: data.takeaway,
+      });
+    }
+  }
+  return questions;
 }
 
-export function getQuestionById(id: string): (Question & { categoryId: string }) | undefined {
-  return getAllQuestions().find((q) => q.id === id);
+export async function getQuestionsByCategory(categoryId: string): Promise<Question[]> {
+  const catPath = path.join(CONTENT_DIR, categoryId);
+  if (!fs.existsSync(catPath)) return [];
+
+  const files = fs.readdirSync(catPath).filter((f) => f.endsWith(".mdx"));
+  const questions: Question[] = [];
+
+  for (const file of files) {
+    const filePath = path.join(catPath, file);
+    const fileContent = fs.readFileSync(filePath, "utf-8");
+    const { data, content } = matter(fileContent);
+
+    const mdxSource = await serialize(content);
+
+    questions.push({
+      id: data.id,
+      categoryId,
+      q: data.q,
+      level: data.level,
+      wrong: data.wrong,
+      takeaway: data.takeaway,
+      mdxSource,
+    });
+  }
+
+  return questions;
 }
 
 export function getTotalCount(): number {
-  return Object.values(questions).reduce((acc, qs) => acc + qs.length, 0);
+  return getAllQuestionsMetadata().length;
 }
 
 export function getCategoriesByTier(): Category[][] {

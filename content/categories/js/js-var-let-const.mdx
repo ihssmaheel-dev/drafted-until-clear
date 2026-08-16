@@ -1,0 +1,25 @@
+---
+id: "js-var-let-const"
+level: "Beginner"
+q: "What's the real difference between var, let, and const?"
+wrong: "const makes the whole object <bad>immutable</bad>, and let and var are interchangeable."
+takeaway: "const protects the <good>reference</good>, not the value. Mutable objects behind a const binding are still fully mutable."
+---
+
+# Why it misses
+const only freezes the binding, not the contents — and var and let behave very differently around scope and hoisting.
+
+<Steps>
+  <Step icon="box" title="Scope">
+    <code>var</code> is function-scoped and ignores block boundaries; <code>let</code> and <code>const</code> are <kw>block-scoped</kw>.
+  </Step>
+  <Step icon="flag" title="Hoisting behaviour">
+    <code>var</code> is hoisted and initialised as <code>undefined</code>; <code>let</code>/<code>const</code> are hoisted into a <kw>temporal dead zone</kw> and throw if accessed early.
+  </Step>
+  <Step icon="key" title="What const actually locks">
+    <code>const</code> prevents reassigning the <flow>binding</flow> — an object declared with <code>const</code> can still have its properties mutated.
+  </Step>
+  <Step icon="check" title="Practical default">
+    Reach for <code>const</code> first, <code>let</code> when reassignment is genuinely needed, and treat <code>var</code> as legacy.
+  </Step>
+</Steps>

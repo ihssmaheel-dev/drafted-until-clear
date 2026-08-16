@@ -1,0 +1,25 @@
+---
+id: "db-indexing"
+level: "Intermediate"
+q: "What is a database index actually doing, and what does it cost?"
+wrong: "Adding an index just makes queries faster with <bad>no downside</bad>."
+takeaway: "An index is a <good>read/write trade-off</good>, not a pure win — over-indexing a write-heavy table can quietly slow everything down."
+---
+
+# Why it misses
+Indexes speed up reads by adding real overhead to writes and storage — they're a trade-off, not a free upgrade.
+
+<Steps>
+  <Step icon="db" title="What it builds">
+    An index maintains a separate, sorted data structure (commonly a <kw>B-tree</kw>) mapping column values to row locations.
+  </Step>
+  <Step icon="clock" title="Why reads speed up">
+    Instead of scanning every row, the database can binary-search the index and <flow>jump straight</flow> to matching rows.
+  </Step>
+  <Step icon="gear" title="What it costs on writes">
+    Every insert, update, or delete has to also update every relevant index, which adds <sys>overhead</sys> proportional to how many indexes exist.
+  </Step>
+  <Step icon="check" title="Where to apply them">
+    Index columns that are frequently filtered or joined on, and be deliberate about it on write-heavy tables.
+  </Step>
+</Steps>

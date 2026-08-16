@@ -1,0 +1,25 @@
+---
+id: "ts-utility-types"
+level: "Intermediate"
+q: "When would you use Partial, Pick, and Omit in practice?"
+wrong: "They're <bad>redundant</bad> — you can just type the shape you need manually."
+takeaway: "These utilities are <good>derivation operators</good> — they keep derived types coupled to the source so refactors propagate automatically."
+---
+
+# Why it misses
+They keep types DRY, enforce consistency with a single source, and prevent manual types from drifting out of sync with the real data.
+
+<Steps>
+  <Step icon="box" title="Partial<T>">
+    Makes all properties optional. Use for <kw>update payloads</kw> where you only send the fields you want to change.
+  </Step>
+  <Step icon="flag" title="Pick<T, K>">
+    Extracts only the listed keys. Use for <kw>read models</kw> — a card preview needs title and slug, not the full entity.
+  </Step>
+  <Step icon="key" title="Omit<T, K>">
+    Removes specific keys. Use when a derived type should have <em>everything except</em> a field — like a <kw>create input</kw> that doesn't include an auto-generated ID.
+  </Step>
+  <Step icon="check" title="The real value">
+    If you rename a field in the base type, Partial/Pick/Omit propagate automatically — manual types silently break.
+  </Step>
+</Steps>

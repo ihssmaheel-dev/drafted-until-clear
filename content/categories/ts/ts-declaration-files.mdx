@@ -1,0 +1,25 @@
+---
+id: "ts-declaration-files"
+level: "Intermediate"
+q: "What are .d.ts files, and when do you actually need to write one?"
+wrong: "They're just <bad>extra boilerplate</bad> that TypeScript forces on you."
+takeaway: ".d.ts files bridge the gap between <good>untyped JS and typed TS</good> — write them only when you must, prefer community types."
+---
+
+# Why it misses
+They describe types for code you didn't write — npm packages without types, global APIs, and ambient declarations.
+
+<Steps>
+  <Step icon="box" title="What they are">
+    Declaration files describe the <kw>shape of JavaScript code</kw> without containing any implementation — they're type-only contracts.
+  </Step>
+  <Step icon="flag" title="When you need them">
+    When a package ships no <code>.d.ts</code> and no <code>@types/*</code> package. Also for global variables, ambient modules, and window augmentations.
+  </Step>
+  <Step icon="gear" title="How to write one">
+    Declare the types as if they exist: <code>declare module 'untyped-lib' &#123; export function foo(): void; &#125;</code>.
+  </Step>
+  <Step icon="check" title="The alternative">
+    Prefer <code>@types/*</code> packages from DefinitelyTyped first. Write your own only when no community types exist.
+  </Step>
+</Steps>

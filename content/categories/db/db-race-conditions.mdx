@@ -1,0 +1,25 @@
+---
+id: "db-race-conditions"
+level: "Intermediate"
+q: "What's a race condition at the database level, and how do transactions prevent it?"
+wrong: "Race conditions only happen in <bad>multi-threaded application code</bad>, not in the database itself."
+takeaway: "Race conditions come from the <bad>gap between reading and writing</bad> — transactions and locking exist specifically to close that gap."
+---
+
+# Why it misses
+Any time two operations read and then write the same row without coordination, the database can produce the exact same class of bug.
+
+<Steps>
+  <Step icon="users" title="The classic case">
+    Two requests both read a balance of 100, both add 10 locally, and both write back 110 — one update is <bad>silently lost</bad>.
+  </Step>
+  <Step icon="key" title="Isolation levels">
+    Transactions with appropriate <kw>isolation levels</kw> prevent one transaction from seeing another's uncommitted changes mid-flight.
+  </Step>
+  <Step icon="gear" title="Locking strategies">
+    Row-level locks, or <flow>optimistic concurrency</flow> with a version column, stop two writers from clobbering each other's update.
+  </Step>
+  <Step icon="check" title="The fix in this example">
+    An atomic <code>UPDATE ... SET balance = balance + 10</code> avoids the read-then-write gap entirely.
+  </Step>
+</Steps>

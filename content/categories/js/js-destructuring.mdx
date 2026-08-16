@@ -1,0 +1,25 @@
+---
+id: "js-destructuring"
+level: "Advanced"
+q: "What can you actually destructure, and what are the gotchas?"
+wrong: "Destructuring only works on <bad>arrays and objects</bad>."
+takeaway: "Destructuring is <good>pattern matching for data</good> — it works on anything iterable, not just plain objects."
+---
+
+# Why it misses
+You can destructure anything iterable, functions parameters, and even nested structures — but there are subtle traps with defaults, renaming, and non-existent keys.
+
+<Steps>
+  <Step icon="box" title="What's destructurable">
+    Arrays (positional), objects (by key), function parameters, strings (iterable), Maps, Sets, and anything with an iterator protocol.
+  </Step>
+  <Step icon="flag" title="Defaults">
+    You can provide fallback values: <code>const &#123;x = 10&#125; = &#123;&#125;</code>. The default triggers when the value is <kw>undefined</kw>, not null.
+  </Step>
+  <Step icon="key" title="Renaming">
+    <code>const &#123;name: userName&#125; = obj</code> pulls <code>obj.name</code> into a variable called <code>userName</code>.
+  </Step>
+  <Step icon="gear" title="Nested & rest">
+    Nested: <code>const &#123;a: &#123;b&#125;&#125; = obj</code>. Rest: <code>const &#123;a, ...rest&#125; = obj</code> collects remaining keys.
+  </Step>
+</Steps>
