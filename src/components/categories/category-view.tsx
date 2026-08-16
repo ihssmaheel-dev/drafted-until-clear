@@ -46,10 +46,10 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
 
   return (
     <div className="flex-1 flex flex-col gap-8 py-6 sm:py-8">
-      <div className="flex flex-col gap-6 border-b border-border pb-4 w-full">
+      <div className="flex flex-col gap-4 border-b border-border pb-6 w-full">
         <Link 
           href="/categories" 
-          className="inline-flex items-center gap-2 text-[13px] font-medium text-text-muted hover:text-foreground transition-colors outline-none mb-1 group self-start"
+          className="inline-flex items-center gap-2 text-[13px] font-medium text-text-muted hover:text-foreground transition-colors outline-none group self-start"
         >
           <div className="flex size-6 items-center justify-center rounded-full bg-secondary border border-border transition-colors group-hover:bg-foreground group-hover:text-background group-hover:border-foreground">
             <ArrowLeft className="size-3" />
@@ -57,7 +57,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
           Back to categories
         </Link>
 
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex items-center gap-4">
             <div className="flex size-14 items-center justify-center rounded-xl border border-border bg-secondary shadow-sm">
               <CategoryIcon 
@@ -66,11 +66,11 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
                 style={{ color: `var(--color-${category.color || "cyan"})` }}
               />
             </div>
-            <div>
+            <div className="flex flex-col">
               <h1 className="font-sans text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                 {category.label}
               </h1>
-              <p className="text-text-muted mt-2 text-[15px]">
+              <p className="mt-2 text-[15px] text-text-muted">
                 {questions.length} questions available
               </p>
             </div>
