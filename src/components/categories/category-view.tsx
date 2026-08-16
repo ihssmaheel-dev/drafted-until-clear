@@ -7,7 +7,7 @@ import { SearchBar } from "@/components/questions/search-bar";
 import { QuestionCard } from "@/components/questions/question-card";
 import { useSearch } from "@/hooks/use-search";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ChevronDown } from "lucide-react";
 import { CategoryIcon } from "@/components/icons/category-icon";
 import { cn } from "@/lib/utils";
 
@@ -57,13 +57,20 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
     }
   }, [filtered, activeQuestionId]);
 
+  const [collapsedLevels, setCollapsedLevels] = useState<string[]>([]);
+  const toggleLevel = (level: string) => {
+    setCollapsedLevels((prev) =>
+      prev.includes(level) ? prev.filter((l) => l !== level) : [...prev, level]
+    );
+  };
+
   const activeQuestion = useMemo(() => {
     return filtered.find(q => q.id === activeQuestionId) || null;
   }, [filtered, activeQuestionId]);
 
   return (
-    <div className="flex-1 flex flex-col gap-6 py-6">
-      <div className="flex flex-col gap-4 border-b border-border pb-4 w-full sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex-1 flex flex-col gap-6 py-4 lg:py-6 min-h-0">
+      <div className="flex flex-col gap-4 border-b border-border pb-4 w-full sm:flex-row sm:items-center sm:justify-between shrink-0">
         <div className="flex items-center gap-4">
           <Link 
             href="/categories" 
@@ -100,44 +107,55 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
               </p>
             </motion.div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:h-[calc(100vh-230px)]">
+            <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 min-h-0">
               {/* Left Pane: Question List */}
-              <div className="lg:col-span-4 flex flex-col gap-8 lg:overflow-y-auto pr-2 custom-scrollbar pb-10 min-h-0">
+              <div className="lg:col-span-4 flex flex-col gap-6 lg:h-full lg:overflow-y-auto pr-2 custom-scrollbar pb-6 min-h-0">
                 {grouped.map(([level, qs]) => (
-                  <div key={level} className="flex flex-col gap-3">
-                    <h3 className="font-sans text-[11px] font-bold uppercase tracking-wider text-text-muted px-3">
-                      {level}
-                    </h3>
-                    <div className="flex flex-col gap-1">
-                      {qs.map((q) => {
-                        const isActive = q.id === activeQuestionId;
-                        return (
-                          <button
-                            key={q.id}
-                            onClick={() => {
-                              setActiveQuestionId(q.id);
-                              if (window.innerWidth < 1024) {
-                                document.getElementById("active-question-pane")?.scrollIntoView({ behavior: "smooth" });
-                              }
-                            }}
-                            className={cn(
-                              "text-left px-3 py-3 rounded-lg text-[14px] leading-snug font-medium transition-all",
-                              isActive
-                                ? "bg-foreground text-background shadow-sm"
-                                : "text-text-muted hover:bg-secondary hover:text-foreground"
-                            )}
-                          >
-                            {q.q}
-                          </button>
-                        );
-                      })}
-                    </div>
+                  <div key={level} className="flex flex-col gap-2">
+                    <button 
+                      onClick={() => toggleLevel(level)}
+                      className="flex items-center justify-between px-3 py-1.5 text-text-muted hover:text-foreground transition-colors outline-none rounded-md"
+                    >
+                      <h3 className="font-sans text-[11px] font-bold uppercase tracking-wider">
+                        {level}
+                      </h3>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[11px] font-medium font-mono text-text-faint">{qs.length}</span>
+                        <ChevronDown className={cn("size-3 transition-transform", collapsedLevels.includes(level) && "-rotate-90")} />
+                      </div>
+                    </button>
+                    {!collapsedLevels.includes(level) && (
+                      <div className="flex flex-col gap-1">
+                        {qs.map((q) => {
+                          const isActive = q.id === activeQuestionId;
+                          return (
+                            <button
+                              key={q.id}
+                              onClick={() => {
+                                setActiveQuestionId(q.id);
+                                if (window.innerWidth < 1024) {
+                                  document.getElementById("active-question-pane")?.scrollIntoView({ behavior: "smooth" });
+                                }
+                              }}
+                              className={cn(
+                                "text-left px-3 py-2.5 rounded-lg text-[13.5px] leading-snug font-medium transition-all",
+                                isActive
+                                  ? "bg-foreground text-background shadow-sm"
+                                  : "text-text-muted hover:bg-secondary hover:text-foreground"
+                              )}
+                            >
+                              {q.q}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
 
               {/* Right Pane: Active Question Detail */}
-              <div className="lg:col-span-8 min-w-0 flex flex-col gap-6 lg:overflow-y-auto pr-4 custom-scrollbar pb-10 min-h-0">
+              <div className="lg:col-span-8 min-w-0 flex flex-col gap-6 lg:h-full lg:overflow-y-auto pr-4 custom-scrollbar pb-6 min-h-0">
                 <AnimatePresence mode="wait">
                   {activeQuestion && (
                     <QuestionCard question={activeQuestion} />

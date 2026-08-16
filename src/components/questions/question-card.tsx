@@ -51,22 +51,22 @@ export function QuestionCard({ question }: QuestionCardProps) {
       className="card-base overflow-hidden rounded-xl border border-border shadow-sm"
       id="active-question-pane"
     >
-      <div className="flex flex-col gap-4 p-5 sm:p-7 border-b border-border bg-card">
-        <h2 className="font-sans text-xl sm:text-2xl font-bold tracking-tight text-foreground leading-snug">
+      <div className="flex flex-col gap-3 p-4 sm:p-6 border-b border-border bg-card">
+        <h2 className="font-sans text-[19px] sm:text-[21px] font-bold tracking-tight text-foreground leading-snug">
           {question.q}
         </h2>
       </div>
 
-      <div className="px-5 py-6 sm:px-7 sm:py-8 bg-secondary/30">
+      <div className="px-4 py-5 sm:px-6 sm:py-6 bg-secondary/30">
         <WrongAnswer wrong={question.wrong} why={""} />
         
-        <div className="mdx-content mt-6">
+        <div className="mdx-content mt-5">
           {question.mdxSource && (
             <MDXRemote {...question.mdxSource} components={components} />
           )}
         </div>
 
-        <div className="mt-8">
+        <div className="mt-5">
           <Takeaway text={question.takeaway} />
         </div>
       </div>

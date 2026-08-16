@@ -22,7 +22,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
   const count = getTotalCount();
 
   return (
-    <main className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12 flex flex-col min-h-screen">
+    <main className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12 flex flex-col min-h-screen lg:h-screen lg:overflow-hidden">
       <Navbar />
       <CategoryView category={category} questions={categoryQuestions} />
       <Footer count={count} />
