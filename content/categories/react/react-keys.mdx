@@ -2,8 +2,8 @@
 id: "react-keys"
 level: "Intermediate"
 q: "Why does using array index as key cause bugs?"
-wrong: "It's just a <bad>performance issue</bad> — React warns you but it still works."
-takeaway: "Keys are <good>stable identity</good>, not position. Use unique IDs — index keys cause silent state corruption on reorders."
+wrong: "It's just a <Bad>performance issue</Bad> — React warns you but it still works."
+takeaway: "Keys are <Good>stable identity</Good>, not position. Use unique IDs — index keys cause silent state corruption on reorders."
 ---
 
 # Why it misses
@@ -11,13 +11,13 @@ Using index as key breaks React's reconciliation — it reuses DOM nodes incorre
 
 <Steps>
   <Step icon="key" title="What keys tell React">
-    Keys tell React <kw>which item in the new list corresponds to which item in the old list</kw> — they're identity, not index.
+    Keys tell React <Kw>which item in the new list corresponds to which item in the old list</Kw> — they're identity, not index.
   </Step>
   <Step icon="flag" title="The reorder problem">
-    If you insert at the beginning, index keys shift — React thinks every item changed and <bad>remounts all of them</bad> instead of moving the existing DOM.
+    If you insert at the beginning, index keys shift — React thinks every item changed and <Bad>remounts all of them</Bad> instead of moving the existing DOM.
   </Step>
   <Step icon="gear" title="Stale state">
-    A component at index 0 keeps its internal state even if the data at index 0 is now a different item — leading to <flow>ghost state</flow> from the previous item.
+    A component at index 0 keeps its internal state even if the data at index 0 is now a different item — leading to <Flow>ghost state</Flow> from the previous item.
   </Step>
   <Step icon="check" title="When index keys are fine">
     Static lists that never reorder, filter, or have items inserted — like a static form field list.

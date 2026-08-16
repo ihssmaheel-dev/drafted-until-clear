@@ -2,8 +2,8 @@
 id: "db-normalization"
 level: "Intermediate"
 q: "Normalization vs denormalization — how do you actually decide?"
-wrong: "You should <bad>always normalize</bad> your schema as much as possible; it's just the correct way to do it."
-takeaway: "Neither is universally correct — <good>normalize for integrity, denormalize for performance</good>, and let the read pattern decide."
+wrong: "You should <Bad>always normalize</Bad> your schema as much as possible; it's just the correct way to do it."
+takeaway: "Neither is universally correct — <Good>normalize for integrity, denormalize for performance</Good>, and let the read pattern decide."
 ---
 
 # Why it misses
@@ -14,10 +14,10 @@ Full normalization optimizes for data integrity and storage efficiency, but it c
     Splitting data to eliminate duplication keeps writes consistent — update one row instead of hunting down every copy.
   </Step>
   <Step icon="net" title="What it costs on reads">
-    Reconstructing a full picture of the data often means <flow>joining several normalized tables</flow> together.
+    Reconstructing a full picture of the data often means <Flow>joining several normalized tables</Flow> together.
   </Step>
   <Step icon="box" title="What denormalization buys">
-    Duplicating some data avoids those joins, which matters a lot for <sys>read-heavy, latency-sensitive</sys> paths.
+    Duplicating some data avoids those joins, which matters a lot for <Sys>read-heavy, latency-sensitive</Sys> paths.
   </Step>
   <Step icon="check" title="The actual rule">
     Normalize by default for correctness, then denormalize deliberately — and only where a specific read pattern demands it.

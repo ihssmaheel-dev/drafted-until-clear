@@ -2,8 +2,8 @@
 id: "sys-url-shortener"
 level: "Intermediate"
 q: "How would you approach designing a URL shortener?"
-wrong: "Just store the long URL and short code in <bad>one table</bad> and look it up."
-takeaway: "The interesting part isn't the schema — it's recognising this is a <good>read-heavy system</good> and designing the caching layer accordingly."
+wrong: "Just store the long URL and short code in <Bad>one table</Bad> and look it up."
+takeaway: "The interesting part isn't the schema — it's recognising this is a <Good>read-heavy system</Good> and designing the caching layer accordingly."
 ---
 
 # Why it misses
@@ -11,15 +11,15 @@ That's a fine starting point, but it skips the parts an interviewer is actually 
 
 <Steps>
   <Step icon="key" title="Code generation">
-    Base62-encode an auto-incrementing ID, or hash the URL and truncate — each has different <kw>collision</kw> and predictability trade-offs.
+    Base62-encode an auto-incrementing ID, or hash the URL and truncate — each has different <Kw>collision</Kw> and predictability trade-offs.
   </Step>
   <Step icon="db" title="Storage shape">
     A simple key-value store (short code → long URL) is enough; a relational DB works too if you need analytics alongside it.
   </Step>
   <Step icon="gear" title="Reads dominate">
-    Redirects vastly outnumber creations, so a <flow>cache</flow> in front of the datastore matters more than write throughput.
+    Redirects vastly outnumber creations, so a <Flow>cache</Flow> in front of the datastore matters more than write throughput.
   </Step>
   <Step icon="scale" title="Scaling the redirect path">
-    Push the hot path — the actual redirect — behind a <sys>CDN or edge layer</sys> so it never has to hit your origin servers at all.
+    Push the hot path — the actual redirect — behind a <Sys>CDN or edge layer</Sys> so it never has to hit your origin servers at all.
   </Step>
 </Steps>

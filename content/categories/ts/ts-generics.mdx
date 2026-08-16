@@ -2,8 +2,8 @@
 id: "ts-generics"
 level: "Intermediate"
 q: "Why are generics more than just 'any with extra steps'?"
-wrong: "Generics are just <bad>any with a type parameter</bad>."
-takeaway: "Generics let you write <good>type-safe reusable code</good> where types flow through — they're the opposite of <code>any</code>."
+wrong: "Generics are just <Bad>any with a type parameter</Bad>."
+takeaway: "Generics let you write <Good>type-safe reusable code</Good> where types flow through — they're the opposite of <code>any</code>."
 ---
 
 # Why it misses
@@ -11,7 +11,7 @@ Generics preserve type relationships across inputs and outputs — they let you 
 
 <Steps>
   <Step icon="key" title="Type relationships">
-    A function <code>first&lt;T&gt;(arr: T[]): T</code> returns the <kw>same type</kw> as the array element. <code>any</code> loses that link.
+    A function <code>first&lt;T&gt;(arr: T[]): T</code> returns the <Kw>same type</Kw> as the array element. <code>any</code> loses that link.
   </Step>
   <Step icon="flag" title="Constraints">
     <code>T extends HasId</code> restricts <code>T</code> to types with an <code>id</code> field — you get autocomplete and safety simultaneously.

@@ -2,8 +2,8 @@
 id: "node-event-loop"
 level: "Intermediate"
 q: "If Node.js is single-threaded, how does it handle thousands of requests at once?"
-wrong: "Node spins up a <bad>new thread</bad> for every incoming request."
-takeaway: "Concurrency here means <good>overlapping wait time</good>, not parallel execution. CPU-heavy work still blocks everything — that's what <sys>worker threads</sys> exist for."
+wrong: "Node spins up a <Bad>new thread</Bad> for every incoming request."
+takeaway: "Concurrency here means <Good>overlapping wait time</Good>, not parallel execution. CPU-heavy work still blocks everything — that's what <Sys>worker threads</Sys> exist for."
 ---
 
 # Why it misses
@@ -11,15 +11,15 @@ That's the opposite of Node's model — it describes something closer to a tradi
 
 <Steps>
   <Step icon="loop" title="The one thread">
-    Your JavaScript runs on a single thread with an <kw>event loop</kw> managing what runs next.
+    Your JavaScript runs on a single thread with an <Kw>event loop</Kw> managing what runs next.
   </Step>
   <Step icon="gear" title="Handing off I/O">
-    For things like network calls or file reads, Node hands the work to the <sys>OS kernel</sys> or, for tasks like DNS lookups and filesystem access, to <code>libuv</code>'s <sys>worker pool</sys>.
+    For things like network calls or file reads, Node hands the work to the <Sys>OS kernel</Sys> or, for tasks like DNS lookups and filesystem access, to <code>libuv</code>'s <Sys>worker pool</Sys>.
   </Step>
   <Step icon="clock" title="Waiting doesn't block">
-    While that work happens elsewhere, the main thread is free to keep processing <flow>other requests</flow> instead of sitting idle.
+    While that work happens elsewhere, the main thread is free to keep processing <Flow>other requests</Flow> instead of sitting idle.
   </Step>
   <Step icon="users" title="The payoff">
-    Thousands of connections can be in-flight at once because none of them are holding the single thread hostage while waiting on <flow>I/O</flow>.
+    Thousands of connections can be in-flight at once because none of them are holding the single thread hostage while waiting on <Flow>I/O</Flow>.
   </Step>
 </Steps>

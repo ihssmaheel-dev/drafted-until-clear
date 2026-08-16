@@ -2,8 +2,8 @@
 id: "js-destructuring"
 level: "Advanced"
 q: "What can you actually destructure, and what are the gotchas?"
-wrong: "Destructuring only works on <bad>arrays and objects</bad>."
-takeaway: "Destructuring is <good>pattern matching for data</good> — it works on anything iterable, not just plain objects."
+wrong: "Destructuring only works on <Bad>arrays and objects</Bad>."
+takeaway: "Destructuring is <Good>pattern matching for data</Good> — it works on anything iterable, not just plain objects."
 ---
 
 # Why it misses
@@ -14,7 +14,7 @@ You can destructure anything iterable, functions parameters, and even nested str
     Arrays (positional), objects (by key), function parameters, strings (iterable), Maps, Sets, and anything with an iterator protocol.
   </Step>
   <Step icon="flag" title="Defaults">
-    You can provide fallback values: <code>const &#123;x = 10&#125; = &#123;&#125;</code>. The default triggers when the value is <kw>undefined</kw>, not null.
+    You can provide fallback values: <code>const &#123;x = 10&#125; = &#123;&#125;</code>. The default triggers when the value is <Kw>undefined</Kw>, not null.
   </Step>
   <Step icon="key" title="Renaming">
     <code>const &#123;name: userName&#125; = obj</code> pulls <code>obj.name</code> into a variable called <code>userName</code>.

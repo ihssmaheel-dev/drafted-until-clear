@@ -2,8 +2,8 @@
 id: "sys-message-queue"
 level: "Intermediate"
 q: "When would you reach for a message queue instead of a direct API call?"
-wrong: "Queues are only for when you have <bad>too much traffic</bad> for a normal API."
-takeaway: "Reach for a queue when you need services to <good>fail independently</good>, not just when traffic is high."
+wrong: "Queues are only for when you have <Bad>too much traffic</Bad> for a normal API."
+takeaway: "Reach for a queue when you need services to <Good>fail independently</Good>, not just when traffic is high."
 ---
 
 # Why it misses
@@ -11,15 +11,15 @@ Volume is one reason, but the bigger driver is usually decoupling — letting se
 
 <Steps>
   <Step icon="net" title="Direct calls couple services">
-    If service A calls B synchronously and B is slow or down, A is <bad>stuck waiting</bad> — or fails outright.
+    If service A calls B synchronously and B is slow or down, A is <Bad>stuck waiting</Bad> — or fails outright.
   </Step>
   <Step icon="box" title="A queue breaks that link">
-    A publishes a message and moves on; B consumes it whenever it's ready, <kw>independently</kw>.
+    A publishes a message and moves on; B consumes it whenever it's ready, <Kw>independently</Kw>.
   </Step>
   <Step icon="gear" title="Where it shines">
-    Spiky workloads, slow downstream processing, and workflows that need <flow>retries or ordering guarantees</flow> all fit this pattern well.
+    Spiky workloads, slow downstream processing, and workflows that need <Flow>retries or ordering guarantees</Flow> all fit this pattern well.
   </Step>
   <Step icon="clock" title="The trade-off">
-    You trade immediate consistency and simplicity for <sys>resilience</sys> — the caller no longer knows exactly when the work finishes.
+    You trade immediate consistency and simplicity for <Sys>resilience</Sys> — the caller no longer knows exactly when the work finishes.
   </Step>
 </Steps>

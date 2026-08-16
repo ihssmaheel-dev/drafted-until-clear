@@ -2,8 +2,8 @@
 id: "js-closures"
 level: "Intermediate"
 q: "What is a closure, and why does it actually matter in practice?"
-wrong: "A closure is just a <bad>function inside another function</bad>."
-takeaway: "A closure is a function bundled with the <good>scope it was born in</good> — that's what lets it keep state private and persistent."
+wrong: "A closure is just a <Bad>function inside another function</Bad>."
+takeaway: "A closure is a function bundled with the <Good>scope it was born in</Good> — that's what lets it keep state private and persistent."
 ---
 
 # Why it misses
@@ -11,15 +11,15 @@ Nesting alone doesn't create a closure — what matters is that the inner functi
 
 <Steps>
   <Step icon="box" title="The core mechanic">
-    A function remembers the <kw>variables from where it was defined</kw>, not where it gets called.
+    A function remembers the <Kw>variables from where it was defined</Kw>, not where it gets called.
   </Step>
   <Step icon="key" title="Why it survives">
-    Even after the outer function returns, its variables stay alive in memory because the inner function still <flow>references</flow> them.
+    Even after the outer function returns, its variables stay alive in memory because the inner function still <Flow>references</Flow> them.
   </Step>
   <Step icon="gear" title="Where it shows up">
     Private state in module patterns, memoized functions, and callback-based counters all lean on this.
   </Step>
   <Step icon="flag" title="The trade-off">
-    Careless closures — especially in loops or long-lived event listeners — are a common source of <bad>memory leaks</bad>.
+    Careless closures — especially in loops or long-lived event listeners — are a common source of <Bad>memory leaks</Bad>.
   </Step>
 </Steps>

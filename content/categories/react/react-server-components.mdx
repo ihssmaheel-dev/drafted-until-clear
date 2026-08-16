@@ -2,8 +2,8 @@
 id: "react-server-components"
 level: "Intermediate"
 q: "What do Server Components actually give you that Client Components don't?"
-wrong: "They're just <bad>faster Client Components</bad> because they run on the server."
-takeaway: "Server Components aren't a performance hack — they're a <good>new rendering paradigm</good> that eliminates API layers and shrinks client bundles."
+wrong: "They're just <Bad>faster Client Components</Bad> because they run on the server."
+takeaway: "Server Components aren't a performance hack — they're a <Good>new rendering paradigm</Good> that eliminates API layers and shrinks client bundles."
 ---
 
 # Why it misses
@@ -11,10 +11,10 @@ Server Components run once on the server, ship zero JS to the browser, and can a
 
 <Steps>
   <Step icon="cpu" title="Zero client JS">
-    Server Components <kw>never ship their code</kw> to the browser. A 50KB component with heavy dependencies adds 0 bytes to the client bundle.
+    Server Components <Kw>never ship their code</Kw> to the browser. A 50KB component with heavy dependencies adds 0 bytes to the client bundle.
   </Step>
   <Step icon="gear" title="Direct server access">
-    They can read files, query databases, and call internal APIs <flow>without an API layer</flow> — no fetch, no loading states, no serialization.
+    They can read files, query databases, and call internal APIs <Flow>without an API layer</Flow> — no fetch, no loading states, no serialization.
   </Step>
   <Step icon="box" title="The boundary">
     The server renders them to HTML/RSC payload. Client Components pick up where interaction is needed — <code>'use client'</code> marks the boundary.

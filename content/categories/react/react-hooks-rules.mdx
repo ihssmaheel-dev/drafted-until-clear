@@ -2,8 +2,8 @@
 id: "react-hooks-rules"
 level: "Intermediate"
 q: "Why can't you call hooks inside loops, conditions, or nested functions?"
-wrong: "It's just an <bad>arbitrary React rule</bad> you have to memorize."
-takeaway: "Hooks are <good>identified by position</good>, not by name. Keeping the call order identical across renders is the entire contract."
+wrong: "It's just an <Bad>arbitrary React rule</Bad> you have to memorize."
+takeaway: "Hooks are <Good>identified by position</Good>, not by name. Keeping the call order identical across renders is the entire contract."
 ---
 
 # Why it misses
@@ -11,13 +11,13 @@ Hooks rely on call-order identity. Breaking that order means React can't tell wh
 
 <Steps>
   <Step icon="key" title="Call-order identity">
-    React tracks hooks by the <kw>order they're called</kw> on each render — the first <code>useState</code> is slot 0, the second is slot 1, and so on.
+    React tracks hooks by the <Kw>order they're called</Kw> on each render — the first <code>useState</code> is slot 0, the second is slot 1, and so on.
   </Step>
   <Step icon="flag" title="Why conditions break it">
-    If a hook is skipped on one render (inside an <code>if</code>), every subsequent hook shifts position — React reads the <bad>wrong state</bad> for the wrong hook.
+    If a hook is skipped on one render (inside an <code>if</code>), every subsequent hook shifts position — React reads the <Bad>wrong state</Bad> for the wrong hook.
   </Step>
   <Step icon="gear" title="The array behind the scenes">
-    Internally React maintains a <flow>linked list of hook states</flow> per component. The list length and order must stay identical across renders.
+    Internally React maintains a <Flow>linked list of hook states</Flow> per component. The list length and order must stay identical across renders.
   </Step>
   <Step icon="check" title="The fix">
     Extract conditional logic into a child component, or use early returns <em>before</em> the hook call.

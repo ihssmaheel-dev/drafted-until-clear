@@ -2,8 +2,8 @@
 id: "node-nexttick-setimmediate"
 level: "Intermediate"
 q: "What's the actual difference between process.nextTick() and setImmediate()?"
-wrong: "They're <bad>basically the same thing</bad>, just different names."
-takeaway: "nextTick jumps the entire queue; setImmediate waits for its phase. Reach for setImmediate when you specifically want to <good>yield to I/O first</good>."
+wrong: "They're <Bad>basically the same thing</Bad>, just different names."
+takeaway: "nextTick jumps the entire queue; setImmediate waits for its phase. Reach for setImmediate when you specifically want to <Good>yield to I/O first</Good>."
 ---
 
 # Why it misses
@@ -11,15 +11,15 @@ They queue work at different points in the loop — mixing them up is a common s
 
 <Steps>
   <Step icon="flag" title="Two different queues">
-    <code>process.nextTick()</code> queues a callback for right after the current operation, before the <kw>event loop</kw> continues.
+    <code>process.nextTick()</code> queues a callback for right after the current operation, before the <Kw>event loop</Kw> continues.
   </Step>
   <Step icon="clock" title="nextTick runs first">
-    The nextTick queue is drained completely before the loop moves to timers, I/O, or immediates — even before <flow>promise microtasks</flow> in older Node versions.
+    The nextTick queue is drained completely before the loop moves to timers, I/O, or immediates — even before <Flow>promise microtasks</Flow> in older Node versions.
   </Step>
   <Step icon="loop" title="setImmediate waits its turn">
     <code>setImmediate()</code> schedules a callback for the check phase, after the current poll phase completes.
   </Step>
   <Step icon="gear" title="Why it matters">
-    Overusing <code>nextTick</code> can <bad>starve the event loop</bad>, since it keeps deferring the next phase until its queue is empty.
+    Overusing <code>nextTick</code> can <Bad>starve the event loop</Bad>, since it keeps deferring the next phase until its queue is empty.
   </Step>
 </Steps>

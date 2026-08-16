@@ -2,8 +2,8 @@
 id: "react-useeffect-misuse"
 level: "Intermediate"
 q: "When should you NOT use useEffect?"
-wrong: "Use useEffect for <bad>anything that needs to run after render</bad>."
-takeaway: "Most useEffect calls are bugs. Ask: <good>can I compute this during render?</good> If yes, don't use an effect."
+wrong: "Use useEffect for <Bad>anything that needs to run after render</Bad>."
+takeaway: "Most useEffect calls are bugs. Ask: <Good>can I compute this during render?</Good> If yes, don't use an effect."
 ---
 
 # Why it misses
@@ -11,13 +11,13 @@ Most useEffect calls are either derivable state (should be computed during rende
 
 <Steps>
   <Step icon="flag" title="Derived state">
-    If you're computing <code>b</code> from <code>a</code> in a useEffect, you're creating an unnecessary render cycle. Compute it <kw>during render</kw> instead.
+    If you're computing <code>b</code> from <code>a</code> in a useEffect, you're creating an unnecessary render cycle. Compute it <Kw>during render</Kw> instead.
   </Step>
   <Step icon="gear" title="Event handlers belong in events">
-    Fetching on button click? That's an <flow>event handler</flow>, not an effect. Put it in <code>onClick</code>.
+    Fetching on button click? That's an <Flow>event handler</Flow>, not an effect. Put it in <code>onClick</code>.
   </Step>
   <Step icon="box" title="Resetting state on prop change">
-    When a prop changes and you need to reset state, use the <kw>key prop</kw> to remount the component instead of a useEffect that sets state.
+    When a prop changes and you need to reset state, use the <Kw>key prop</Kw> to remount the component instead of a useEffect that sets state.
   </Step>
   <Step icon="check" title="When useEffect is correct">
     Synchronizing with external systems (DOM, browser APIs, third-party libraries) and network requests that must happen on mount.
