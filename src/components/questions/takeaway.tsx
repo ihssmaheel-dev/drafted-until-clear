@@ -13,8 +13,8 @@ export function Takeaway({ text }: TakeawayProps) {
     <motion.div 
       initial={{ opacity: 0, y: 5 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, delay: 0.1 }}
-      className="mt-10 flex items-start gap-4 rounded-lg border border-green/30 bg-green/5 p-5 sm:p-6"
+      transition={{ duration: 0.3, delay: 0.3 }}
+      className="mt-5 flex items-start gap-4 rounded-lg border border-green/30 bg-green/5 p-4"
     >
       <div className="flex-shrink-0 mt-0.5">
         <CheckCircle2 className="size-5 text-green" />

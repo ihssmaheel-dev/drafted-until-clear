@@ -31,12 +31,12 @@ const components = {
     </code>
   ),
   h1: ({ children }: { children: React.ReactNode }) => (
-    <h3 className="font-mono text-[11px] font-bold uppercase tracking-wider text-green mb-3 mt-8">
+    <h3 className="font-mono text-[11px] font-bold uppercase tracking-wider text-green mb-2 mt-4">
       {children}
     </h3>
   ),
   p: ({ children }: { children: React.ReactNode }) => (
-    <p className="text-[14.5px] leading-relaxed text-text-muted mb-6">
+    <p className="text-[14.5px] leading-relaxed text-text-muted mb-3">
       {children}
     </p>
   ),
@@ -58,7 +58,7 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full cursor-pointer items-start gap-4 p-5 text-left select-none sm:p-6"
+        className="flex w-full cursor-pointer items-start gap-4 p-4 text-left select-none"
       >
         <span className="shrink-0 font-mono text-[11px] font-medium text-text-muted mt-[3px]">
           {String(index + 1).padStart(2, "0")}
@@ -87,10 +87,10 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="overflow-hidden"
           >
-            <div className="border-t border-border px-5 pt-6 pb-8 sm:px-6 sm:pt-7 sm:pb-9 bg-secondary/50">
+            <div className="border-t border-border px-4 pt-4 pb-6 sm:px-5 sm:pt-5 sm:pb-6 bg-secondary/50">
               <WrongAnswer wrong={question.wrong} why={""} />
               
-              <div className="mdx-content mt-8">
+              <div className="mdx-content mt-4">
                 {question.mdxSource && (
                   <MDXRemote {...question.mdxSource} components={components} />
                 )}

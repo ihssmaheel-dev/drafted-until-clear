@@ -15,7 +15,7 @@ export function WrongAnswer({ wrong, why }: WrongAnswerProps) {
       initial={{ opacity: 0, y: -5 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
-      className="mb-10 flex flex-col sm:flex-row gap-4 rounded-lg bg-secondary/30 p-5 border border-border/50"
+      className="mb-5 flex flex-col sm:flex-row gap-4 rounded-lg bg-secondary/30 p-4 border border-border/50"
     >
       <div className="flex-shrink-0 mt-0.5">
         <AlertCircle className="size-5 text-red" />

@@ -6,7 +6,7 @@ interface FooterProps {
 
 export function Footer({ count }: FooterProps) {
   return (
-    <footer className="border-t border-border py-8 mt-16 sm:mt-24">
+    <footer className="border-t border-border py-6 mt-8 sm:mt-12">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex flex-col gap-1 items-center sm:items-start">
           <span className="font-sans font-semibold text-[14px] tracking-tight text-foreground">

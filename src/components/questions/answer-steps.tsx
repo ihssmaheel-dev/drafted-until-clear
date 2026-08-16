@@ -25,7 +25,7 @@ export function Step({ icon, title, children }: StepProps) {
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
-      className="relative pl-10 pb-10 last:pb-2"
+      className="relative pl-10 pb-6 last:pb-2"
     >
       {/* Icon resting perfectly on the timeline line */}
       <div className="absolute -left-[17px] top-0 flex size-8 items-center justify-center rounded-full border-[3px] border-background bg-secondary text-foreground shadow-sm">

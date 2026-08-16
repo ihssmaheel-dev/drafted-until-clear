@@ -45,11 +45,11 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
   }, [filtered]);
 
   return (
-    <div className="flex-1 flex flex-col gap-12 sm:gap-16 py-12 sm:py-16">
-      <div className="flex flex-col gap-6 border-b border-border pb-8 w-full">
+    <div className="flex-1 flex flex-col gap-8 py-6 sm:py-8">
+      <div className="flex flex-col gap-6 border-b border-border pb-4 w-full">
         <Link 
           href="/categories" 
-          className="inline-flex items-center gap-2 text-[13px] font-medium text-text-muted hover:text-foreground transition-colors outline-none mb-2 group self-start"
+          className="inline-flex items-center gap-2 text-[13px] font-medium text-text-muted hover:text-foreground transition-colors outline-none mb-1 group self-start"
         >
           <div className="flex size-6 items-center justify-center rounded-full bg-secondary border border-border transition-colors group-hover:bg-foreground group-hover:text-background group-hover:border-foreground">
             <ArrowLeft className="size-3" />
@@ -82,14 +82,14 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
         </div>
       </div>
 
-      <section className="flex flex-col gap-12">
+      <section className="flex flex-col gap-6">
         <AnimatePresence mode="popLayout">
           {filtered.length === 0 ? (
             <motion.div
               key="empty"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="rounded-xl border border-dashed border-border bg-secondary/20 px-6 py-24 text-center"
+              className="rounded-xl border border-dashed border-border bg-secondary/20 px-6 py-12 text-center"
             >
               <p className="font-mono text-[13px] text-text-faint">
                 No questions match &ldquo;{query}&rdquo;
@@ -102,7 +102,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="flex flex-col gap-6"
+                className="flex flex-col gap-4"
               >
                 <div className="flex items-center gap-4">
                   <h2 className="font-sans text-xl font-bold tracking-tight text-foreground">

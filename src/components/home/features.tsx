@@ -3,7 +3,7 @@ import { ShieldCheck, Target, LockOpen } from "lucide-react";
 export function Features() {
   return (
     <div id="about" className="scroll-mt-24 w-full">
-      <div className="flex flex-col items-center text-center mb-16">
+      <div className="flex flex-col items-center text-center mb-10">
         <h2 className="font-sans text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Why Drafted Until Clear?
         </h2>
@@ -12,7 +12,7 @@ export function Features() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
         <div className="flex flex-col items-center text-center gap-4">
           <div className="flex size-14 items-center justify-center rounded-2xl border border-border bg-secondary text-foreground shadow-sm">
             <Target className="size-6 text-amber" />

@@ -9,8 +9,8 @@ const STEPS = [
 
 export function HeroDiagram() {
   return (
-    <div className="mb-20 sm:mb-28">
-      <div className="grid grid-cols-2 sm:grid-cols-4 border border-border overflow-hidden rounded-lg">
+    <div className="mb-10 sm:mb-14">
+      <div className="flex flex-col sm:flex-row items-center gap-4 text-[13px] font-mono text-text-muted">
         {STEPS.map((step, i) => (
           <div
             key={step.icon}
