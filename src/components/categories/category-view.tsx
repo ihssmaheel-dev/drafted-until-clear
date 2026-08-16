@@ -100,9 +100,9 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
               </p>
             </motion.div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start lg:h-[calc(100vh-230px)]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:h-[calc(100vh-230px)]">
               {/* Left Pane: Question List */}
-              <div className="lg:col-span-4 flex flex-col gap-8 lg:h-full lg:overflow-y-auto pr-2 custom-scrollbar pb-10">
+              <div className="lg:col-span-4 flex flex-col gap-8 lg:overflow-y-auto pr-2 custom-scrollbar pb-10 min-h-0">
                 {grouped.map(([level, qs]) => (
                   <div key={level} className="flex flex-col gap-3">
                     <h3 className="font-sans text-[11px] font-bold uppercase tracking-wider text-text-muted px-3">
@@ -137,7 +137,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
               </div>
 
               {/* Right Pane: Active Question Detail */}
-              <div className="lg:col-span-8 min-w-0 flex flex-col gap-6 lg:h-full lg:overflow-y-auto pr-4 custom-scrollbar pb-10">
+              <div className="lg:col-span-8 min-w-0 flex flex-col gap-6 lg:overflow-y-auto pr-4 custom-scrollbar pb-10 min-h-0">
                 <AnimatePresence mode="wait">
                   {activeQuestion && (
                     <QuestionCard question={activeQuestion} />
