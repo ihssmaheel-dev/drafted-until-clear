@@ -18,24 +18,23 @@ export default function AllCategoriesPage() {
     <main className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12 flex flex-col min-h-screen">
       <Navbar />
       
-      <div className="flex-1 flex flex-col gap-8 py-6 sm:py-8">
-        <div className="flex flex-col gap-4 border-b border-border pb-6 w-full">
-          <Link 
-            href="/" 
-            className="inline-flex items-center gap-2 text-[13px] font-medium text-text-muted hover:text-foreground transition-colors outline-none group self-start"
-          >
-            <div className="flex size-6 items-center justify-center rounded-full bg-secondary border border-border transition-colors group-hover:bg-foreground group-hover:text-background group-hover:border-foreground">
-              <ArrowLeft className="size-3" />
+      <div className="flex-1 flex flex-col gap-6 py-6">
+        <div className="flex flex-col gap-4 border-b border-border pb-4 w-full sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <Link 
+              href="/" 
+              className="flex size-9 items-center justify-center rounded-full border border-border bg-secondary/50 text-text-muted hover:bg-foreground hover:text-background hover:border-foreground transition-all group"
+            >
+              <ArrowLeft className="size-4" />
+            </Link>
+            <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
+              <h1 className="font-sans text-2xl font-bold tracking-tight text-foreground">
+                All Categories
+              </h1>
+              <span className="text-[14px] font-medium text-text-muted">
+                Browse all our carefully drafted interview questions.
+              </span>
             </div>
-            Back to Home
-          </Link>
-          <div className="flex flex-col">
-            <h1 className="font-sans text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              All Categories
-            </h1>
-            <p className="mt-2 text-[15px] text-text-muted">
-              Browse all our carefully drafted interview questions.
-            </p>
           </div>
         </div>
         
