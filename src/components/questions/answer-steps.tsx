@@ -27,16 +27,16 @@ export function Step({ icon, title, children }: StepProps) {
       transition={{ duration: 0.3 }}
       className="group relative pl-10 pb-8 last:pb-2"
     >
-      {/* Centered exactly on the 2px line (size-8 = 32px; center of 2px border is at -1px from padding box. -17px + 16px = -1px) */}
-      <div className="absolute -left-[17px] top-0 flex size-8 items-center justify-center rounded-full border border-border/60 bg-card text-foreground transition-transform duration-300 group-hover:scale-105 group-hover:border-foreground/30 shadow-sm">
-        <StepIcon name={icon} className="size-4 text-text-muted transition-colors group-hover:text-foreground" />
+      {/* Centered exactly on the 2px line (size-9 = 36px; center of 2px border is at -1px from padding box. -19px + 18px = -1px) */}
+      <div className="absolute -left-[19px] top-0 flex size-9 items-center justify-center rounded-full border border-cyan/50 bg-zinc-950 text-cyan shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(6,182,212,0.5)]">
+        <StepIcon name={icon} className="size-4.5" />
       </div>
 
-      <div className="flex flex-col gap-1.5 -mt-1 p-5 rounded-2xl border border-border/40 bg-card hover:bg-secondary/20 hover:border-border/80 transition-all duration-300 shadow-sm hover:shadow-md">
-        <span className="font-[family-name:var(--font-sans)] text-[15px] font-semibold text-foreground">
+      <div className="flex flex-col gap-1.5 -mt-1 p-5 rounded-2xl border border-zinc-800 bg-zinc-950 hover:bg-zinc-900 transition-all duration-300 shadow-xl">
+        <span className="font-[family-name:var(--font-sans)] text-[15px] font-semibold text-zinc-50">
           {title}
         </span>
-        <div className="text-[14px] leading-relaxed text-text-muted">
+        <div className="text-[14px] leading-relaxed text-zinc-400">
           {children}
         </div>
       </div>
