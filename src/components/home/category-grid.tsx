@@ -36,13 +36,15 @@ export function CategoryGrid({ categories, counts, limit, hideTitle }: CategoryG
               key={cat.id}
               href={`/categories/${cat.id}`}
               className={cn(
-                "group flex flex-col items-start gap-5 rounded-2xl border p-6 transition-all duration-300 outline-none text-left",
-                "border-border bg-card hover:-translate-y-1 hover:border-foreground/30 hover:shadow-lg"
+                "group relative overflow-hidden flex flex-col items-start gap-5 rounded-[28px] border p-7 sm:p-8 transition-all duration-500 outline-none text-left",
+                "border-border/60 bg-gradient-to-b from-secondary/30 to-transparent hover:-translate-y-2 hover:border-foreground/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.03)]"
               )}
             >
+              {/* Subtle top inner glow on hover */}
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="flex w-full items-center justify-between">
                 <div 
-                  className="flex size-12 items-center justify-center rounded-xl border border-border bg-secondary/50 shadow-sm transition-colors group-hover:bg-background"
+                  className="flex size-14 items-center justify-center rounded-2xl border border-border/80 bg-background/80 backdrop-blur-sm shadow-sm transition-transform duration-500 group-hover:scale-110"
                 >
                   <CategoryIcon 
                     icon={cat.icon} 
@@ -50,7 +52,7 @@ export function CategoryGrid({ categories, counts, limit, hideTitle }: CategoryG
                     style={{ color: `var(--color-${cat.color || "cyan"})` }}
                   />
                 </div>
-                <span className="font-mono text-[11px] font-bold px-2.5 py-1 rounded-full bg-secondary text-text-faint transition-colors group-hover:bg-foreground group-hover:text-background">
+                <span className="font-mono text-[11px] font-bold px-3 py-1.5 rounded-full bg-background border border-border text-text-muted transition-colors group-hover:border-foreground/20 group-hover:text-foreground shadow-sm">
                   {counts[cat.id] ?? 0} Questions
                 </span>
               </div>
@@ -71,11 +73,12 @@ export function CategoryGrid({ categories, counts, limit, hideTitle }: CategoryG
           <Link
             href="/categories"
             className={cn(
-              "group flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed p-6 transition-all duration-300 outline-none text-center",
-              "border-border bg-transparent hover:-translate-y-1 hover:border-foreground/40 hover:shadow-lg"
+              "group relative overflow-hidden flex flex-col items-center justify-center gap-5 rounded-[28px] border border-dashed p-7 sm:p-8 transition-all duration-500 outline-none text-center",
+              "border-border/60 hover:-translate-y-2 hover:border-foreground/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.03)]"
             )}
           >
-            <div className="flex size-12 items-center justify-center rounded-full border border-border bg-secondary text-text-muted transition-colors group-hover:bg-foreground group-hover:text-background">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="flex size-14 items-center justify-center rounded-2xl border border-border/80 bg-background/80 backdrop-blur-sm text-text-muted transition-all duration-500 group-hover:scale-110 group-hover:text-foreground">
               <ArrowRight className="size-5" />
             </div>
             <div className="flex flex-col">
