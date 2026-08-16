@@ -15,15 +15,15 @@ export function Features() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
         <motion.div 
-          whileHover={{ y: -8 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="group relative flex flex-col gap-5 p-7 sm:p-8 rounded-[32px] border border-border/60 bg-gradient-to-b from-secondary/30 to-transparent overflow-hidden hover:border-foreground/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.03)] transition-all duration-500"
+          whileHover={{ y: -4 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="group relative flex flex-col gap-4 p-5 sm:p-6 rounded-2xl border border-border/60 bg-gradient-to-b from-secondary/30 to-transparent overflow-hidden hover:border-foreground/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.03)] transition-all duration-500"
         >
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="flex size-14 items-center justify-center rounded-2xl border border-amber/20 bg-amber/10 text-amber transition-transform duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]">
-            <Target className="size-6" />
+          <div className="flex size-11 items-center justify-center rounded-[14px] border border-amber/20 bg-amber/10 text-amber transition-transform duration-500 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+            <Target className="size-5" />
           </div>
           <div className="flex flex-col gap-2">
             <h3 className="font-sans text-[17px] font-bold text-foreground">Real Answers</h3>
@@ -34,13 +34,13 @@ export function Features() {
         </motion.div>
 
         <motion.div 
-          whileHover={{ y: -8 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="group relative flex flex-col gap-5 p-7 sm:p-8 rounded-[32px] border border-border/60 bg-gradient-to-b from-secondary/30 to-transparent overflow-hidden hover:border-foreground/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.03)] transition-all duration-500"
+          whileHover={{ y: -4 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="group relative flex flex-col gap-4 p-5 sm:p-6 rounded-2xl border border-border/60 bg-gradient-to-b from-secondary/30 to-transparent overflow-hidden hover:border-foreground/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.03)] transition-all duration-500"
         >
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="flex size-14 items-center justify-center rounded-2xl border border-green/20 bg-green/10 text-green transition-transform duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]">
-            <ShieldCheck className="size-6" />
+          <div className="flex size-11 items-center justify-center rounded-[14px] border border-green/20 bg-green/10 text-green transition-transform duration-500 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+            <ShieldCheck className="size-5" />
           </div>
           <div className="flex flex-col gap-2">
             <h3 className="font-sans text-[17px] font-bold text-foreground">Step-by-Step</h3>
@@ -51,13 +51,13 @@ export function Features() {
         </motion.div>
 
         <motion.div 
-          whileHover={{ y: -8 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="group relative flex flex-col gap-5 p-7 sm:p-8 rounded-[32px] border border-border/60 bg-gradient-to-b from-secondary/30 to-transparent overflow-hidden hover:border-foreground/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.03)] transition-all duration-500"
+          whileHover={{ y: -4 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="group relative flex flex-col gap-4 p-5 sm:p-6 rounded-2xl border border-border/60 bg-gradient-to-b from-secondary/30 to-transparent overflow-hidden hover:border-foreground/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.03)] transition-all duration-500"
         >
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="flex size-14 items-center justify-center rounded-2xl border border-cyan/20 bg-cyan/10 text-cyan transition-transform duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(6,182,212,0.2)]">
-            <LockOpen className="size-6" />
+          <div className="flex size-11 items-center justify-center rounded-[14px] border border-cyan/20 bg-cyan/10 text-cyan transition-transform duration-500 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+            <LockOpen className="size-5" />
           </div>
           <div className="flex flex-col gap-2">
             <h3 className="font-sans text-[17px] font-bold text-foreground">100% Free</h3>
