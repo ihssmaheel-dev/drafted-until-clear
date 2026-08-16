@@ -1,6 +1,6 @@
 export function Header() {
   return (
-    <header className="pt-8 sm:pt-16 flex flex-col items-center text-center">
+    <header className="flex flex-col items-center text-center">
       <div className="mb-10 inline-flex items-center gap-3 rounded-full border border-border bg-secondary/30 px-4 py-1.5 font-mono text-[11px] uppercase tracking-wider text-text-muted shadow-sm">
         <span className="flex size-2 items-center justify-center">
           <span className="size-1.5 rounded-full bg-cyan" />
