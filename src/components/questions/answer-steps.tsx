@@ -25,7 +25,7 @@ export function Step({ icon, title, children }: StepProps) {
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
-      className="relative pl-12 pb-6 last:pb-2 after:absolute after:left-[15px] after:top-8 after:bottom-0 after:w-[2px] after:bg-border/50 last:after:hidden"
+      className="relative pl-12 pb-3 last:pb-2 after:absolute after:left-[15px] after:top-8 after:bottom-0 after:w-[2px] after:bg-border/50 last:after:hidden"
     >
       {/* Icon */}
       <div className="absolute left-0 top-0 flex size-8 items-center justify-center rounded-full border border-border bg-card text-text-muted z-10">
