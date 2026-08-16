@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 
 interface QuestionCardProps {
   question: Question;
+  index?: number;
 }
 
 import { MDXRemote } from "next-mdx-remote";
@@ -47,7 +48,7 @@ const components = {
   ),
 };
 
-export function QuestionCard({ question }: QuestionCardProps) {
+export function QuestionCard({ question, index }: QuestionCardProps) {
   return (
     <motion.article
       key={question.id}
@@ -59,8 +60,8 @@ export function QuestionCard({ question }: QuestionCardProps) {
     >
       <div className="flex flex-col gap-3 p-5 sm:p-6 border-b border-border bg-card">
         <h2 className="font-sans text-[19px] sm:text-[21px] font-semibold tracking-tight text-foreground leading-snug flex items-start gap-3">
-          <span className="flex size-7 shrink-0 items-center justify-center rounded-md bg-cyan/10 text-[15px] font-bold text-cyan border border-cyan/20">
-            Q
+          <span className="flex h-7 shrink-0 items-center justify-center rounded-md bg-cyan/10 px-2 min-w-7 text-[13px] font-bold text-cyan border border-cyan/20 font-mono tracking-tight">
+            Q{index !== undefined ? index : ""}
           </span>
           <span className="mt-0.5">{question.q}</span>
         </h2>
