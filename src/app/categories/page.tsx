@@ -27,11 +27,11 @@ export default function AllCategoriesPage() {
             >
               <ArrowLeft className="size-4" />
             </Link>
-            <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
-              <h1 className="font-sans text-2xl font-bold tracking-tight text-foreground">
+            <div className="flex flex-col gap-0.5">
+              <h1 className="font-sans text-[17px] font-bold tracking-tight text-foreground">
                 All Categories
               </h1>
-              <span className="text-[14px] font-medium text-text-muted">
+              <span className="text-[13px] text-text-muted">
                 Browse all our carefully drafted interview questions.
               </span>
             </div>

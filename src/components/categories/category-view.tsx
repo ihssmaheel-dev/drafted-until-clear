@@ -78,11 +78,11 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
           >
             <ArrowLeft className="size-4" />
           </Link>
-          <div className="flex items-baseline gap-3">
-            <h1 className="font-sans text-2xl font-bold tracking-tight text-foreground">
+          <div className="flex flex-col gap-0.5">
+            <h1 className="font-sans text-[17px] font-bold tracking-tight text-foreground">
               {category.label}
             </h1>
-            <span className="text-[14px] font-medium text-text-muted">
+            <span className="text-[13px] text-text-muted">
               {questions.length} questions
             </span>
           </div>
