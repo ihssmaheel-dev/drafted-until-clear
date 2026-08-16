@@ -138,7 +138,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
                                 }
                               }}
                               className={cn(
-                                "text-left px-3 py-2.5 rounded-lg text-[13.5px] leading-snug font-medium transition-all",
+                                "text-left px-3 py-2.5 rounded-lg text-[13.5px] leading-snug font-medium transition-all cursor-pointer",
                                 isActive
                                   ? "bg-foreground text-background shadow-sm"
                                   : "text-text-muted hover:bg-secondary hover:text-foreground"

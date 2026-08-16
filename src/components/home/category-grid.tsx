@@ -35,7 +35,7 @@ export function CategoryGrid({ categories, counts, limit, hideTitle }: CategoryG
             <Link
               key={cat.id}
               href={`/categories/${cat.id}`}
-              className="flex flex-col items-start gap-4 p-6 rounded-xl border border-border bg-card hover:bg-secondary/30 transition-colors outline-none text-left"
+              className="flex flex-col items-start gap-4 p-6 rounded-xl border border-border bg-card hover:bg-secondary/30 transition-colors outline-none text-left cursor-pointer"
             >
               <div className="flex w-full items-center justify-between">
                 <div className="flex size-10 items-center justify-center rounded-lg border border-border bg-secondary text-foreground">
@@ -46,11 +46,11 @@ export function CategoryGrid({ categories, counts, limit, hideTitle }: CategoryG
                 </span>
               </div>
               
-              <div className="flex flex-col gap-1.5 mt-2">
+              <div className="flex flex-col gap-1.5 mt-2 w-full">
                 <span className="font-sans text-[16px] font-semibold tracking-tight text-foreground">
                   {cat.label}
                 </span>
-                <span className="text-[14px] text-text-muted leading-relaxed">
+                <span className="text-[14px] text-text-muted leading-relaxed text-pretty">
                   {cat.description}
                 </span>
               </div>
@@ -61,7 +61,7 @@ export function CategoryGrid({ categories, counts, limit, hideTitle }: CategoryG
         {hasMore && (
           <Link
             href="/categories"
-            className="flex flex-col items-center justify-center gap-4 p-6 rounded-xl border border-dashed border-border/40 hover:border-border/80 hover:bg-secondary/10 transition-colors outline-none text-center"
+            className="flex flex-col items-center justify-center gap-4 p-6 rounded-xl border border-dashed border-border/40 hover:border-border/80 hover:bg-secondary/10 transition-colors outline-none text-center cursor-pointer"
           >
             <div className="flex size-10 items-center justify-center rounded-lg border border-border bg-secondary text-text-muted">
               <ArrowRight className="size-5" />
