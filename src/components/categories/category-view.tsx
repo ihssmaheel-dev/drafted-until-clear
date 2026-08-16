@@ -93,7 +93,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
         </div>
       </div>
 
-      <section className="flex flex-col gap-6">
+      <section className="flex-1 flex flex-col gap-6 min-h-0">
         <AnimatePresence mode="popLayout">
           {filtered.length === 0 ? (
             <motion.div
@@ -107,9 +107,9 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
               </p>
             </motion.div>
           ) : (
-            <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 min-h-0">
+            <div className="flex-1 flex flex-col lg:flex-row gap-8 min-h-0">
               {/* Left Pane: Question List */}
-              <div className="lg:col-span-4 flex flex-col gap-6 lg:h-full lg:overflow-y-auto pr-2 custom-scrollbar pb-6 min-h-0">
+              <div className="w-full lg:w-1/3 xl:w-80 shrink-0 flex flex-col gap-6 lg:overflow-y-auto pr-2 custom-scrollbar pb-6 min-h-0">
                 {grouped.map(([level, qs]) => (
                   <div key={level} className="flex flex-col gap-2">
                     <button 
@@ -155,7 +155,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
               </div>
 
               {/* Right Pane: Active Question Detail */}
-              <div className="lg:col-span-8 min-w-0 flex flex-col gap-6 lg:h-full lg:overflow-y-auto pr-4 custom-scrollbar pb-6 min-h-0">
+              <div className="flex-1 min-w-0 flex flex-col gap-6 lg:overflow-y-auto pr-2 lg:pr-4 custom-scrollbar pb-6 min-h-0">
                 <AnimatePresence mode="wait">
                   {activeQuestion && (
                     <QuestionCard question={activeQuestion} />
