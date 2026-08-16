@@ -68,6 +68,11 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
     return filtered.find(q => q.id === activeQuestionId) || null;
   }, [filtered, activeQuestionId]);
 
+  // Compute the continuous top-to-bottom order of questions as rendered on screen
+  const sortedFilteredQuestions = useMemo(() => {
+    return grouped.flatMap(([_, qs]) => qs);
+  }, [grouped]);
+
   return (
     <div className="flex-1 flex flex-col gap-6 py-4 lg:py-6">
       <div className="flex flex-col gap-4 border-b border-border pb-4 w-full sm:flex-row sm:items-center sm:justify-between shrink-0">
@@ -148,7 +153,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
                                 "font-mono text-[10.5px] font-bold mt-[3px] shrink-0",
                                 isActive ? "opacity-70" : "text-text-faint group-hover:text-text-muted"
                               )}>
-                                {questions.findIndex(orig => orig.id === q.id) + 1}.
+                                {sortedFilteredQuestions.findIndex(sq => sq.id === q.id) + 1}.
                               </span>
                               <span>{q.q}</span>
                             </button>
@@ -166,7 +171,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
                   {activeQuestion && (
                     <QuestionCard 
                       question={activeQuestion} 
-                      index={questions.findIndex(q => q.id === activeQuestion.id) + 1}
+                      index={sortedFilteredQuestions.findIndex(q => q.id === activeQuestion.id) + 1}
                     />
                   )}
                 </AnimatePresence>
