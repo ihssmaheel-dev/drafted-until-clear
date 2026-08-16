@@ -92,6 +92,23 @@
 
 
 
+/* ── Custom Scrollbar ── */
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-muted);
+  }
+}
+
 /* ── Card hover ── */
 .card-base {
   transition: background-color 0.15s ease;
