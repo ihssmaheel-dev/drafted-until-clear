@@ -35,36 +35,22 @@ export function CategoryGrid({ categories, counts, limit, hideTitle }: CategoryG
             <Link
               key={cat.id}
               href={`/categories/${cat.id}`}
-              className={cn(
-                "group flex flex-col items-start gap-4 rounded-2xl border border-zinc-800 bg-zinc-950 p-6 sm:p-7 transition-all duration-300 outline-none text-left",
-                "hover:-translate-y-1 hover:border-zinc-700 hover:bg-zinc-900 hover:shadow-2xl"
-              )}
+              className="flex flex-col items-start gap-4 p-6 rounded-xl border border-border bg-card hover:bg-secondary/30 transition-colors outline-none text-left"
             >
               <div className="flex w-full items-center justify-between">
-                <div 
-                  className="flex size-12 items-center justify-center rounded-[14px] border transition-all duration-300 group-hover:scale-110"
-                  style={{ 
-                    borderColor: `color-mix(in srgb, var(--color-${cat.color || "cyan"}) 50%, transparent)`,
-                    backgroundColor: `color-mix(in srgb, var(--color-${cat.color || "cyan"}) 10%, transparent)`,
-                    color: `var(--color-${cat.color || "cyan"})`,
-                    boxShadow: `0 0 20px color-mix(in srgb, var(--color-${cat.color || "cyan"}) 30%, transparent)`
-                  }}
-                >
-                  <CategoryIcon 
-                    icon={cat.icon} 
-                    className="size-6"
-                  />
+                <div className="flex size-10 items-center justify-center rounded-lg border border-border bg-secondary text-foreground">
+                  <CategoryIcon icon={cat.icon} className="size-5" />
                 </div>
-                <span className="font-mono text-[11px] font-medium text-zinc-500 transition-colors group-hover:text-zinc-300">
+                <span className="font-mono text-[11px] font-medium text-text-muted">
                   {counts[cat.id] ?? 0} Questions
                 </span>
               </div>
               
               <div className="flex flex-col gap-1.5 mt-2">
-                <span className="font-sans text-[17px] font-bold tracking-tight text-zinc-50">
+                <span className="font-sans text-[16px] font-semibold tracking-tight text-foreground">
                   {cat.label}
                 </span>
-                <span className="text-[14px] text-zinc-400 leading-relaxed">
+                <span className="text-[14px] text-text-muted leading-relaxed">
                   {cat.description}
                 </span>
               </div>
@@ -75,19 +61,16 @@ export function CategoryGrid({ categories, counts, limit, hideTitle }: CategoryG
         {hasMore && (
           <Link
             href="/categories"
-            className={cn(
-              "group flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-zinc-800 bg-transparent p-6 transition-all duration-300 outline-none text-center",
-              "hover:-translate-y-1 hover:border-zinc-700 hover:bg-zinc-950 hover:shadow-2xl"
-            )}
+            className="flex flex-col items-center justify-center gap-4 p-6 rounded-xl border border-dashed border-border/40 hover:border-border/80 hover:bg-secondary/10 transition-colors outline-none text-center"
           >
-            <div className="flex size-12 items-center justify-center rounded-[14px] border border-zinc-700 bg-zinc-900 text-zinc-400 transition-all duration-300 group-hover:scale-110 group-hover:text-zinc-50 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-              <ArrowRight className="size-6" />
+            <div className="flex size-10 items-center justify-center rounded-lg border border-border bg-secondary text-text-muted">
+              <ArrowRight className="size-5" />
             </div>
             <div className="flex flex-col gap-1.5 mt-2">
-              <span className="font-sans text-[17px] font-bold tracking-tight text-zinc-50">
+              <span className="font-sans text-[16px] font-semibold tracking-tight text-foreground">
                 Show More
               </span>
-              <span className="text-[14px] text-zinc-400">
+              <span className="text-[14px] text-text-muted">
                 Explore all {categories.length} categories
               </span>
             </div>

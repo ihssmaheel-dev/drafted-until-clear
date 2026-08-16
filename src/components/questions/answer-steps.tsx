@@ -25,18 +25,18 @@ export function Step({ icon, title, children }: StepProps) {
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
-      className="group relative pl-10 pb-8 last:pb-2"
+      className="relative pl-10 pb-8 last:pb-2"
     >
-      {/* Centered exactly on the 2px line (size-9 = 36px; center of 2px border is at -1px from padding box. -19px + 18px = -1px) */}
-      <div className="absolute -left-[19px] top-0 flex size-9 items-center justify-center rounded-full border border-cyan/50 bg-zinc-950 text-cyan shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(6,182,212,0.5)]">
-        <StepIcon name={icon} className="size-4.5" />
+      {/* Centered exactly on the 2px line (size-8 = 32px; center of 2px border is at -1px from padding box. -17px + 16px = -1px) */}
+      <div className="absolute -left-[17px] top-0 flex size-8 items-center justify-center rounded-full border border-border bg-card text-text-muted">
+        <StepIcon name={icon} className="size-4" />
       </div>
 
-      <div className="flex flex-col gap-1.5 -mt-1 p-5 rounded-2xl border border-zinc-800 bg-zinc-950 hover:bg-zinc-900 transition-all duration-300 shadow-xl">
-        <span className="font-[family-name:var(--font-sans)] text-[15px] font-semibold text-zinc-50">
+      <div className="flex flex-col gap-1.5 -mt-1 p-5 rounded-xl border border-border bg-card">
+        <span className="font-[family-name:var(--font-sans)] text-[15px] font-semibold text-foreground">
           {title}
         </span>
-        <div className="text-[14px] leading-relaxed text-zinc-400">
+        <div className="text-[14px] leading-relaxed text-text-muted">
           {children}
         </div>
       </div>
