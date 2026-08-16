@@ -46,6 +46,8 @@ export function getAllQuestionsMetadata(): Omit<Question, "mdxSource">[] {
   return questions;
 }
 
+import rehypePrettyCode from "rehype-pretty-code";
+
 export async function getQuestionsByCategory(categoryId: string): Promise<Question[]> {
   const catPath = path.join(CONTENT_DIR, categoryId);
   if (!fs.existsSync(catPath)) return [];
@@ -58,7 +60,19 @@ export async function getQuestionsByCategory(categoryId: string): Promise<Questi
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(fileContent);
 
-    const mdxSource = await serialize(content);
+    const mdxSource = await serialize(content, {
+      mdxOptions: {
+        rehypePlugins: [
+          [
+            rehypePrettyCode,
+            {
+              theme: "one-dark-pro",
+              keepBackground: false,
+            },
+          ],
+        ],
+      },
+    });
 
     questions.push({
       id: data.id,

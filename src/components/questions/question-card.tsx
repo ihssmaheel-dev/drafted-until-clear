@@ -25,16 +25,33 @@ const components = {
   Kw: ({ children }: { children: React.ReactNode }) => <span className="inline-flex items-center rounded-md bg-violet/10 px-1.5 py-0.5 text-[13.5px] font-medium text-violet border border-violet/20">{children}</span>,
   Flow: ({ children }: { children: React.ReactNode }) => <span className="inline-flex items-center rounded-md bg-cyan/10 px-1.5 py-0.5 text-[13.5px] font-medium text-cyan border border-cyan/20">{children}</span>,
   Sys: ({ children }: { children: React.ReactNode }) => <span className="inline-flex items-center rounded-md bg-amber/10 px-1.5 py-0.5 font-mono text-[12px] font-medium text-amber border border-amber/20">{children}</span>,
-  pre: ({ children }: { children: React.ReactNode }) => (
-    <pre className="overflow-x-auto rounded-xl border border-border bg-secondary/50 p-4 font-mono text-[13px] leading-relaxed my-5 custom-scrollbar shadow-sm">
+  pre: ({ children, className, ...props }: any) => (
+    <pre 
+      className={cn(
+        "overflow-x-auto rounded-xl border border-border bg-[#0d1117] p-4 font-mono text-[13px] leading-relaxed my-5 custom-scrollbar shadow-sm", 
+        className
+      )} 
+      {...props}
+    >
       {children}
     </pre>
   ),
-  code: ({ children }: { children: React.ReactNode }) => (
-    <code className="rounded-md border border-border/50 bg-secondary/50 px-1.5 py-0.5 font-mono text-[0.85em] font-medium text-foreground whitespace-nowrap">
-      {children}
-    </code>
-  ),
+  code: ({ children, className, ...props }: any) => {
+    // rehype-pretty-code adds specific attributes we can check
+    const isInline = !props["data-language"];
+    return (
+      <code 
+        className={cn(
+          isInline ? "rounded-md border border-border/50 bg-secondary/50 px-1.5 py-0.5 text-foreground whitespace-nowrap" : "",
+          "font-mono text-[0.85em] font-medium",
+          className
+        )} 
+        {...props}
+      >
+        {children}
+      </code>
+    );
+  },
   h1: ({ children }: { children: React.ReactNode }) => (
     <h3 className="font-mono text-[11.5px] font-bold uppercase tracking-wider text-green mb-3 mt-6 flex items-center gap-2">
       <span className="w-4 h-px bg-green/40 rounded-full" />
