@@ -69,7 +69,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
   }, [filtered, activeQuestionId]);
 
   return (
-    <div className="flex-1 flex flex-col gap-6 py-4 lg:py-6 min-h-0">
+    <div className="flex-1 flex flex-col gap-6 py-4 lg:py-6">
       <div className="flex flex-col gap-4 border-b border-border pb-4 w-full sm:flex-row sm:items-center sm:justify-between shrink-0">
         <div className="flex items-center gap-4">
           <Link 
@@ -93,7 +93,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
         </div>
       </div>
 
-      <section className="flex-1 flex flex-col gap-6 min-h-0">
+      <section className="flex-1 flex flex-col gap-6">
         <AnimatePresence mode="popLayout">
           {filtered.length === 0 ? (
             <motion.div
@@ -107,9 +107,9 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
               </p>
             </motion.div>
           ) : (
-            <div className="flex-1 flex flex-col lg:flex-row gap-8 min-h-0">
-              {/* Left Pane: Question List */}
-              <div className="w-full lg:w-1/3 xl:w-80 shrink-0 flex flex-col gap-6 lg:overflow-y-auto pr-2 custom-scrollbar pb-6 min-h-0">
+            <div className="flex-1 flex flex-col lg:flex-row gap-8 items-start">
+              {/* Left Pane: Sticky Question List */}
+              <div className="w-full lg:w-1/3 xl:w-80 shrink-0 flex flex-col gap-6 lg:sticky lg:top-8 lg:h-[calc(100vh-140px)] lg:overflow-y-auto pr-2 custom-scrollbar pb-6">
                 {grouped.map(([level, qs]) => (
                   <div key={level} className="flex flex-col gap-2 shrink-0">
                     <button 
@@ -155,7 +155,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
               </div>
 
               {/* Right Pane: Active Question Detail */}
-              <div className="flex-1 min-w-0 block lg:overflow-y-auto pr-2 lg:pr-4 custom-scrollbar pb-6 min-h-0">
+              <div className="flex-1 min-w-0 block w-full pb-10">
                 <AnimatePresence mode="wait">
                   {activeQuestion && (
                     <QuestionCard question={activeQuestion} />
