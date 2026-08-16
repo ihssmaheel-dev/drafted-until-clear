@@ -18,7 +18,7 @@ export default function HomePage() {
   return (
     <main className="mx-auto w-full px-5 sm:px-8 lg:px-12 xl:px-16 flex flex-col min-h-screen">
       <Navbar />
-      <div className="flex-1 flex flex-col gap-12 sm:gap-16 py-6 sm:py-10">
+      <div className="flex-1 flex flex-col gap-16 sm:gap-24 py-10 sm:py-16">
         <Header />
         <HeroDiagram />
         <CategoryGrid categories={categories} counts={counts} limit={5} />

@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export function Features() {
   return (
     <div id="about" className="scroll-mt-24 w-full">
-      <div className="flex flex-col mb-12 max-w-2xl">
+      <div className="flex flex-col items-center text-center mb-12 max-w-2xl mx-auto">
         <h2 className="font-sans text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Why Drafted Until Clear?
         </h2>
