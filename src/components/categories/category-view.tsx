@@ -111,10 +111,10 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
               {/* Left Pane: Question List */}
               <div className="w-full lg:w-1/3 xl:w-80 shrink-0 flex flex-col gap-6 lg:overflow-y-auto pr-2 custom-scrollbar pb-6 min-h-0">
                 {grouped.map(([level, qs]) => (
-                  <div key={level} className="flex flex-col gap-2">
+                  <div key={level} className="flex flex-col gap-2 shrink-0">
                     <button 
                       onClick={() => toggleLevel(level)}
-                      className="flex items-center justify-between px-3 py-1.5 text-text-muted hover:text-foreground transition-colors outline-none rounded-md"
+                      className="flex items-center justify-between px-3 py-1.5 text-text-muted hover:text-foreground transition-colors outline-none rounded-md shrink-0"
                     >
                       <h3 className="font-sans text-[11px] font-bold uppercase tracking-wider">
                         {level}
@@ -155,7 +155,7 @@ export function CategoryView({ category, questions }: CategoryViewProps) {
               </div>
 
               {/* Right Pane: Active Question Detail */}
-              <div className="flex-1 min-w-0 flex flex-col gap-6 lg:overflow-y-auto pr-2 lg:pr-4 custom-scrollbar pb-6 min-h-0">
+              <div className="flex-1 min-w-0 block lg:overflow-y-auto pr-2 lg:pr-4 custom-scrollbar pb-6 min-h-0">
                 <AnimatePresence mode="wait">
                   {activeQuestion && (
                     <QuestionCard question={activeQuestion} />
