@@ -30,17 +30,6 @@ export function Navbar() {
         <Link href="/#explore" className="text-[14px] font-medium text-text-muted hover:text-foreground transition-colors">
           Explore
         </Link>
-        <Link href="/#about" className="text-[14px] font-medium text-text-muted hover:text-foreground transition-colors">
-          About
-        </Link>
-        <a 
-          href="https://github.com" 
-          target="_blank" 
-          rel="noreferrer"
-          className="text-text-muted hover:text-foreground transition-colors ml-2 outline-none"
-        >
-          <Code2 className="size-5" />
-        </a>
         {mounted && (
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}

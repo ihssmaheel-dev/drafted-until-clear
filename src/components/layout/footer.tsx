@@ -19,7 +19,7 @@ export function Footer({ count }: FooterProps) {
         
         <div className="flex items-center gap-4">
           <a 
-            href="https://github.com" 
+            href="https://github.com/ihssmaheel-dev/drafted-until-clear" 
             target="_blank" 
             rel="noreferrer"
             className="flex items-center gap-2 text-[13px] font-medium text-text-muted hover:text-foreground transition-colors"
