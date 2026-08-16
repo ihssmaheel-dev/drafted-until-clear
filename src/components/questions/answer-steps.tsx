@@ -32,7 +32,7 @@ export function Step({ icon, title, children }: StepProps) {
         <StepIcon name={icon} className="size-4" />
       </div>
 
-      <div className="flex flex-col gap-1.5 -mt-1 p-5 rounded-xl border border-border bg-card">
+      <div className="flex flex-col gap-1.5 pt-1">
         <span className="font-[family-name:var(--font-sans)] text-[15px] font-semibold text-foreground">
           {title}
         </span>
