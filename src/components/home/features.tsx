@@ -1,3 +1,5 @@
+"use client";
+
 import { ShieldCheck, Target, LockOpen } from "lucide-react";
 import { motion } from "framer-motion";
 
