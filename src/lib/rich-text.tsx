@@ -11,7 +11,7 @@ const TAG_MAP: Record<string, string> = {
 
 function parseSegment(text: string): ReactNode[] {
   const result: ReactNode[] = [];
-  const tagRegex = /<(kw|flow|sys|bad|good|code)>(.*?)<\/\1>/g;
+  const tagRegex = /<(kw|flow|sys|bad|good|code)>(.*?)<\/\1>/gi;
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
@@ -21,16 +21,17 @@ function parseSegment(text: string): ReactNode[] {
     }
 
     const [, tag, content] = match;
+    const tagLower = tag.toLowerCase();
 
-    if (tag === "code") {
+    if (tagLower === "code") {
       result.push(
-        <code key={match.index} className="code-chip">
+        <code key={match.index} className="rounded bg-foreground/10 px-1 py-0.5 font-mono text-[0.85em] text-foreground">
           {content}
         </code>
       );
     } else {
       result.push(
-        <span key={match.index} className={cn("font-semibold", TAG_MAP[tag])}>
+        <span key={match.index} className={cn("font-semibold", TAG_MAP[tagLower])}>
           {content}
         </span>
       );

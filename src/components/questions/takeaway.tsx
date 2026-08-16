@@ -23,7 +23,7 @@ export function Takeaway({ text }: TakeawayProps) {
         <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-green mb-1.5 block">
           The Takeaway
         </span>
-        <div className="text-[14.5px] font-medium leading-relaxed text-foreground">
+        <div className="text-[14.5px] leading-relaxed text-green/90 font-medium">
           <RichText text={text} />
         </div>
       </div>

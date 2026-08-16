@@ -25,7 +25,7 @@ export function WrongAnswer({ wrong, why }: WrongAnswerProps) {
           <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-red mb-1 block">
             Common Trap
           </span>
-          <div className="text-[14.5px] font-medium leading-relaxed text-foreground">
+          <div className="text-[15px] leading-relaxed text-foreground/90 font-medium">
             <RichText text={wrong} />
           </div>
         </div>
