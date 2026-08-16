@@ -16,7 +16,7 @@ export default function HomePage() {
   });
 
   return (
-    <main className="mx-auto max-w-[960px] px-5 sm:px-8 flex flex-col min-h-screen">
+    <main className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12 flex flex-col min-h-screen">
       <Navbar />
       <div className="flex-1 flex flex-col gap-12 sm:gap-16 py-6 sm:py-10">
         <Header />
