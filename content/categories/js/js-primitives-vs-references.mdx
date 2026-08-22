@@ -1,0 +1,33 @@
+---
+id: "js-primitives-vs-references"
+level: "Beginner"
+q: "What is the difference between Primitive and Reference types in JavaScript?"
+wrong: "Primitives are simple values, and objects are <Bad>stored the exact same way</Bad> in memory."
+takeaway: "Primitives are <Good>immutable and compared by value</Good>, while Objects are <Good>mutable and compared by memory reference</Good>."
+---
+
+# Why it misses
+Assuming variables holding objects store the object data directly leads to unintended state mutations, because assigning an object variable only copies the memory pointer, not the underlying data.
+
+```javascript
+const a = { count: 1 };
+const b = a; // copies the memory reference
+b.count = 2; // mutating b also mutates a!
+console.log(a.count); // 2
+```
+
+<Steps>
+  <Step icon="box" title="7 Primitive Types (Value Storage)">
+    `string`, `number`, `bigint`, `boolean`, `symbol`, `null`, and `undefined` store their raw value directly on the call stack.
+  </Step>
+  <Step icon="key" title="Reference Types (Heap Pointer)">
+    Objects, Arrays, and Functions are stored in the <Kw>memory heap</Kw>. Variables hold a memory reference address pointing to that heap location.
+  </Step>
+  <Step icon="scale" title="Equality Comparison Rules">
+    Primitives evaluate equality by checking <Flow>identical values</Flow> (`2 === 2`). Objects evaluate equality strictly by checking if both operands point to the <Bad>exact same memory address</Bad> (`{} !== {}`).
+  </Step>
+</Steps>
+
+<Tip title="Key Gotcha">
+To clone an object without copying its reference, use shallow cloning (`{ ...obj }`) or deep cloning (`structuredClone(obj)`).
+</Tip>

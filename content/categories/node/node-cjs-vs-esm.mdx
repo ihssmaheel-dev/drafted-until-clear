@@ -1,0 +1,36 @@
+---
+id: "node-cjs-vs-esm"
+level: "Beginner"
+q: "What is the difference between CommonJS (require) and ES Modules (import) in Node.js?"
+wrong: "`require` and `import` are just <Bad>different syntax for doing the exact same thing</Bad>."
+takeaway: "CommonJS loads modules <Good>synchronously at runtime</Good>, while ES Modules are <Good>asynchronous, static, and parsed before code execution (enabling tree-shaking)</Good>."
+---
+
+# Why it misses
+`require()` is a regular synchronous function call evaluated when reached in code execution, whereas `import` statements are statically analyzed and hoisted before any JavaScript runs, creating a fixed dependency graph.
+
+```javascript
+// CommonJS (Dynamic & Synchronous):
+if (condition) {
+  const { helper } = require("./helper");
+}
+
+// ES Modules (Static & Async-ready):
+import { helper } from "./helper"; // Statically hoisted to top of file
+```
+
+<Steps>
+  <Step icon="clock" title="1. Loading Mechanism (Sync vs Async)">
+    CommonJS `require()` blocks the execution thread while reading and evaluating the module file. ESM `import` resolves module specifiers and dependencies asynchronously before evaluating.
+  </Step>
+  <Step icon="zap" title="2. Tree-Shaking & Dead Code Elimination">
+    Because ESM imports are static, bundlers (Webpack, Rollup, Vite) can determine unused exports at build time and strip them from the production bundle. CommonJS objects cannot be reliably tree-shaken.
+  </Step>
+  <Step icon="key" title="3. Top-Level Await & Strict Mode">
+    ES Modules natively support top-level `await` and are strictly executed in JavaScript strict mode (`"use strict"`) by default.
+  </Step>
+</Steps>
+
+<Tip title="Node.js Configuration">
+To enable ES Modules in a Node.js project, add `"type": "module"` to your `package.json` or name files with the `.mjs` extension.
+</Tip>

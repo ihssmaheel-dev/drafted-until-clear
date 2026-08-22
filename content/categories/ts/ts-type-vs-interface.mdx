@@ -1,0 +1,36 @@
+---
+id: "ts-type-vs-interface"
+level: "Beginner"
+q: "What is the difference between type and interface in TypeScript?"
+wrong: "`interface` is for <Bad>object-oriented code</Bad>, and `type` is for <Bad>functional code</Bad>."
+takeaway: "Interfaces support <Good>declaration merging and extension (`extends`)</Good>, while Type aliases support <Good>unions, primitives, and mapped types</Good>."
+---
+
+# Why it misses
+In modern TypeScript, `type` and `interface` can both describe object shapes. The key mechanical difference is that interfaces can be reopened to add new properties (Declaration Merging, critical for library typings), whereas type aliases are closed and cannot be re-declared.
+
+```typescript
+// Interfaces can be extended & merged:
+interface User { name: string; }
+interface User { age: number; } // Merged into { name: string; age: number; }
+
+// Type aliases support union & computed types:
+type Status = "pending" | "success" | "error";
+type ID = string | number;
+```
+
+<Steps>
+  <Step icon="layers" title="1. Declaration Merging (Interfaces Only)">
+    Multiple interface declarations with the same name automatically combine their definitions into a single interface. Useful when extending third-party window/global types.
+  </Step>
+  <Step icon="code" title="2. Unions & Primitives (Type Aliases Only)">
+    Only `type` can represent union types (`string | number`), primitive aliases, tuples (`[number, string]`), and complex mapped types.
+  </Step>
+  <Step icon="scale" title="3. Performance & Error Reporting">
+    Historically, interfaces produced slightly faster compiler cache lookups and cleaner IDE hover hints, though modern TypeScript compiler versions perform almost identically on both.
+  </Step>
+</Steps>
+
+<Tip title="Decision Rule">
+Default to `interface` for public library APIs and data model shapes that may need extension. Use `type` for unions, intersections, utility functions, and React component prop types.
+</Tip>

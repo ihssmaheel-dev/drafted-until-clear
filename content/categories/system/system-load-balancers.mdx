@@ -1,0 +1,29 @@
+---
+id: "system-load-balancers"
+level: "Beginner"
+q: "What is a Load Balancer, and how does it distribute traffic across servers?"
+wrong: "A load balancer just routes requests <Bad>randomly to whatever server is available</Bad>."
+takeaway: "A load balancer acts as a reverse proxy that uses <Good>intelligent routing algorithms (Round Robin, Least Connections, IP Hash) and health checks</Good> to maximize throughput and prevent outages."
+---
+
+# Why it misses
+Load balancers do not route traffic blindly. They perform continuous active health checks to avoid sending requests to dead instances, terminate SSL/TLS encryption, and route based on session stickiness or application-layer path rules.
+
+<Steps>
+  <Step icon="net" title="1. Reverse Proxy & Single Gateway">
+    Sits between incoming clients and backend server pools. Clients connect to the load balancer's single public IP, while backend server IPs remain hidden inside private VPCs.
+  </Step>
+  <Step icon="gear" title="2. Distribution Algorithms">
+    - **Round Robin**: Sequential rotation across healthy servers.
+    - **Least Connections**: Sends requests to the server handling the fewest active tasks.
+    - **IP Hash**: Hashes client IP to ensure the same user consistently hits the same server (session stickiness).
+  </Step>
+  <Step icon="shield" title="3. Health Checks & High Availability">
+    Regularly probes `/healthz` endpoints. If a server fails 3 consecutive checks, it is automatically removed from rotation until it recovers.
+  </Step>
+</Steps>
+
+<Tip title="Layer 4 vs Layer 7 Load Balancing">
+- **Layer 4 (Transport / TCP/UDP)**: Blazing fast routing based purely on IP and port without inspecting packet contents (e.g. AWS NLB).
+- **Layer 7 (Application / HTTP/HTTPS)**: Inspects HTTP headers, cookies, and URL paths (e.g. `/api` vs `/static`) to route to specialized microservices (e.g. AWS ALB, NGINX).
+</Tip>

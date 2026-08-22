@@ -17,6 +17,8 @@ interface QuestionCardProps {
 import { MDXRemote } from "next-mdx-remote";
 import { Steps, Step } from "./answer-steps";
 
+import { Lightbulb, Info, AlertTriangle } from "lucide-react";
+
 const components = {
   Steps,
   Step,
@@ -25,6 +27,24 @@ const components = {
   Kw: ({ children }: { children: React.ReactNode }) => <span className="inline-flex items-center rounded-md bg-violet/10 px-1.5 py-0.5 text-[13.5px] font-medium text-violet border border-violet/20">{children}</span>,
   Flow: ({ children }: { children: React.ReactNode }) => <span className="inline-flex items-center rounded-md bg-cyan/10 px-1.5 py-0.5 text-[13.5px] font-medium text-cyan border border-cyan/20">{children}</span>,
   Sys: ({ children }: { children: React.ReactNode }) => <span className="inline-flex items-center rounded-md bg-amber/10 px-1.5 py-0.5 font-mono text-[12px] font-medium text-amber border border-amber/20">{children}</span>,
+  Tip: ({ children, title = "Interview Tip" }: { children: React.ReactNode; title?: string }) => (
+    <div className="my-5 flex items-start gap-3 rounded-xl border border-amber/30 bg-amber/5 p-4 text-[14px] text-foreground/90">
+      <Lightbulb className="size-5 text-amber shrink-0 mt-0.5" />
+      <div className="flex flex-col gap-1">
+        <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-amber">{title}</span>
+        <div className="text-text-muted leading-relaxed">{children}</div>
+      </div>
+    </div>
+  ),
+  Note: ({ children, title = "Key Concept" }: { children: React.ReactNode; title?: string }) => (
+    <div className="my-5 flex items-start gap-3 rounded-xl border border-cyan/30 bg-cyan/5 p-4 text-[14px] text-foreground/90">
+      <Info className="size-5 text-cyan shrink-0 mt-0.5" />
+      <div className="flex flex-col gap-1">
+        <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-cyan">{title}</span>
+        <div className="text-text-muted leading-relaxed">{children}</div>
+      </div>
+    </div>
+  ),
   pre: ({ children, className, ...props }: any) => (
     <pre 
       className={cn(
@@ -37,7 +57,6 @@ const components = {
     </pre>
   ),
   code: ({ children, className, ...props }: any) => {
-    // rehype-pretty-code adds specific attributes we can check
     const isInline = !props["data-language"];
     return (
       <code 
@@ -52,6 +71,26 @@ const components = {
       </code>
     );
   },
+  table: ({ children }: { children: React.ReactNode }) => (
+    <div className="overflow-x-auto my-5 rounded-xl border border-border bg-card">
+      <table className="w-full text-left text-[13.5px] border-collapse">{children}</table>
+    </div>
+  ),
+  thead: ({ children }: { children: React.ReactNode }) => (
+    <thead className="bg-secondary/50 border-b border-border text-foreground font-semibold">{children}</thead>
+  ),
+  th: ({ children }: { children: React.ReactNode }) => (
+    <th className="px-4 py-3 font-mono text-[11.5px] font-bold uppercase tracking-wider text-text-muted">{children}</th>
+  ),
+  td: ({ children }: { children: React.ReactNode }) => (
+    <td className="px-4 py-3 border-b border-border/40 text-text-muted last:border-0">{children}</td>
+  ),
+  ul: ({ children }: { children: React.ReactNode }) => (
+    <ul className="list-disc list-inside space-y-1.5 text-[14px] text-text-muted my-3 pl-2">{children}</ul>
+  ),
+  ol: ({ children }: { children: React.ReactNode }) => (
+    <ol className="list-decimal list-inside space-y-1.5 text-[14px] text-text-muted my-3 pl-2">{children}</ol>
+  ),
   h1: ({ children }: { children: React.ReactNode }) => (
     <h3 className="font-mono text-[11.5px] font-bold uppercase tracking-wider text-green mb-3 mt-6 flex items-center gap-2">
       <span className="w-4 h-px bg-green/40 rounded-full" />

@@ -1,0 +1,38 @@
+---
+id: "security-cors"
+level: "Beginner"
+q: "What is CORS (Cross-Origin Resource Sharing), and why does the browser enforce it?"
+wrong: "CORS is a <Bad>server security setting</Bad> that prevents hackers from directly attacking APIs via tools like Postman or curl."
+takeaway: "CORS is a <Good>browser-enforced security relaxation mechanism</Good> that allows a trusted website on Origin A to safely request restricted resources from Origin B."
+---
+
+# Why it misses
+CORS does not protect backend APIs from hackers using `curl`, Postman, or Python scripts (which do not enforce CORS). CORS is strictly a browser sandbox protocol designed to protect *end users* from malicious websites making authenticated background requests on their behalf.
+
+```http
+/* Browser sends Preflight request for non-simple requests: */
+OPTIONS /api/data HTTP/1.1
+Origin: https://frontend.example.com
+Access-Control-Request-Method: POST
+
+/* Server responds granting permission: */
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: https://frontend.example.com
+Access-Control-Allow-Methods: GET, POST, PUT
+```
+
+<Steps>
+  <Step icon="shield" title="1. Same-Origin Policy (SOP) Baseline">
+    Browsers strictly block scripts on `site-a.com` from reading HTTP responses from `site-b.com` unless they share the exact same **Protocol**, **Domain/Host**, and **Port**.
+  </Step>
+  <Step icon="key" title="2. CORS as a Controlled Relaxation">
+    When your frontend on `localhost:3000` fetches from `api.domain.com:8000`, the server must return headers like `Access-Control-Allow-Origin: http://localhost:3000` telling the browser the response is safe to expose to JavaScript.
+  </Step>
+  <Step icon="clock" title="3. Preflight OPTIONS Check">
+    For requests with custom headers (`Authorization`, `Content-Type: application/json`) or mutating HTTP methods (`PUT`, `DELETE`), the browser sends an automatic `OPTIONS` preflight before dispatching the real payload.
+  </Step>
+</Steps>
+
+<Tip title="Key Takeaway">
+CORS errors occur in the **browser**, not the server. If you see a CORS error in console, the server actually processed the request, but omitted the required `Access-Control-Allow-Origin` response header, causing the browser to block the response from reaching JS code.
+</Tip>

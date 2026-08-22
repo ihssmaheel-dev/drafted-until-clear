@@ -1,0 +1,26 @@
+---
+id: "db-primary-vs-foreign-keys"
+level: "Beginner"
+q: "What is a Primary Key vs Foreign Key in a relational database?"
+wrong: "A Primary Key is just an <Bad>auto-incrementing ID number</Bad>, and Foreign Keys are optional comments."
+takeaway: "A Primary Key enforces <Good>unique entity identity and indexing</Good>, while a Foreign Key enforces <Good>referential integrity constraints across tables</Good>."
+---
+
+# Why it misses
+Primary keys don't have to be auto-incrementing integers (they can be UUIDs, ULIDs, or natural keys). More importantly, Foreign Keys are not decorative—they are active database constraints that prevent orphaned records and enforce cascading updates or deletes.
+
+<Steps>
+  <Step icon="key" title="1. Primary Key (PK) - Identity & Uniqueness">
+    A column (or set of columns) that uniquely identifies every single row in a table. By definition, a primary key cannot be `NULL` and automatically creates a unique clustered/B-Tree index for lightning-fast lookups.
+  </Step>
+  <Step icon="layers" title="2. Foreign Key (FK) - Referential Integrity">
+    A column in one table that references the Primary Key of another table. It prevents invalid relationships (e.g. inserting an order for a customer that does not exist in the `users` table).
+  </Step>
+  <Step icon="shield" title="3. Cascading Rules (ON DELETE / ON UPDATE)">
+    Foreign keys define how data cleans up: `CASCADE` (deleting a user automatically deletes their orders), `SET NULL`, or `RESTRICT` (prevents deleting a user if orders exist).
+  </Step>
+</Steps>
+
+<Tip title="Indexing Tip">
+Most databases automatically index Primary Keys, but do **not** automatically index Foreign Key columns. Always create an explicit index on your foreign keys to prevent slow table scans during `JOIN` queries.
+</Tip>

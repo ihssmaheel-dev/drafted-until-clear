@@ -1,0 +1,26 @@
+---
+id: "css-flexbox-vs-grid"
+level: "Intermediate"
+q: "How do Flexbox and CSS Grid differ, and when should you choose each?"
+wrong: "Flexbox is for <Bad>small components</Bad>, and CSS Grid is for <Bad>entire page layouts</Bad>."
+takeaway: "Flexbox is <Good>one-dimensional (content-driven row or column)</Good>, while CSS Grid is <Good>two-dimensional (layout-driven rows and columns simultaneously)</Good>."
+---
+
+# Why it misses
+Categorizing them by "page size" misses their core design philosophies: Flexbox adapts layout around dynamic child content along a single axis, whereas Grid establishes a rigid 2D matrix where content slots into predefined tracks.
+
+<Steps>
+  <Step icon="layers" title="Flexbox (1D - Axis Flow)">
+    Controls alignment along either the **main axis** or **cross axis**. Ideal for toolbars, navbars, item wrapping, and centering dynamic content.
+  </Step>
+  <Step icon="box" title="CSS Grid (2D - Matrix Layout)">
+    Controls alignment across **rows and columns simultaneously**. Ideal for dashboard matrices, card grids with consistent cell tracks, and asymmetric page templates.
+  </Step>
+  <Step icon="gear" title="Content-First vs Layout-First">
+    In Flexbox, the children's content sizes dictate how much space they take (`flex-grow`, `flex-shrink`). In Grid, the container's tracks (`grid-template-columns: repeat(3, 1fr)`) dictate the children's dimensions.
+  </Step>
+</Steps>
+
+<Tip title="Decision Rule">
+If you need elements to wrap naturally based on their individual widths without aligning with items in the next row, use **Flexbox**. If you need elements to align vertically and horizontally across rows, use **CSS Grid**.
+</Tip>

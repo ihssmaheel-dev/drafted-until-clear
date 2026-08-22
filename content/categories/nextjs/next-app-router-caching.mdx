@@ -1,0 +1,38 @@
+---
+id: "next-app-router-caching"
+level: "Advanced"
+q: "How does data caching and revalidation work in the Next.js App Router?"
+wrong: "Next.js only caches pages if you <Bad>manually configure a Redis cache layer</Bad>."
+takeaway: "The App Router integrates a multi-layered caching architecture: <Good>Request Memoization, Data Cache, Full Route Cache, and the Client-side Router Cache</Good>."
+---
+
+# Why it misses
+The App Router includes 4 distinct caching systems operating simultaneously between the server and the browser. Understanding these layers prevents frustrating cache-invalidation bugs and stale data in production.
+
+```typescript
+// Time-based revalidation (Data Cache):
+fetch("https://api.example.com/posts", { next: { revalidate: 3600 } });
+
+// Tag-based on-demand revalidation:
+fetch("https://api.example.com/products", { next: { tags: ["products"] } });
+// In a Server Action: revalidateTag("products");
+```
+
+<Steps>
+  <Step icon="cpu" title="1. Request Memoization (React Cache)">
+    Deduplicates identical `fetch` requests with the same URL and options within a single render pass across different components.
+  </Step>
+  <Step icon="db" title="2. Data Cache (Persistent Server Store)">
+    Stores fetch results across requests and deployments. Can be revalidated on a schedule (`revalidate: seconds`) or on-demand (`revalidateTag()`, `revalidatePath()`).
+  </Step>
+  <Step icon="server" title="3. Full Route Cache (Static HTML & RSC Payload)">
+    Automatically caches the evaluated React Server Component payload and HTML at build time for static routes.
+  </Step>
+  <Step icon="globe" title="4. Router Cache (In-Memory Client Cache)">
+    Stores visited route segments in client memory during a user session to make back/forward navigation instant.
+  </Step>
+</Steps>
+
+<Tip title="Cache Opt-Out">
+To bypass the Data Cache for real-time live data, pass `{ cache: 'no-store' }` to your `fetch` request or export `export const dynamic = 'force-dynamic'` from the route segment.
+</Tip>

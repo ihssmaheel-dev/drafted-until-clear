@@ -7,13 +7,22 @@ import type { Category, Question } from "./types";
 export type { Category, Question, StepIcon, TechIcon, QuestionLevel } from "./types";
 
 export const categories: Category[] = [
-  // Tier 1 — Foundations
+  // Tier 1 — Core Web Foundations
+  { id: "html-css", label: "HTML & CSS", icon: "html-css", color: "#E34F26", tier: 1, description: "Semantic markup, Box Model, Flexbox, Grid, and CSS performance." },
   { id: "js", label: "JavaScript", icon: "javascript", color: "#F7DF1E", tier: 1, description: "Closures, event loop, and the core mechanics of JS." },
   { id: "ts", label: "TypeScript", icon: "typescript", color: "#3178C6", tier: 1, description: "Type narrowing, generics, and avoiding \"any\"." },
+
+  // Tier 2 — Modern Frontend Frameworks
   { id: "react", label: "React", icon: "react", color: "#61DAFB", tier: 2, description: "Hooks, rendering behavior, and performance." },
+  { id: "nextjs", label: "Next.js", icon: "nextjs", color: "#EDEDED", tier: 2, description: "Server vs Client components, App Router, SSR, and caching." },
+
+  // Tier 3 — Backend, Data & APIs
   { id: "node", label: "Node.js", icon: "node", color: "#339933", tier: 3, description: "Event-driven architecture, streams, and async patterns." },
-  { id: "system", label: "System Design", icon: "network", color: "#6EC6FF", tier: 6, description: "Architecting reliable and scalable backend systems." },
-  { id: "db", label: "Databases", icon: "database", color: "#C792EA", tier: 4, description: "Indexing, ACID transactions, and query optimization." },
+  { id: "db", label: "Databases", icon: "database", color: "#C792EA", tier: 3, description: "Indexing, ACID transactions, and query optimization." },
+
+  // Tier 4 — Architecture & Reliability
+  { id: "system", label: "System Design", icon: "network", color: "#6EC6FF", tier: 4, description: "Architecting reliable and scalable distributed systems." },
+  { id: "security", label: "Web Security", icon: "security", color: "#EF4444", tier: 4, description: "CORS, CSRF, XSS, tokens, and defensive web engineering." },
 ];
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "categories");

@@ -59,6 +59,7 @@ const STEP_ICONS: Record<string, ComponentType<{ className?: string }>> = {
   search: Search,
   zap: Zap,
   shield: Shield,
+  security: Shield,
   globe: Globe,
   wrench: Wrench,
   code: Code,

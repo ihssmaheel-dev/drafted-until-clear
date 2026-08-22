@@ -1,0 +1,26 @@
+---
+id: "system-scaling-horizontal-vertical"
+level: "Beginner"
+q: "What is the difference between Horizontal Scaling (Scaling Out) and Vertical Scaling (Scaling Up)?"
+wrong: "Vertical scaling is <Bad>outdated</Bad>, and all modern systems should immediately use horizontal scaling."
+takeaway: "Vertical scaling increases the <Good>hardware capacity (CPU/RAM) of a single server</Good>, while Horizontal scaling adds <Good>multiple server instances behind a load balancer</Good> for unlimited throughput and high availability."
+---
+
+# Why it misses
+Dismissing vertical scaling leads to premature distributed complexity. Vertical scaling requires zero code changes and has zero network latency, making it the fastest and simplest way to scale early-stage applications before hitting hardware ceilings.
+
+<Steps>
+  <Step icon="cpu" title="Vertical Scaling (Scale Up)">
+    Upgrade a single machine to a larger cloud instance (e.g. 4 cores -> 64 cores, 16GB -> 256GB RAM). Has hard hardware limits, cost cliffs at high tiers, and represents a Single Point of Failure (SPOF) during downtime.
+  </Step>
+  <Step icon="net" title="Horizontal Scaling (Scale Out)">
+    Add more identical stateless machines to a pool behind a load balancer. Provides near-infinite scaling potential, fault tolerance (if one server dies, traffic reroutes), and zero-downtime rolling deployments.
+  </Step>
+  <Step icon="wrench" title="The Stateless Prerequisite">
+    Horizontal scaling requires application servers to be **stateless**—session data, file uploads, and databases must live in shared external services (Redis, S3, PostgreSQL).
+  </Step>
+</Steps>
+
+<Tip title="System Design Strategy">
+In an interview, start simple: Scale vertically first to handle initial growth, then decouple state into caches/databases and scale stateless web nodes horizontally when traffic or redundancy demands it.
+</Tip>

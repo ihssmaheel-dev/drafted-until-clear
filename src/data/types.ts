@@ -44,6 +44,7 @@ export type TechIcon =
   | "database"
   | "server"
   | "network"
+  | "security"
   | "lock";
 
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";

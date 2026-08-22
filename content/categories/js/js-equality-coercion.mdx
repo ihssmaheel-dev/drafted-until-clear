@@ -1,0 +1,37 @@
+---
+id: "js-equality-coercion"
+level: "Beginner"
+q: "How does equality (== vs ===) work, and what is type coercion?"
+wrong: "`==` checks value, and `===` checks <Bad>value and type at the same time</Bad>."
+takeaway: "`==` triggers <Bad>implicit type conversion</Bad> before comparing, while `===` immediately returns false if types differ."
+---
+
+# Why it misses
+Describing `==` as "just checking value" hides the complex, error-prone coercion algorithms (like `ToNumber()` and `ToPrimitive()`) executed behind the scenes during loose equality checks.
+
+```javascript
+// Loose equality (==) coerces types unpredictably:
+0 == "";        // true (both coerce to number 0)
+false == "0";   // true (both coerce to number 0)
+null == undefined; // true (special rule in specification)
+
+// Strict equality (===) compares without coercion:
+0 === "";       // false
+false === "0";  // false
+```
+
+<Steps>
+  <Step icon="scale" title="Loose Equality (==) Coercion">
+    When comparing different types, JavaScript converts operands into numeric or primitive representations before comparison.
+  </Step>
+  <Step icon="shield" title="Strict Equality (===) Identity Check">
+    Strict equality checks if both the <Kw>Type</Kw> and the <Kw>Value</Kw> are identical without any automatic conversion.
+  </Step>
+  <Step icon="flag" title="Edge Case Gotchas">
+    `NaN === NaN` is always <Bad>false</Bad> (use `Number.isNaN()` or `Object.is()`), and `+0 === -0` is true.
+  </Step>
+</Steps>
+
+<Tip title="Best Practice">
+Always default to strict equality (`===`). The only common idiom for `==` is `value == null` to conveniently check for both `null` and `undefined` in a single check.
+</Tip>

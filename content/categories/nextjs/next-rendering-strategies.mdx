@@ -1,0 +1,26 @@
+---
+id: "next-rendering-strategies"
+level: "Intermediate"
+q: "What is the difference between SSG, SSR, and ISR in Next.js?"
+wrong: "SSG is for <Bad>simple blogs</Bad>, and SSR is for <Bad>any site that needs dynamic data</Bad>."
+takeaway: "SSG generates HTML <Good>once at build time</Good>, SSR generates HTML <Good>on every incoming request</Good>, and ISR <Good>regenerates static pages in the background on a time or on-demand cache basis</Good>."
+---
+
+# Why it misses
+Choosing SSR for everything causes unnecessary database and compute load. In modern Next.js, **Incremental Static Regeneration (ISR)** gives you the speed and CDN caching of static pages with the freshness of server-rendered data.
+
+<Steps>
+  <Step icon="zap" title="1. Static Site Generation (SSG / Static Rendering)">
+    Pages are rendered at `npm run build` time and served instantly from an edge CDN. Best for marketing pages, documentation, and blog posts that rarely change.
+  </Step>
+  <Step icon="server" title="2. Server-Side Rendering (SSR / Dynamic Rendering)">
+    HTML is generated on-demand for every HTTP request. Required when data relies on user-specific request context (like cookies, search params, or auth headers).
+  </Step>
+  <Step icon="loop" title="3. Incremental Static Regeneration (ISR)">
+    Static HTML is served from cache, but after a configured `revalidate` interval (e.g. 60 seconds), Next.js regenerates the page in the background on the next request.
+  </Step>
+</Steps>
+
+<Tip title="Modern App Router Rule">
+In Next.js App Router, rendering strategy is determined automatically per-route based on whether you access dynamic functions (`cookies()`, `headers()`) or use cached `fetch()` requests.
+</Tip>

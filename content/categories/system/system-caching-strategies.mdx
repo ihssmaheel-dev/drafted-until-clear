@@ -1,0 +1,29 @@
+---
+id: "system-caching-strategies"
+level: "Intermediate"
+q: "What are the common caching patterns (Cache-Aside, Write-Through, Write-Back), and what are their trade-offs?"
+wrong: "Caching just means <Bad>putting Redis in front of the database and saving every query</Bad>."
+takeaway: "Caching patterns govern the <Good>synchronization contract between memory and disk</Good>: Cache-Aside is resilient, Write-Through guarantees consistency, and Write-Back maximizes write throughput."
+---
+
+# Why it misses
+Placing a cache without a disciplined write strategy creates data inconsistency bugs where users read stale data from memory while updates sit in the database.
+
+<Steps>
+  <Step icon="search" title="1. Cache-Aside (Lazy Loading)">
+    Application looks in the cache first. On a cache hit, data returns immediately. On a cache miss, application queries the database, writes the result to cache, and returns it.
+    - *Trade-off*: Resilient to cache failure, but initial requests suffer miss latency.
+  </Step>
+  <Step icon="layers" title="2. Write-Through">
+    Application writes data to the cache and the database simultaneously in a single transaction.
+    - *Trade-off*: Guarantees data in cache is never stale, but write latency is higher.
+  </Step>
+  <Step icon="zap" title="3. Write-Back (Write-Behind)">
+    Application writes data strictly to the fast in-memory cache first and acknowledges the client immediately. The cache asynchronously batches writes to the database later.
+    - *Trade-off*: Ultra-high write throughput, but risks data loss if the cache server crashes before flushing to disk.
+  </Step>
+</Steps>
+
+<Tip title="Cache Invalidation Rule">
+Always set a Time-To-Live (TTL) on cached keys as a safety net against stale data, even if your application explicitly invalidates keys on write.
+</Tip>

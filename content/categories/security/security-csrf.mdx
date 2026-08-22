@@ -1,0 +1,27 @@
+---
+id: "security-csrf"
+level: "Intermediate"
+q: "What is Cross-Site Request Forgery (CSRF), and how do SameSite cookies and CSRF tokens stop it?"
+wrong: "CSRF is prevented by <Bad>using HTTPS encryption</Bad> on your API endpoints."
+takeaway: "CSRF tricks an authenticated user's browser into <Good>submitting unauthorized requests to a trusted site</Good> using their existing session cookies."
+---
+
+# Why it misses
+HTTPS encrypts traffic in transit, but does not stop CSRF. If a user is logged into `bank.com` and visits malicious `evil.com`, a hidden form on `evil.com` submitting `POST bank.com/transfer` will automatically include the user's valid session cookies unless protected by CSRF defenses.
+
+<Steps>
+  <Step icon="flag" title="1. The Attack Vector">
+    Browsers automatically attach cookies associated with a domain on every HTTP request made to that domain, even if the request was initiated from a third-party website (`evil.com`).
+  </Step>
+  <Step icon="shield" title="2. SameSite Cookie Attribute (Modern Standard)">
+    - `SameSite=Strict`: Cookies are never sent on cross-site requests.
+    - `SameSite=Lax` (Default in modern browsers): Cookies are sent only on top-level safe navigations (like clicking a regular link), but blocked on cross-site `POST` forms and AJAX.
+  </Step>
+  <Step icon="key" title="3. Anti-CSRF Synchronizer Tokens">
+    The server injects a unique, secret, cryptographically random token into the user's form or session. When submitting a mutating request (`POST`/`PUT`/`DELETE`), the server verifies that the token submitted in the header matches the session.
+  </Step>
+</Steps>
+
+<Tip title="Modern Architecture Tip">
+APIs using `Authorization: Bearer <JWT>` in headers instead of ambient cookies are inherently immune to CSRF because browsers never attach custom authorization headers automatically on cross-site form submissions.
+</Tip>

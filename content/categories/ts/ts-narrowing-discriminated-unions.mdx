@@ -1,0 +1,40 @@
+---
+id: "ts-narrowing-discriminated-unions"
+level: "Intermediate"
+q: "What is Type Narrowing and Discriminated Unions in TypeScript?"
+wrong: "Type Narrowing is just using <Bad>type casting (`as Type`)</Bad> to force the compiler to accept a variable."
+takeaway: "Type Narrowing uses <Good>runtime guards (`typeof`, `instanceof`, `in`) and shared literal discriminant properties</Good> to mathematically eliminate impossible types."
+---
+
+# Why it misses
+Type assertions (`as`) bypass type safety entirely by telling the compiler to trust you blindly. Real type narrowing works with the control flow analyzer to prove to the compiler what type a variable is based on runtime checks.
+
+```typescript
+type ApiResponse =
+  | { status: "success"; data: string[] }
+  | { status: "error"; message: string };
+
+function handle(res: ApiResponse) {
+  if (res.status === "success") {
+    console.log(res.data); // TS knows res has data!
+  } else {
+    console.error(res.message); // TS knows res has message!
+  }
+}
+```
+
+<Steps>
+  <Step icon="key" title="1. Control Flow Analysis">
+    TypeScript inspects `if`, `switch`, `typeof`, and `instanceof` blocks to narrow a broad union (`string | number`) into a specific branch type.
+  </Step>
+  <Step icon="layers" title="2. The Discriminant Property Pattern">
+    A **Discriminated Union** consists of multiple object types that share a single common literal field (like `type`, `kind`, or `status`). Checking that single tag lets TypeScript automatically narrow the entire object payload.
+  </Step>
+  <Step icon="shield" title="3. Exhaustiveness Checking with never">
+    Assigning an unhandled switch case to `const _exhaustive: never = state` triggers a compile error if a developer adds a new union variant without updating the handler.
+  </Step>
+</Steps>
+
+<Tip title="Design Pattern">
+Discriminated Unions are the single most powerful architectural pattern in TypeScript for modeling state machines, API payloads, and Redux action dispatchers.
+</Tip>

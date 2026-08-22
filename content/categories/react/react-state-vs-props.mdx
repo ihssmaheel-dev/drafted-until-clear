@@ -1,0 +1,27 @@
+---
+id: "react-state-vs-props"
+level: "Beginner"
+q: "What is the difference between State and Props in React?"
+wrong: "State and props are both <Bad>variables inside components</Bad> that can be changed whenever you want."
+takeaway: "Props are <Good>immutable inputs passed down from parent to child</Good>, whereas State is <Good>mutable local data managed internally by the component itself</Good>."
+---
+
+# Why it misses
+Treating props as mutable variables causes broken component lifecycles and subtle bugs. React enforces unidirectional data flow: a component must never mutate its own props directly.
+
+<Steps>
+  <Step icon="layers" title="Props (External & Read-Only)">
+    Passed into a component like function arguments. They configure component behavior and are strictly immutable from the receiving component's perspective.
+  </Step>
+  <Step icon="gear" title="State (Internal & Reactive)">
+    Declared and owned inside the component using `useState` or `useReducer`. Mutating state via its setter function schedules a re-render of the component and its children.
+  </Step>
+  <Step icon="scale" title="Unidirectional Data Flow">
+    Data flows **down** via props. Events flow **up** via callback functions passed as props, keeping state predictable and easy to debug.
+  </Step>
+</Steps>
+
+<Tip title="Quick Comparison">
+- **Props**: External, immutable, passed down like function arguments.
+- **State**: Internal, private, reactive, triggers re-renders when updated.
+</Tip>

@@ -1,0 +1,37 @@
+---
+id: "security-jwt-vs-sessions"
+level: "Advanced"
+q: "What is the difference between JWT Tokens and Server-Side Session authentication?"
+wrong: "JWTs are always <Bad>better and more modern than sessions</Bad> because they are completely stateless."
+takeaway: "Server-side sessions store state in a centralized database/cache for <Good>instant server-controlled revocation</Good>, while stateless JWTs encode claims cryptographically for <Good>decentralized multi-service validation at the cost of immediate invalidation difficulty</Good>."
+---
+
+# Why it misses
+Stateless JWTs come with major security and architectural trade-offs. Once a JWT is signed and issued to a client, it cannot be revoked before its expiration time without re-introducing a centralized database blocklist (which eliminates the stateless benefit).
+
+```typescript
+// JWT Structure (Header.Payload.Signature):
+// eyJhbGciOi... (Base64 URL encoded, signed with server SECRET)
+// Anyone can decode the payload! Never store secrets/passwords in a JWT.
+const payload = { userId: "123", role: "admin", exp: 1718000000 };
+```
+
+<Steps>
+  <Step icon="db" title="1. Server-Side Sessions (Stateful)">
+    The server creates a session record in Redis or SQL and sends a random `sessionId` cookie to the client. On every request, the server looks up the user ID in the session store.
+    - *Pros*: Instant logout/revocation, easy session management.
+    - *Cons*: Requires centralized database lookup on every request.
+  </Step>
+  <Step icon="key" title="2. JSON Web Tokens (Stateless)">
+    The server signs a payload containing user claims using a private secret or public/private RSA key pair. Any microservice with the public key can verify the token signature without database lookups.
+    - *Pros*: Scalable across decentralized microservices.
+    - *Cons*: Cannot be revoked immediately if leaked (until `exp` passes); larger payload size.
+  </Step>
+  <Step icon="shield" title="3. The Best-of-Both Hybrid Pattern">
+    Use **short-lived Access Tokens (JWTs, 5-15 min expiration)** for fast stateless API authentication paired with a **long-lived Refresh Token stored securely in an `HttpOnly` cookie** backed by a database session table for revocation control.
+  </Step>
+</Steps>
+
+<Tip title="Storage Security">
+Never store authentication JWTs in browser `localStorage` where any XSS vulnerability can steal them. Always store auth tokens in `HttpOnly`, `Secure`, `SameSite=Lax` cookies.
+</Tip>

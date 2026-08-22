@@ -1,0 +1,35 @@
+---
+id: "react-what-is-jsx"
+level: "Beginner"
+q: "What is JSX, and how does the browser actually execute it?"
+wrong: "JSX is <Bad>HTML written directly inside JavaScript</Bad> that browsers understand natively."
+takeaway: "JSX is a <Good>syntax extension for JavaScript</Good> that compilers (Babel/SWC) transform into `React.createElement()` or `jsx()` function calls."
+---
+
+# Why it misses
+Browsers have no native understanding of JSX. If you pass JSX directly to a browser runtime, it throws a `SyntaxError`. JSX is strictly a compile-time syntactic sugar that transforms HTML-like syntax into plain JavaScript object trees.
+
+```javascript
+// What you write (JSX):
+const element = <h1 className="title">Hello World</h1>;
+
+// What the compiler outputs (Plain JavaScript):
+import { jsx as _jsx } from "react/jsx-runtime";
+const element = _jsx("h1", { className: "title", children: "Hello World" });
+```
+
+<Steps>
+  <Step icon="code" title="1. Syntax Extension (Not HTML)">
+    JSX combines markup and logic in one file. Because it is JavaScript, attribute names use camelCase (`className`, `htmlFor`, `onClick`) and reserved keywords are respected.
+  </Step>
+  <Step icon="zap" title="2. Transpilation Phase">
+    Build tools (Vite, Next.js, Webpack) use compilers like SWC or Babel to rewrite every JSX tag into a function invocation producing a lightweight Virtual DOM object.
+  </Step>
+  <Step icon="box" title="3. Virtual DOM Element Object">
+    The resulting object `{ type: 'h1', props: { className: 'title', children: 'Hello World' } }` is what React's reconciler consumes to render real DOM elements.
+  </Step>
+</Steps>
+
+<Tip title="XSS Protection Built-in">
+React automatically escapes all string expressions embedded in JSX (`{userInput}`) before rendering them, mitigating default Cross-Site Scripting (XSS) injection attacks.
+</Tip>

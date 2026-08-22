@@ -1,0 +1,27 @@
+---
+id: "next-what-is-nextjs"
+level: "Beginner"
+q: "What is Next.js, and how does it differ from a standard React app (Vite / CRA)?"
+wrong: "Next.js is just <Bad>React with built-in routing</Bad> and a different folder structure."
+takeaway: "Next.js is a <Good>full-stack React framework</Good> that provides hybrid server/client rendering, automatic code-splitting, file-system routing, and built-in production optimizations."
+---
+
+# Why it misses
+Standard React (Vite/Create React App) produces a pure Client-Side Rendered (CSR) Single Page App where the browser downloads an empty `<div id="root"></div>` and a massive JavaScript bundle before rendering anything. Next.js executes components on the server first, delivering instant HTML to users and search crawlers.
+
+<Steps>
+  <Step icon="server" title="1. Server-Side Execution & Pre-rendering">
+    Next.js pre-renders HTML on the server (via SSR, SSG, or Server Components) before shipping to the client, delivering instant First Contentful Paint (FCP) and superior SEO.
+  </Step>
+  <Step icon="layers" title="2. File-System App Router">
+    Folders and files in the `app/` directory automatically define routes, nested layouts, loading states (`loading.tsx`), and error boundaries (`error.tsx`).
+  </Step>
+  <Step icon="zap" title="3. Automatic Bundling & Asset Optimizations">
+    Includes automatic route-level code splitting, built-in image optimization (`next/image`), font self-hosting (`next/font`), and server actions for backend logic.
+  </Step>
+</Steps>
+
+<Tip title="Key Comparison">
+- **Vite / Vanilla React (CSR)**: Browser downloads empty HTML + big JS bundle -> Browser executes JS -> Screen paints.
+- **Next.js (Server-first)**: Server pre-computes HTML -> Browser displays content immediately -> Hydration attaches interactivity.
+</Tip>

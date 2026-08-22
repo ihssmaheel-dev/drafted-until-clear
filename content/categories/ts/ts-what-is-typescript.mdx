@@ -1,0 +1,26 @@
+---
+id: "ts-what-is-typescript"
+level: "Beginner"
+q: "What is TypeScript, and why should you use it over standard JavaScript?"
+wrong: "TypeScript is a <Bad>separate programming language</Bad> that runs in place of JavaScript to make apps faster."
+takeaway: "TypeScript is a <Good>typed superset of JavaScript</Good> that compiles away completely at build time, providing compile-time type safety with zero runtime overhead."
+---
+
+# Why it misses
+TypeScript does not run natively in browsers, nor does it replace the JavaScript runtime. Every valid JavaScript file is valid TypeScript, and the compiler (`tsc`) strips away all type annotations, emitting pure JavaScript with zero runtime performance cost.
+
+<Steps>
+  <Step icon="shield" title="Static Analysis at Compile-Time">
+    TypeScript catches type mismatches, typos, and undefined property accesses <Kw>before code ever runs in production</Kw>.
+  </Step>
+  <Step icon="code" title="Erasure (Zero Runtime Footprint)">
+    Types, interfaces, and type assertions exist strictly during development. Once compiled to JS, all type artifacts vanish completely.
+  </Step>
+  <Step icon="box" title="Living Documentation & Refactoring">
+    Strong types enable IDE autocompletion, accurate function signature previews, and safe automated code refactoring across massive codebases.
+  </Step>
+</Steps>
+
+<Tip title="Key Mental Model">
+TypeScript acts as an automated, strict code reviewer running in your editor. It does not validate external runtime data (like API responses) unless paired with a runtime schema validator like Zod.
+</Tip>

@@ -1,0 +1,34 @@
+---
+id: "html-semantic-markup"
+level: "Beginner"
+q: "What is Semantic HTML, and why does it matter for accessibility and SEO?"
+wrong: "Semantic HTML is just about using <Bad>meaningful tag names</Bad> instead of `<div>` tags so code looks cleaner."
+takeaway: "Semantic elements construct the <Good>Accessibility Object Model (AOM)</Good> and establish document landmarks for search indexers and screen readers."
+---
+
+# Why it misses
+Semantic HTML is not purely cosmetic syntax sugar. Browsers and assistive technologies parse semantic tags like `<main>`, `<nav>`, `<article>`, and `<button>` into a dedicated accessibility tree that powers keyboard navigation and screen readers.
+
+```html
+<!-- Bad: Inaccessible clickable div -->
+<div class="btn" onclick="submit()">Submit</div>
+
+<!-- Good: Native accessible button with keyboard focus and role -->
+<button type="button" onclick="submit()">Submit</button>
+```
+
+<Steps>
+  <Step icon="layers" title="Accessibility Tree & Landmarks">
+    Elements like `<header>`, `<nav>`, `<main>`, and `<footer>` define navigable regions for screen readers without requiring manual ARIA roles.
+  </Step>
+  <Step icon="key" title="Native Browser Behavior & Focus">
+    Interactive elements like `<button>` and `<input>` provide native keyboard focusability (`Tab`), `Enter`/`Space` activation, and state reporting automatically.
+  </Step>
+  <Step icon="search" title="Search Engine Indexing (SEO)">
+    Search engine crawlers rely on heading hierarchies (`<h1>`-`<h6>`) and structural tags (`<article>`, `<time>`) to weigh content relevance.
+  </Step>
+</Steps>
+
+<Tip title="Rule of Thumb">
+Never replace interactive native elements like `<button>` or `<a>` with clickable `<div>` or `<span>` tags unless you manually wire up `tabIndex`, keydown handlers, and ARIA roles.
+</Tip>

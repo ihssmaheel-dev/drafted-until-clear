@@ -1,0 +1,26 @@
+---
+id: "node-what-is-node"
+level: "Beginner"
+q: "What is Node.js, and how is it different from running JavaScript in the browser?"
+wrong: "Node.js is a <Bad>programming language / framework</Bad> that adds backend commands to JavaScript."
+takeaway: "Node.js is an <Good>asynchronous event-driven JavaScript runtime built on Google's V8 engine and libuv</Good>, giving JS direct access to OS-level system calls."
+---
+
+# Why it misses
+Node.js is neither a language nor a framework. It is an execution environment (runtime) that takes the V8 engine outside the browser sandbox and attaches C++ bindings (via `libuv`) for disk I/O, networking sockets, and process management.
+
+<Steps>
+  <Step icon="cpu" title="1. V8 Engine + libuv Architecture">
+    Combines Google's V8 engine (which compiles JS to machine code) with `libuv` (a multi-platform C library providing an asynchronous event loop and thread pool).
+  </Step>
+  <Step icon="wrench" title="2. Different Global APIs & Ecosystem">
+    Browsers have `window`, `document`, DOM events, and cookies. Node.js replaces these with `global`, `process`, `Buffer`, and system modules (`fs`, `http`, `path`, `crypto`).
+  </Step>
+  <Step icon="shield" title="3. Sandbox vs System Access">
+    Browser JS is sandboxed for security (cannot arbitrarily read local hard drives). Node.js runs as a native OS process with direct filesystem and network permissions.
+  </Step>
+</Steps>
+
+<Tip title="Key Takeaway">
+Node.js uses the exact same core ECMAScript language syntax as the browser, but runs in an un-sandboxed environment with access to operating system APIs.
+</Tip>

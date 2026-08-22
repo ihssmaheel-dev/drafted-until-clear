@@ -1,0 +1,40 @@
+---
+id: "css-reflow-repaint"
+level: "Advanced"
+q: "What triggers CSS Reflow (Layout) vs Repaint, and how do you optimize rendering performance?"
+wrong: "Changing any CSS property causes the browser to <Bad>re-render the whole page equally</Bad>."
+takeaway: "Reflow recalculates geometry and layout for the document tree, while Repaint redraws pixels. <Good>Using transform and opacity offloads work directly to the GPU compositor layer</Good>."
+---
+
+# Why it misses
+Different CSS properties trigger completely different phases of the browser critical rendering path. Modifying geometry properties (`width`, `margin`, `top`) forces expensive CPU layout recalculations (Reflow), whereas compositor-only properties (`transform`, `opacity`) bypass both Reflow and Repaint entirely.
+
+```css
+/* Bad: Triggers CPU Reflow on every animation frame (60fps jank) */
+.box {
+  transition: left 0.3s ease;
+  left: 100px;
+}
+
+/* Good: Offloaded to GPU Compositor layer (butter-smooth 60-120fps) */
+.box {
+  transition: transform 0.3s ease;
+  transform: translateX(100px);
+}
+```
+
+<Steps>
+  <Step icon="cpu" title="1. Reflow (Layout Phase)">
+    Triggered by changes to geometry dimensions (`width`, `height`, `margin`, `fontSize`, `display`). The browser must recalculate the position of the element and all affected sibling/parent nodes in the document tree.
+  </Step>
+  <Step icon="zap" title="2. Repaint (Paint Phase)">
+    Triggered by visual appearance changes that do not alter layout (`color`, `background-color`, `visibility`). The browser redraws pixels onto raster layers.
+  </Step>
+  <Step icon="layers" title="3. Composite (GPU Phase)">
+    `transform`, `opacity`, and `filter` trigger only the compositing phase. The element is promoted to its own GPU layer, avoiding CPU bottlenecks.
+  </Step>
+</Steps>
+
+<Tip title="Layout Thrashing Warning">
+Reading layout properties (like `element.offsetWidth` or `element.getBoundingClientRect()`) immediately after modifying DOM styles forces a synchronous layout recalculation called **Layout Thrashing**. Always batch DOM reads before DOM writes.
+</Tip>

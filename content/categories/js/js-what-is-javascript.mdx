@@ -1,0 +1,26 @@
+---
+id: "js-what-is-javascript"
+level: "Beginner"
+q: "What is JavaScript, and how does it actually execute code?"
+wrong: "JavaScript is just an <Bad>interpreted scripting language</Bad> that runs line-by-line in the browser."
+takeaway: "JavaScript is a <Good>single-threaded, JIT-compiled language</Good> with a non-blocking event loop runtime."
+---
+
+# Why it misses
+Calling JavaScript "just an interpreted scripting language" ignores modern V8/SpiderMonkey engines that compile source code directly to machine code using Just-In-Time (JIT) compilation.
+
+<Steps>
+  <Step icon="cpu" title="Single-Threaded Call Stack">
+    JavaScript has <Kw>one call stack</Kw> and executes one synchronous statement at a time in the main execution thread.
+  </Step>
+  <Step icon="zap" title="JIT Compilation (Bytecode to Machine Code)">
+    Modern engines like V8 parse source code into an AST, generate bytecode, and <Flow>hot-compile frequently run functions into optimized machine code</Flow> at runtime.
+  </Step>
+  <Step icon="clock" title="Non-Blocking Concurrency">
+    Asynchronous operations (timers, network requests, file I/O) are delegated to the <Sys>host environment (Browser APIs or libuv in Node)</Sys>, keeping the call stack responsive.
+  </Step>
+</Steps>
+
+<Tip title="Quick Interview Summary">
+When an interviewer asks how JS runs, emphasize the relationship between the **Call Stack** (synchronous execution), the **Engine** (JIT compilation), and the **Host APIs + Event Loop** (asynchronous non-blocking concurrency).
+</Tip>

@@ -1,0 +1,26 @@
+---
+id: "next-server-vs-client-components"
+level: "Beginner"
+q: "What is the difference between Server Components and Client Components in Next.js?"
+wrong: "Client components run <Bad>only on the browser</Bad>, and Server components run <Bad>only during build time</Bad>."
+takeaway: "Server Components (default) <Good>execute exclusively on the server and send zero JS to the client</Good>, whereas Client Components (`'use client'`) execute on both server (for SSR) and browser (for interactivity)."
+---
+
+# Why it misses
+The `"use client"` directive does not mean "render this only in the browser." Client components are still pre-rendered to HTML on the server during the initial page load, and then hydrated in the browser to attach event listeners and state hooks.
+
+<Steps>
+  <Step icon="server" title="Server Components (Default)">
+    Render strictly on the server. They can securely query databases, read secrets from environment variables, and stream lightweight HTML/JSON without increasing client JavaScript bundle sizes.
+  </Step>
+  <Step icon="cpu" title="Client Components ('use client')">
+    Required whenever you need client-side interactivity: `useState`, `useEffect`, event listeners (`onClick`, `onChange`), or browser-only APIs (`window`, `localStorage`).
+  </Step>
+  <Step icon="box" title="The Boundary Rule">
+    `"use client"` defines a boundary between server and client modules. You can pass Server Components as `children` props into Client Components to avoid forcing entire subtrees into client bundles.
+  </Step>
+</Steps>
+
+<Tip title="Mental Model">
+Keep `"use client"` pushed down to the furthest leaves of your component tree (e.g. only on the specific search bar or button that needs state), keeping all parent layouts and data-fetching components as Server Components.
+</Tip>

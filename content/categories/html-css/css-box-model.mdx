@@ -1,0 +1,44 @@
+---
+id: "css-box-model"
+level: "Beginner"
+q: "What is the CSS Box Model, and how does box-sizing: border-box change it?"
+wrong: "The box model is just <Bad>margin, border, padding, and content</Bad>, and `border-box` makes elements smaller."
+takeaway: "`box-sizing: border-box` includes <Good>padding and border inside the declared width/height</Good>, eliminating layout blowouts."
+---
+
+# Why it misses
+Under the default `content-box` model, adding padding or borders expands the rendered size *beyond* the specified `width`, which frequently breaks multi-column layouts and responsive designs.
+
+```css
+/* content-box: Total rendered width = 100px + 20px padding + 4px border = 124px */
+.default {
+  box-sizing: content-box;
+  width: 100px;
+  padding: 10px;
+  border: 2px solid black;
+}
+
+/* border-box: Total rendered width = strictly 100px (content shrinks to 76px) */
+.modern {
+  box-sizing: border-box;
+  width: 100px;
+  padding: 10px;
+  border: 2px solid black;
+}
+```
+
+<Steps>
+  <Step icon="box" title="4 Concentric Box Layers">
+    Every rendered element is structured into four zones: **Content** (inner data/text), **Padding** (internal whitespace), **Border** (bounding stroke), and **Margin** (external separation).
+  </Step>
+  <Step icon="scale" title="content-box (Standard Default)">
+    `width` and `height` apply only to the content area. Any padding and border are added to the outer dimensions, making width calculations arithmetic-heavy.
+  </Step>
+  <Step icon="wrench" title="border-box (Universal Best Practice)">
+    `width` and `height` apply to the entire visible box. Padding and borders subtract from the internal content space, making responsive percentages predictable.
+  </Step>
+</Steps>
+
+<Tip title="Universal CSS Reset">
+Virtually all modern CSS frameworks (like Tailwind CSS) apply `*, *::before, *::after { box-sizing: border-box; }` as a global baseline reset.
+</Tip>

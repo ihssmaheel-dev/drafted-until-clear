@@ -1,0 +1,26 @@
+---
+id: "react-what-is-react"
+level: "Beginner"
+q: "What is React, and what problem does it actually solve compared to vanilla JavaScript?"
+wrong: "React is a <Bad>full-fledged framework</Bad> designed to make DOM manipulation faster than vanilla JS."
+takeaway: "React is a <Good>declarative UI library</Good> that solves manual DOM state synchronization by expressing UI as a pure function of state (`UI = f(state)`)."
+---
+
+# Why it misses
+Direct vanilla DOM manipulation (`document.createElement`, `innerHTML`) is technically faster for isolated operations. React's superpower is not raw speed, but **developer scalability**—eliminating the bugs and complexity of manually syncing UI elements whenever application state changes.
+
+<Steps>
+  <Step icon="layers" title="1. Declarative vs Imperative UI">
+    In imperative vanilla JS, you write step-by-step instructions to find nodes, add classes, and attach event listeners. In React, you <Kw>declare what the UI should look like for a given state</Kw>, and React handles DOM updates automatically.
+  </Step>
+  <Step icon="box" title="2. Component-Driven Architecture">
+    UI is decomposed into self-contained, reusable components that encapsulate their own markup, styling, and state logic.
+  </Step>
+  <Step icon="cpu" title="3. Virtual DOM & Reconciliation">
+    React keeps an in-memory representation of the UI (Virtual DOM). When state changes, it computes the minimal diff (reconciliation) and batches updates to the real browser DOM.
+  </Step>
+</Steps>
+
+<Tip title="Mental Model">
+Think of React as a continuous formula: `View = Component(State, Props)`. Whenever `State` or `Props` change, React evaluates the formula and updates only the changed parts of the screen.
+</Tip>

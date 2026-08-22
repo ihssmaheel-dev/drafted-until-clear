@@ -1,0 +1,26 @@
+---
+id: "db-sql-vs-nosql"
+level: "Beginner"
+q: "What is the fundamental difference between Relational (SQL) and Non-Relational (NoSQL) databases?"
+wrong: "SQL is <Bad>old and slow</Bad>, and NoSQL is <Bad>modern and fast</Bad> for all web applications."
+takeaway: "SQL databases prioritize <Good>strict relational schemas, normalization, and ACID consistency</Good>, while NoSQL databases prioritize <Good>flexible schema models, horizontal partition tolerance, and high-throughput scaling</Good>."
+---
+
+# Why it misses
+Database selection is about data modeling access patterns and consistency guarantees, not age. Relational databases (PostgreSQL, MySQL) excel at complex multi-table joins and strict data integrity, whereas NoSQL stores (MongoDB, Redis, DynamoDB) optimize for high-write velocity and hierarchical document models.
+
+<Steps>
+  <Step icon="db" title="1. Relational (SQL) - Schema on Write">
+    Data is organized into structured tables with rows, columns, and foreign key relationships. Changing the shape of data requires running database migrations.
+  </Step>
+  <Step icon="layers" title="2. NoSQL - Schema on Read">
+    Categorized into Document stores (MongoDB), Key-Value caches (Redis), Column-family stores (Cassandra), and Graph databases (Neo4j). Ideal for unstructured, polymorphic, or rapidly evolving JSON payloads.
+  </Step>
+  <Step icon="scale" title="3. Scaling Strategy Trade-offs">
+    Relational databases traditionally scale **vertically** (bigger CPU/RAM instance, read replicas). NoSQL databases are designed natively to shard and distribute data **horizontally** across clusters.
+  </Step>
+</Steps>
+
+<Tip title="Decision Rule">
+If your data has intricate relationships, financial transaction guarantees, or requires complex joins, choose **PostgreSQL**. If you have massive write volume, denormalized documents, or distributed key-value needs, choose **NoSQL**.
+</Tip>

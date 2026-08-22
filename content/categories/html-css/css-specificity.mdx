@@ -1,0 +1,30 @@
+---
+id: "css-specificity"
+level: "Intermediate"
+q: "How does CSS Specificity work, and how is the cascade resolved?"
+wrong: "Whichever CSS rule is written <Bad>lower down in the stylesheet</Bad> always wins."
+takeaway: "The cascade resolves conflicts using <Good>Origin & Importance (!important), Specificity weight (ID > Class > Element), and Source Order</Good>."
+---
+
+# Why it misses
+Source order only matters as a tie-breaker when two competing selectors have the exact same specificity score. A higher-specificity selector earlier in a file will always override a lower-specificity selector written later.
+
+<Steps>
+  <Step icon="scale" title="4-Part Specificity Vector (0, 0, 0, 0)">
+    Specificity is calculated as a 4-tier tuple `(Inline, ID, Class/Attribute/Pseudo-class, Element/Pseudo-element)`:
+    - Inline styles: `style="..."` = `(1, 0, 0, 0)`
+    - IDs: `#header` = `(0, 1, 0, 0)`
+    - Classes/Attributes: `.btn`, `[type="text"]`, `:hover` = `(0, 0, 1, 0)`
+    - Elements: `div`, `p`, `::before` = `(0, 0, 0, 1)`
+  </Step>
+  <Step icon="key" title="Weight Hierarchy Comparison">
+    Specificity is compared from left to right. One ID `(0, 1, 0, 0)` outweighs any number of chained classes `(0, 0, 100, 0)`.
+  </Step>
+  <Step icon="flag" title="!important & Cascade Layers">
+    `!important` overrides normal specificity entirely. Modern `@layer` rules allow scoping specificity to avoid specificity wars.
+  </Step>
+</Steps>
+
+<Tip title="Maintainability Rule">
+Keep specificity as low and flat as possible (e.g. single utility or component classes). Avoid using ID selectors for styling and avoid `!important` except for nuclear overrides.
+</Tip>
