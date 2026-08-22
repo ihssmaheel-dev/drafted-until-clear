@@ -51,6 +51,7 @@ const STEP_ICONS: Record<string, ComponentType<{ className?: string }>> = {
   clock: Clock,
   users: Users,
   db: Database,
+  database: Database,
   scale: Scale,
   net: Network,
   key: Key,
