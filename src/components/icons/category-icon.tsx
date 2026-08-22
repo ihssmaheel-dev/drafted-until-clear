@@ -26,20 +26,20 @@ import {
   CircleCheck,
 } from "lucide-react";
 import type { ComponentType } from "react";
-import { JavaScriptIcon } from "./tech/javascript";
-import { TypeScriptIcon } from "./tech/typescript";
-import { ReactIcon } from "./tech/react";
-import { NodeIcon } from "./tech/node";
 import {
-  NextjsIcon,
-  VueIcon,
-  AngularIcon,
-  SvelteIcon,
-  GraphqlIcon,
-  DenoIcon,
-  BunIcon,
-  HtmlCssIcon,
-} from "./tech/tech-icons";
+  SiJavascript,
+  SiTypescript,
+  SiReact,
+  SiNextdotjs,
+  SiVuedotjs,
+  SiAngular,
+  SiSvelte,
+  SiNodedotjs,
+  SiGraphql,
+  SiDeno,
+  SiBun,
+  SiHtml5,
+} from "react-icons/si";
 
 const STEP_ICONS: Record<string, ComponentType<{ className?: string }>> = {
   cpu: Cpu,
@@ -69,18 +69,18 @@ const STEP_ICONS: Record<string, ComponentType<{ className?: string }>> = {
 };
 
 const TECH_ICONS: Record<string, ComponentType<{ className?: string }>> = {
-  javascript: JavaScriptIcon,
-  typescript: TypeScriptIcon,
-  react: ReactIcon,
-  nextjs: NextjsIcon,
-  vue: VueIcon,
-  angular: AngularIcon,
-  svelte: SvelteIcon,
-  node: NodeIcon,
-  graphql: GraphqlIcon,
-  deno: DenoIcon,
-  bun: BunIcon,
-  "html-css": HtmlCssIcon,
+  javascript: SiJavascript,
+  typescript: SiTypescript,
+  react: SiReact,
+  nextjs: SiNextdotjs,
+  vue: SiVuedotjs,
+  angular: SiAngular,
+  svelte: SiSvelte,
+  node: SiNodedotjs,
+  graphql: SiGraphql,
+  deno: SiDeno,
+  bun: SiBun,
+  "html-css": SiHtml5,
 };
 
 interface StepIconProps {
