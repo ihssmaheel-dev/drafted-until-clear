@@ -49,7 +49,7 @@ export type TechIcon =
 
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 
-export type QuestionLevel = "Beginner" | "Intermediate" | "Advanced";
+export type QuestionLevel = "Fresher" | "Junior" | "Mid-Level" | "Senior";
 
 export interface Question {
   id: string;

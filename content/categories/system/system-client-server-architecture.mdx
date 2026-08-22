@@ -1,0 +1,29 @@
+---
+id: "system-client-server-architecture"
+level: "Fresher"
+q: "What happens when you type a URL into a web browser and press Enter?"
+wrong: "The browser immediately <Bad>downloads the website directly from Google</Bad>."
+takeaway: "The browser executes a coordinated sequence: <Good>DNS Resolution -> TCP Handshake -> TLS Encryption -> HTTP Request/Response -> DOM/CSSOM Parsing & Screen Paint</Good>."
+---
+
+# Why it misses
+This is the single most famous fundamental full-stack interview question. It tests whether a candidate understands the end-to-end journey of a network packet from physical hardware to browser pixels.
+
+<Steps>
+  <Step icon="search" title="1. DNS Resolution (Finding the IP)">
+    The browser checks local cache, OS cache, and queries DNS (Domain Name System) servers to resolve the human-readable domain `example.com` into a machine IP address `93.184.216.34`.
+  </Step>
+  <Step icon="net" title="2. TCP Handshake & TLS Encryption">
+    The browser establishes a reliable connection with the server via a **3-Way TCP Handshake** (`SYN` -> `SYN-ACK` -> `ACK`), followed by a **TLS Handshake** to negotiate asymmetric encryption keys for secure HTTPS.
+  </Step>
+  <Step icon="globe" title="3. HTTP Request & Server Processing">
+    The browser dispatches an HTTP `GET /` request. The backend server (or CDN edge cache) receives the socket, routes to the controller, and streams back an HTTP 200 response with HTML bytes.
+  </Step>
+  <Step icon="layers" title="4. Critical Rendering Path (Painting Pixels)">
+    The browser parses HTML into the **DOM tree**, fetches linked CSS to build the **CSSOM**, combines them into the **Render Tree**, computes element geometry (**Layout / Reflow**), and rasterizes pixels onto the screen (**Paint**).
+  </Step>
+</Steps>
+
+<Tip title="Interview Strategy">
+Divide your answer clearly into two halves: **Network Phase** (DNS, TCP, TLS, HTTP) and **Browser Rendering Phase** (DOM, CSSOM, Render Tree, Layout, Paint).
+</Tip>

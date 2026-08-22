@@ -1,0 +1,31 @@
+---
+id: "css-display-none-vs-visibility-hidden"
+level: "Junior"
+q: "What is the difference between display: none and visibility: hidden in CSS?"
+wrong: "Both properties <Bad>hide the element from the screen in the exact same way</Bad>."
+takeaway: "`display: none` <Good>removes the element completely from the document flow (takes 0 space)</Good>, while `visibility: hidden` <Good>hides the visual pixels but preserves the element's layout space and geometry</Good>."
+---
+
+# Why it misses
+`display: none` causes surrounding elements to collapse and fill the vacated space (triggering a Reflow), while `visibility: hidden` makes the element an invisible placeholder (retaining its width, height, and margin).
+
+<Steps>
+  <Step icon="box" title="1. display: none (Removed from Layout Flow)">
+    - Element is completely removed from the visual rendering tree.
+    - Takes up **zero width and zero height**.
+    - Child elements cannot be made visible even if child has `display: block`.
+    - Removed from screen reader accessibility trees by default.
+  </Step>
+  <Step icon="layers" title="2. visibility: hidden (Invisible Placeholder)">
+    - Element becomes completely transparent.
+    - **Retains its original dimensions and layout space**—surrounding siblings do not shift.
+    - A child element can override this and become visible if it sets `visibility: visible`.
+  </Step>
+  <Step icon="zap" title="3. opacity: 0 (Visual Fade Only)">
+    - Element is transparent but still fully occupies layout space **and remains clickable/interactive** (receives mouse clicks and keyboard focus).
+  </Step>
+</Steps>
+
+<Tip title="Accessibility Gotcha">
+If you want to hide an element visually while keeping it readable for screen readers (e.g. "Skip to main content" links), do not use `display: none` or `visibility: hidden`. Use an `.sr-only` (Screen Reader Only) utility class that clips the element off-screen.
+</Tip>

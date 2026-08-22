@@ -1,0 +1,38 @@
+---
+id: "next-layouts-and-pages"
+level: "Junior"
+q: "What is the difference between Layouts and Pages in Next.js, and why do layouts persist state?"
+wrong: "Layouts and pages both <Bad>re-render from scratch on every route navigation</Bad>."
+takeaway: "Layouts wrap page segments, preserve state, and <Good>do not re-render or lose client state during navigation (Partial Rendering)</Good>, while Pages represent the leaf UI that changes."
+---
+
+# Why it misses
+In the App Router, navigating between sibling pages inside the same layout (e.g. `/dashboard/analytics` to `/dashboard/settings`) only re-renders the dynamic page segment; the shared `<Sidebar>` inside `layout.tsx` never re-renders or unmounts.
+
+```tsx
+// app/dashboard/layout.tsx (Persists state across navigation)
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex">
+      <Sidebar /> {/* Never unmounts when clicking sub-routes! */}
+      <main className="flex-1">{children}</main>
+    </div>
+  );
+}
+```
+
+<Steps>
+  <Step icon="layers" title="1. Root Layout (Required)">
+    `app/layout.tsx` is the top-most layout that defines the `<html>` and `<body>` tags. It is shared across all routes in the entire application.
+  </Step>
+  <Step icon="box" title="2. Nested Layouts">
+    Any subfolder can define its own `layout.tsx`. Layouts nest hierarchically around child layouts and pages.
+  </Step>
+  <Step icon="zap" title="3. State Preservation & Partial Rendering">
+    Interactive elements inside layouts (like a video player or search input) retain their exact state across page transitions because Next.js avoids unmounting layout trees.
+  </Step>
+</Steps>
+
+<Tip title="Layout vs Template">
+If you ever *want* the shared wrapper to unmount and reset its state/animations on every navigation, rename `layout.tsx` to `template.tsx`.
+</Tip>

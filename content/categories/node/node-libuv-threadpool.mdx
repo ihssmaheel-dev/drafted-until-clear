@@ -1,6 +1,6 @@
 ---
 id: "node-libuv-threadpool"
-level: "Intermediate"
+level: "Mid-Level"
 q: "What actually uses the libuv thread pool, and what doesn't?"
 wrong: "<Bad>All</Bad> asynchronous operations in Node run through the thread pool."
 takeaway: "Network I/O mostly bypasses the thread pool entirely — it's the <Sys>filesystem, DNS, and certain crypto calls</Sys> that queue up on those 4 threads."

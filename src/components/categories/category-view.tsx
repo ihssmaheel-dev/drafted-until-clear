@@ -17,9 +17,10 @@ interface CategoryViewProps {
 }
 
 const LEVEL_ORDER: Record<QuestionLevel, number> = {
-  Beginner: 1,
-  Intermediate: 2,
-  Advanced: 3,
+  "Fresher": 1,
+  "Junior": 2,
+  "Mid-Level": 3,
+  "Senior": 4,
 };
 
 export function CategoryView({ category, questions }: CategoryViewProps) {

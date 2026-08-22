@@ -1,0 +1,40 @@
+---
+id: "node-package-json-npm"
+level: "Fresher"
+q: "What is package.json, npm, and the difference between dependencies and devDependencies?"
+wrong: "`dependencies` and `devDependencies` are <Bad>both installed in the exact same way</Bad>, so it doesn't matter where packages are put."
+takeaway: "`dependencies` are <Good>required for the app to run in production</Good>, while `devDependencies` are <Good>tools needed only during local development and testing</Good>."
+---
+
+# Why it misses
+Putting heavy development tools (like TypeScript, ESLint, Tailwind, or Vitest) into `dependencies` bloats Docker images and increases production server deployment times and memory usage.
+
+```json
+{
+  "dependencies": {
+    "react": "^19.0.0",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "eslint": "^9.0.0"
+  }
+}
+```
+
+<Steps>
+  <Step icon="box" title="1. package.json (Project Manifest)">
+    The central configuration file that defines project metadata, scripts (`npm run dev`, `npm run build`), and package versions.
+  </Step>
+  <Step icon="layers" title="2. dependencies vs devDependencies">
+    - `dependencies` (`npm i <pkg>`): Packages required when running `node server.js` in production (e.g. Express, React, Lodash).
+    - `devDependencies` (`npm i -D <pkg>`): Compilers, linters, and test suites used only while developing on your laptop (e.g. TypeScript, Prettier, Jest).
+  </Step>
+  <Step icon="shield" title="3. package-lock.json / pnpm-lock.yaml">
+    Locks down the exact resolved dependency tree (and all nested sub-dependencies) to guarantee that every developer and CI/CD server installs the exact same byte-for-byte packages.
+  </Step>
+</Steps>
+
+<Tip title="Production Best Practice">
+In production environments, running `npm ci --production` installs strictly the `dependencies` list, completely skipping dev tooling for a minimal attack surface and faster startup.
+</Tip>

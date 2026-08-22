@@ -1,0 +1,36 @@
+---
+id: "js-functions-arrow-functions"
+level: "Fresher"
+q: "What is the difference between Regular Functions and Arrow Functions in JavaScript?"
+wrong: "Arrow functions are just a <Bad>shorter, cleaner way to write regular functions</Bad>."
+takeaway: "Arrow functions do not have their own <Good>`this`, `arguments`, or `prototype`</Good>—they inherit `this` lexically from their surrounding enclosing scope."
+---
+
+# Why it misses
+Arrow functions are not merely syntactic sugar. Because arrow functions capture `this` lexically from where they were written, using them as object methods breaks `this` access, while using them as callbacks inside classes fixes `this` binding without needing `.bind(this)`.
+
+```javascript
+const obj = {
+  name: "Alex",
+  // Regular function: 'this' points to obj
+  greetRegular: function() { console.log(this.name); }, // "Alex"
+  // Arrow function: 'this' inherits from global/window scope!
+  greetArrow: () => { console.log(this.name); } // undefined
+};
+```
+
+<Steps>
+  <Step icon="key" title="1. Lexical this Binding">
+    Regular functions determine `this` at **runtime based on how they are called** (`obj.fn()`). Arrow functions capture `this` at **author-time from their outer lexical scope**.
+  </Step>
+  <Step icon="box" title="2. arguments & new Constructor">
+    Regular functions have a built-in `arguments` array-like object and can be used as constructors (`new Fn()`). Arrow functions do not have `arguments` (use rest parameters `...args`) and cannot be instantiated with `new`.
+  </Step>
+  <Step icon="zap" title="3. Implicit Returns">
+    Arrow functions support concise single-expression bodies with automatic implicit returns: `const add = (a, b) => a + b;`.
+  </Step>
+</Steps>
+
+<Tip title="Rule of Thumb">
+Use **Arrow functions** for callbacks, array iterators (`map`, `filter`), and promise handlers. Use **Regular functions** (or method syntax `fn() {}`) for object methods that need dynamic `this` access.
+</Tip>

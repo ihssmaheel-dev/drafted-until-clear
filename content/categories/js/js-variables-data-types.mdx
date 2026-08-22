@@ -1,0 +1,32 @@
+---
+id: "js-variables-data-types"
+level: "Fresher"
+q: "What is a Variable, and what is the difference between var, let, and const?"
+wrong: "They all declare variables, and `const` makes an object <Bad>completely unchangeable</Bad>."
+takeaway: "`var` is <Bad>function-scoped and hoisted with undefined</Bad>, while `let` and `const` are <Good>block-scoped and placed in the Temporal Dead Zone (TDZ)</Good>. `const` prevents reassigning the variable binding, not mutating object properties."
+---
+
+# Why it misses
+`const` creates an immutable *variable binding* (you cannot reassign `a = somethingElse`), but the object or array it points to remains fully mutable (`a.push(1)` works).
+
+```javascript
+const user = { name: "Alex" };
+user.name = "Sam"; // Completely valid! Object is mutated.
+// user = { name: "Taylor" }; // TypeError: Assignment to constant variable.
+```
+
+<Steps>
+  <Step icon="box" title="1. var (Legacy & Function-Scoped)">
+    Scoped to the enclosing function (not `{}` blocks). Hoisted to the top of its scope and initialized with `undefined`, making it prone to variable leakage in loops.
+  </Step>
+  <Step icon="shield" title="2. let (Modern Mutable Variable)">
+    Strictly scoped to the enclosing block (`{ ... }`). Cannot be accessed before declaration (Temporal Dead Zone), preventing accidental undefined bugs.
+  </Step>
+  <Step icon="key" title="3. const (Modern Reassignment-Safe Binding)">
+    Block-scoped like `let`, but requires immediate initialization and cannot be reassigned. Use `const` by default for predictable code.
+  </Step>
+</Steps>
+
+<Tip title="Best Practice Rule">
+Follow the default rule: **Use `const` for everything** by default. Switch to `let` only when you know the value must be reassigned (e.g. counters, loop iterators). Never use `var` in modern JavaScript.
+</Tip>

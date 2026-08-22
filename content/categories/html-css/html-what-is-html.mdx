@@ -1,0 +1,29 @@
+---
+id: "html-what-is-html"
+level: "Fresher"
+q: "What is HTML, and how does a web browser turn HTML tags into web pages?"
+wrong: "HTML is a <Bad>programming language</Bad> that executes logic on the computer."
+takeaway: "HTML (HyperText Markup Language) is a <Good>declarative document structuring standard</Good> that browsers parse into the Document Object Model (DOM) tree."
+---
+
+# Why it misses
+HTML is not a programming language—it has no variables, functions, or algorithmic control flow. It is a markup syntax that annotates raw text with semantic meaning and hierarchy for browsers to construct visual rendering trees.
+
+<Steps>
+  <Step icon="layers" title="1. Elements, Tags, and Attributes">
+    HTML consists of opening tags (`<p>`), closing tags (`</p>`), content, and attributes (`href="..."`, `class="..."`) that describe media, links, text blocks, and forms.
+  </Step>
+  <Step icon="cpu" title="2. Tokenization & DOM Tree Construction">
+    As the browser receives raw HTML bytes over the network, the HTML parser tokenizes strings into tags and builds a hierarchical tree of nodes in memory called the **DOM (Document Object Model)**.
+  </Step>
+  <Step icon="globe" title="3. Integration with CSSOM & Render Tree">
+    The DOM combines with the parsed CSS tree (**CSSOM**) to form the **Render Tree**, which the browser paints onto the physical screen pixels.
+  </Step>
+</Steps>
+
+<Tip title="Mental Model">
+Think of web development like a house:
+- **HTML**: The brick structure and walls (Skeleton).
+- **CSS**: The paint, styling, and interior layout (Appearance).
+- **JavaScript**: The electrical wiring, appliances, and buttons (Interactivity).
+</Tip>

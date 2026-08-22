@@ -1,0 +1,40 @@
+---
+id: "node-what-is-a-server"
+level: "Fresher"
+q: "What is a Server, and what role does Node.js play in backend development?"
+wrong: "A server is a <Bad>special magical computer</Bad> that only big tech companies can own."
+takeaway: "A server is simply a <Good>program running on a computer that continuously listens on a network port to receive requests and send responses</Good>."
+---
+
+# Why it misses
+Any laptop or Raspberry Pi running a Node.js script that listens on a port (`app.listen(3000)`) is a full-fledged HTTP server.
+
+```javascript
+import http from "node:http";
+
+// Simple native Node.js HTTP server:
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify({ message: "Hello from Node.js Server!" }));
+});
+
+server.listen(3000, () => {
+  console.log("Server listening on port 3000");
+});
+```
+
+<Steps>
+  <Step icon="globe" title="1. Request-Response Lifecycle">
+    A client (like a browser or mobile app) sends an HTTP Request (URL, Method, Headers, Body). The server processes the request and sends back an HTTP Response (Status Code, Headers, Data).
+  </Step>
+  <Step icon="cpu" title="2. Node.js as the Backend Engine">
+    Node.js runs backend JavaScript to query databases, authenticate users, hash passwords, process payments, and serve JSON APIs or HTML pages.
+  </Step>
+  <Step icon="shield" title="3. Security & Business Logic Layer">
+    Unlike frontend code (which runs publicly in the user's browser where anyone can inspect it), server code runs in a private, secure environment where API keys and database credentials remain hidden.
+  </Step>
+</Steps>
+
+<Tip title="Mental Model">
+The frontend is the restaurant dining room and menu (what the customer sees). The backend server is the kitchen (where the actual preparation, inventory, and secret recipes exist).
+</Tip>

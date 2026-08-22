@@ -1,0 +1,40 @@
+---
+id: "next-routing-app-router"
+level: "Fresher"
+q: "What is Routing, and how does File-System Routing work in the Next.js App Router?"
+wrong: "Routing requires you to <Bad>manually configure a React Router `<Routes>` component</Bad> with paths."
+takeaway: "In Next.js, <Good>folders define URL paths and special files (`page.tsx`, `layout.tsx`, `loading.tsx`) define the UI for that segment</Good>."
+---
+
+# Why it misses
+In the Next.js App Router, you never write manual route configuration files. Every folder inside `app/` automatically maps to a URL segment, eliminating route configuration boilerplate.
+
+```
+app/
+├── layout.tsx         -> Global Root Layout (wraps all pages)
+├── page.tsx           -> Home Route ("/")
+├── about/
+│   └── page.tsx       -> About Route ("/about")
+└── blog/
+    └── [slug]/
+        └── page.tsx   -> Dynamic Route ("/blog/my-post")
+```
+
+<Steps>
+  <Step icon="layers" title="1. Folders = URL Paths">
+    Creating a folder named `app/dashboard/settings/` automatically creates the web URL path `/dashboard/settings`.
+  </Step>
+  <Step icon="box" title="2. The page.tsx Rule">
+    A route is only publicly accessible if the folder contains a `page.tsx` file. Non-page files (components, styles, tests) can live in the folder without exposing a public URL.
+  </Step>
+  <Step icon="zap" title="3. Dynamic Segments ([id])">
+    Wrapping a folder name in brackets (`app/users/[id]/page.tsx`) creates dynamic parameters accessible via `params.id`.
+  </Step>
+</Steps>
+
+<Tip title="Special File Conventions">
+- `page.tsx`: The unique UI of the route.
+- `layout.tsx`: Shared UI that persists and does not re-render across page transitions.
+- `loading.tsx`: Instant React Suspense fallback loading state.
+- `error.tsx`: React Error Boundary for isolated error handling.
+</Tip>

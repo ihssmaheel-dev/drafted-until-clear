@@ -1,0 +1,32 @@
+---
+id: "db-table-relationships"
+level: "Junior"
+q: "What are the 3 main types of Database Table Relationships (1-to-1, 1-to-Many, Many-to-Many)?"
+wrong: "All relationships are handled by <Bad>putting a comma-separated list of IDs in a single text column</Bad>."
+takeaway: "Relationships are structured using foreign keys: <Good>1-to-1 embeds a unique FK, 1-to-Many puts an FK on the child table, and Many-to-Many requires a dedicated Junction/Join table</Good>."
+---
+
+# Why it misses
+Storing lists of IDs as strings (`"1,4,7"`) breaks relational normalization, prevents indexing, and makes `JOIN` queries and data deletion integrity impossible.
+
+<Steps>
+  <Step icon="key" title="1. One-to-One (1:1)">
+    One record in Table A relates to exactly one record in Table B.
+    - *Example*: A `User` has one `UserProfile` (or `UserTaxInfo`).
+    - *Implementation*: Put a `user_id` Foreign Key with a `UNIQUE` constraint in `profiles`.
+  </Step>
+  <Step icon="layers" title="2. One-to-Many (1:N) - Most Common">
+    One record in Table A relates to multiple records in Table B.
+    - *Example*: One `Author` has many `Books`. One `Customer` has many `Orders`.
+    - *Implementation*: Put an `author_id` Foreign Key column on the **Many** side (`books` table).
+  </Step>
+  <Step icon="net" title="3. Many-to-Many (N:M)">
+    Multiple records in Table A relate to multiple records in Table B.
+    - *Example*: `Students` and `Courses` (a student takes many courses; a course has many students).
+    - *Implementation*: Create a **Junction / Join Table** (`student_courses`) containing `student_id` and `course_id` composite foreign keys.
+  </Step>
+</Steps>
+
+<Tip title="Database Design Rule">
+Whenever you spot a Many-to-Many relationship, immediately introduce a middle junction table. Never attempt to stuff multiple IDs into a single database cell.
+</Tip>

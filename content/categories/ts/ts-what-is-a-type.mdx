@@ -1,0 +1,42 @@
+---
+id: "ts-what-is-a-type"
+level: "Fresher"
+q: "What is a Type in programming, and why does TypeScript add static types to JavaScript?"
+wrong: "Types are just <Bad>comments</Bad> that help humans read code without affecting the compiler."
+takeaway: "A Type defines the <Good>set of valid values and operations permitted on data</Good>, allowing TypeScript to catch bugs at compile-time before code reaches users."
+---
+
+# Why it misses
+JavaScript is dynamically typed: variable types are only known when the line is executed in the browser. If a variable is unexpectedly `undefined`, the application crashes in production with `TypeError: Cannot read properties of undefined`.
+
+```typescript
+// JavaScript (Crashes at runtime when user clicks button):
+function printName(user) {
+  console.log(user.name.toUpperCase()); // Crashes if user or name is missing!
+}
+
+// TypeScript (Catches the bug immediately in the editor):
+interface User {
+  name: string;
+}
+function printName(user: User) {
+  console.log(user.name.toUpperCase()); // 100% type-safe
+}
+```
+
+<Steps>
+  <Step icon="shield" title="1. Static vs Dynamic Typing">
+    - **Dynamic (JavaScript)**: Types are checked during runtime execution. Errors crash in the user's browser.
+    - **Static (TypeScript)**: Types are checked ahead of time during compilation in your editor. Errors are caught before committing code.
+  </Step>
+  <Step icon="box" title="2. The Contract of Types">
+    A type defines what operations are legal (e.g. you can call `.toFixed()` on a `number`, but not on a `boolean`).
+  </Step>
+  <Step icon="zap" title="3. Developer Superpowers">
+    Types power rich IDE autocompletion (IntelliSense), automated refactoring, and instant self-documenting code.
+  </Step>
+</Steps>
+
+<Tip title="Mental Model">
+Think of Types like safety guardrails on a mountain road. They don't slow down the car (zero runtime overhead), but they prevent you from driving off a cliff.
+</Tip>

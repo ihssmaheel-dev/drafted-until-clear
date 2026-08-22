@@ -1,0 +1,39 @@
+---
+id: "ts-any-vs-unknown"
+level: "Junior"
+q: "Why is any considered dangerous, and why is unknown the type-safe alternative?"
+wrong: "`any` and `unknown` are the <Bad>exact same escape hatch</Bad> for disabling TypeScript checking."
+takeaway: "`any` <Bad>silences the type-checker completely and spreads unchecked</Bad>, while `unknown` <Good>forces you to perform type checks (type narrowing) before accessing properties</Good>."
+---
+
+# Why it misses
+`any` acts like a virus in your codebase: assigning an `any` variable to another variable infects it with `any`, disabling type safety everywhere it touches. `unknown` represents an unknown type safely by preventing all property accesses until verified.
+
+```typescript
+let valueA: any = "hello";
+valueA.nonExistentMethod(); // TS allows this! (Crashes at runtime)
+
+let valueB: unknown = "hello";
+// valueB.toUpperCase(); // Error: 'valueB' is of type 'unknown'.
+
+// Type safety enforced:
+if (typeof valueB === "string") {
+  console.log(valueB.toUpperCase()); // Allowed because type is proven to be string!
+}
+```
+
+<Steps>
+  <Step icon="flag" title="1. any (Total Safety Opt-Out)">
+    Tells TypeScript: *"Trust me, I know what I am doing, turn off all checking."* It bypasses autocompletion and hides runtime crashes.
+  </Step>
+  <Step icon="shield" title="2. unknown (The Safe Top Type)">
+    Tells TypeScript: *"This value could be anything (like an external API response), so don't let me do anything with it until I prove what type it is."*
+  </Step>
+  <Step icon="key" title="3. Enforced Narrowing">
+    You must use `typeof`, `instanceof`, or schema validators (like Zod) to narrow `unknown` before calling methods or accessing properties.
+  </Step>
+</Steps>
+
+<Tip title="Rule of Thumb">
+Whenever you don't know the incoming type of external data (e.g. `JSON.parse` or API responses), **never use `any`**. Always type it as `unknown` and narrow it safely.
+</Tip>

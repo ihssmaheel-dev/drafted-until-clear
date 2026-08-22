@@ -1,6 +1,6 @@
 ---
 id: "node-event-loop"
-level: "Intermediate"
+level: "Mid-Level"
 q: "If Node.js is single-threaded, how does it handle thousands of requests at once?"
 wrong: "Node spins up a <Bad>new thread</Bad> for every incoming request."
 takeaway: "Concurrency here means <Good>overlapping wait time</Good>, not parallel execution. CPU-heavy work still blocks everything — that's what <Sys>worker threads</Sys> exist for."

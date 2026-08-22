@@ -1,0 +1,41 @@
+---
+id: "js-arrays-map-filter-reduce"
+level: "Fresher"
+q: "What is the difference between forEach, map, filter, and reduce in JavaScript?"
+wrong: "They are all <Bad>loops that do the same thing</Bad>, so you can use `forEach` everywhere."
+takeaway: "`forEach` <Good>executes side-effects and returns undefined</Good>, `map` <Good>transforms every item into a new array of the same length</Good>, `filter` <Good>returns a subset array</Good>, and `reduce` <Good>accumulates items into a single final value</Good>."
+---
+
+# Why it misses
+Using `forEach` when you need transformed data requires manually declaring an empty external array and pushing into it, introducing state mutation bugs that functional methods like `map` and `filter` prevent completely.
+
+```javascript
+const numbers = [1, 2, 3, 4];
+
+// map: Transforms each item (returns [2, 4, 6, 8])
+const doubled = numbers.map(n => n * 2);
+
+// filter: Keeps matching items (returns [2, 4])
+const evens = numbers.filter(n => n % 2 === 0);
+
+// reduce: Accumulates into one value (returns sum: 10)
+const total = numbers.reduce((sum, n) => sum + n, 0);
+```
+
+<Steps>
+  <Step icon="loop" title="1. forEach (Side Effects Only)">
+    Iterates over each element and returns `undefined`. You cannot chain it and you cannot break out of it early. Use it strictly to trigger side effects (e.g. logging or saving to external systems).
+  </Step>
+  <Step icon="box" title="2. map & filter (Pure Transformation)">
+    Both return a **brand new array** without mutating the original array:
+    - `map`: Always returns a new array of the **exact same length**.
+    - `filter`: Returns a new array containing only elements that pass the boolean condition.
+  </Step>
+  <Step icon="gear" title="3. reduce (Flexible Aggregation)">
+    Iterates with an accumulator value. Can produce numbers (sums), objects (grouping items by category), or flattened data structures.
+  </Step>
+</Steps>
+
+<Tip title="Immutability Tip">
+Modern UI frameworks (like React) rely on immutability. Never mutate an existing array in state with `push()` or `splice()`. Always return a new array using `map()`, `filter()`, or the spread operator `[...arr, newItem]`.
+</Tip>

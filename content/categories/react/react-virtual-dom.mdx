@@ -1,0 +1,26 @@
+---
+id: "react-virtual-dom"
+level: "Fresher"
+q: "What is the Virtual DOM, and why does React use it instead of directly updating the real DOM?"
+wrong: "The Virtual DOM makes React <Bad>faster than direct browser DOM manipulation in every situation</Bad>."
+takeaway: "The Virtual DOM is an <Good>in-memory JavaScript representation of the real DOM</Good> that enables batching and diffing (Reconciliation) to minimize expensive real DOM updates."
+---
+
+# Why it misses
+Direct DOM operations are not slow because of JavaScript; they are slow because the browser must trigger layout recalculations (Reflow) and pixel redraws (Repaint) every time the real DOM tree changes.
+
+<Steps>
+  <Step icon="cpu" title="1. Lightweight JavaScript Tree">
+    The Virtual DOM is a simple, lightweight nested JavaScript object tree (`{ type: 'div', props: { ... } }`). Creating and modifying JS objects in memory takes microseconds.
+  </Step>
+  <Step icon="scale" title="2. Diffing Algorithm (Reconciliation)">
+    When a component's state changes, React generates a new Virtual DOM tree and compares it to the previous snapshot to calculate the exact minimal changes required.
+  </Step>
+  <Step icon="zap" title="3. Batched DOM Updates">
+    Instead of making 50 individual DOM updates that each trigger layout recalculation, React batches the calculated diff into a single, efficient real DOM update pass.
+  </Step>
+</Steps>
+
+<Tip title="Key Mental Model">
+Think of the Virtual DOM like a blueprint draft. You make all your edits, corrections, and calculations on paper first. Once the final layout is verified, you only build what actually changed on the real construction site.
+</Tip>

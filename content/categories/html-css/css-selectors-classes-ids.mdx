@@ -1,0 +1,26 @@
+---
+id: "css-selectors-classes-ids"
+level: "Fresher"
+q: "What is the difference between Class selectors (.class) and ID selectors (#id) in CSS?"
+wrong: "IDs and Classes are interchangeable; you can just <Bad>use whichever syntax you prefer</Bad>."
+takeaway: "Classes (`.`) are <Good>reusable across multiple elements and have moderate specificity</Good>, while IDs (`#`) <Good>must be unique per page and have overwhelmingly high specificity</Good>."
+---
+
+# Why it misses
+Using IDs for styling creates specificity bottlenecks that make overriding styles nearly impossible without resorting to `!important`.
+
+<Steps>
+  <Step icon="layers" title="1. Class Selectors (.btn, .card)">
+    Designed for **reusable styling**. Multiple HTML elements on the same page can share the same class name, and a single element can have multiple classes (`class="btn btn-primary"`).
+  </Step>
+  <Step icon="key" title="2. ID Selectors (#header, #login-form)">
+    Designed for **unique document identifiers**. In valid HTML, an `id` must appear only once per page. Used primarily for fragment URL navigation (`#contact`) and JavaScript hooks (`getElementById`).
+  </Step>
+  <Step icon="scale" title="3. Specificity Comparison">
+    One single `#id` selector overrides any number of chained classes (`.card.active.highlighted`). This makes IDs dangerous for design system maintainability.
+  </Step>
+</Steps>
+
+<Tip title="Rule of Thumb">
+Use **Classes** for 100% of your styling and design components. Reserve **IDs** for form label associations (`<label for="email">`), fragment anchor links, and accessibility landmarks.
+</Tip>

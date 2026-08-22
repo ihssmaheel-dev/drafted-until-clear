@@ -104,6 +104,16 @@ const components = {
   ),
 };
 
+const LEVEL_BADGES: Record<string, { label: string; class: string }> = {
+  "Fresher": { label: "Fresher (0–1 Yrs)", class: "bg-cyan/10 text-cyan border-cyan/20" },
+  "Junior": { label: "Junior (1–3 Yrs)", class: "bg-green/10 text-green border-green/20" },
+  "Mid-Level": { label: "Mid-Level (3–5 Yrs)", class: "bg-amber/10 text-amber border-amber/20" },
+  "Senior": { label: "Senior (5+ Yrs)", class: "bg-violet/10 text-violet border-violet/20" },
+  "Beginner": { label: "Fresher (0–1 Yrs)", class: "bg-cyan/10 text-cyan border-cyan/20" },
+  "Intermediate": { label: "Mid-Level (3–5 Yrs)", class: "bg-amber/10 text-amber border-amber/20" },
+  "Advanced": { label: "Senior (5+ Yrs)", class: "bg-violet/10 text-violet border-violet/20" },
+};
+
 export function QuestionCard({ question, index }: QuestionCardProps) {
   return (
     <motion.article
@@ -115,11 +125,21 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
       id="active-question-pane"
     >
       <div className="flex flex-col gap-3 p-5 sm:p-6 border-b border-border bg-card">
-        <h2 className="font-sans text-[19px] sm:text-[21px] font-semibold tracking-tight text-foreground leading-snug flex items-start gap-3">
-          <span className="flex h-7 shrink-0 items-center justify-center rounded-md bg-cyan/10 px-2 min-w-7 text-[13px] font-bold text-cyan border border-cyan/20 font-mono tracking-tight">
+        <div className="flex items-center justify-between gap-2">
+          <span className="flex h-6 shrink-0 items-center justify-center rounded-md bg-cyan/10 px-2 text-[12px] font-bold text-cyan border border-cyan/20 font-mono tracking-tight">
             Q{index !== undefined ? index : ""}
           </span>
-          <span className="mt-0.5">{question.q}</span>
+          {question.level && (
+            <span className={cn(
+              "font-mono text-[10.5px] font-bold px-2.5 py-0.5 rounded-full border tracking-wider uppercase",
+              LEVEL_BADGES[question.level]?.class ?? "bg-secondary text-text-muted border-border"
+            )}>
+              {LEVEL_BADGES[question.level]?.label ?? question.level}
+            </span>
+          )}
+        </div>
+        <h2 className="font-sans text-[19px] sm:text-[21px] font-semibold tracking-tight text-foreground leading-snug">
+          {question.q}
         </h2>
       </div>
 

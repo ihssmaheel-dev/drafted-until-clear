@@ -1,0 +1,41 @@
+---
+id: "css-media-queries-responsive"
+level: "Junior"
+q: "What is Responsive Web Design, and how do CSS Media Queries and Viewport meta tags work?"
+wrong: "Responsive design just means <Bad>creating a separate mobile website (m.domain.com)</Bad>."
+takeaway: "Responsive design uses a <Good>fluid grid, flexible media, and CSS `@media` queries with a viewport meta tag</Good> to seamlessly adapt a single codebase across all screen sizes."
+---
+
+# Why it misses
+Without the essential `<meta name="viewport" content="width=device-width, initial-scale=1">` tag in HTML `<head>`, mobile browsers automatically render pages at a zoomed-out 980px desktop width, ignoring your CSS media queries.
+
+```css
+/* Mobile-first baseline: */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tablet & Desktop enhancement: */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+}
+```
+
+<Steps>
+  <Step icon="globe" title="1. The Viewport Meta Tag">
+    Tells mobile browsers to map the CSS pixel viewport directly to the physical device screen width (`width=device-width`) with a 1:1 scale ratio.
+  </Step>
+  <Step icon="layers" title="2. Mobile-First Media Queries (min-width)">
+    Write default CSS rules for small mobile screens first without media queries. Use `@media (min-width: 768px)` and `@media (min-width: 1024px)` to layer on desktop enhancements as screen real estate increases.
+  </Step>
+  <Step icon="box" title="3. Fluid Measurements (rem, %, fr, clamp)">
+    Combine media queries with responsive CSS units like `rem` (for accessible typography scaling), `%`, `fr` (CSS Grid), and `clamp(1rem, 2.5vw, 2rem)` for fluid responsiveness.
+  </Step>
+</Steps>
+
+<Tip title="Mobile-First Principle">
+Always write CSS **Mobile-First** using `min-width` breakpoints rather than desktop-first using `max-width`. Mobile-first reduces CSS overrides and loads cleaner stylesheets on mobile devices.
+</Tip>

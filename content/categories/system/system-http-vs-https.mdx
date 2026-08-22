@@ -1,0 +1,27 @@
+---
+id: "system-http-vs-https"
+level: "Fresher"
+q: "What is the difference between HTTP and HTTPS, and how does SSL/TLS encryption work?"
+wrong: "HTTPS is just a <Bad>faster version of HTTP</Bad> that requires extra domain fees."
+takeaway: "HTTP transmits plain-text vulnerable to eavesdropping and tampering, while HTTPS <Good>encrypts all transport traffic using TLS (Transport Layer Security) asymmetric and symmetric cryptography</Good>."
+---
+
+# Why it misses
+On plain HTTP (port 80), anyone on the same public Wi-Fi network (or router/ISP) can view passwords, credit cards, and session cookies in clear plain text using packet sniffers like Wireshark.
+
+<Steps>
+  <Step icon="globe" title="1. HTTP (HyperText Transfer Protocol - Port 80)">
+    Transmits requests and responses as unencrypted plain text. Offers zero encryption, zero data integrity verification, and zero server identity authentication.
+  </Step>
+  <Step icon="shield" title="2. HTTPS (HTTP Secure - Port 443)">
+    Wraps standard HTTP requests inside a cryptographic **TLS (Transport Layer Security)** tunnel, ensuring confidentiality, tamper-proof integrity, and proof of domain ownership via SSL Certificates.
+  </Step>
+  <Step icon="key" title="3. Asymmetric + Symmetric Hybrid Handshake">
+    - **Asymmetric Encryption (RSA/ECC)**: Used during the initial handshake. The server presents its Public Certificate to authenticate identity and securely exchange a temporary one-time shared secret key.
+    - **Symmetric Encryption (AES-GCM)**: Once the secret key is shared, all subsequent web traffic is encrypted with ultra-fast symmetric encryption.
+  </Step>
+</Steps>
+
+<Tip title="Browser Security Warning">
+Modern web browsers mark all non-HTTPS sites as "Not Secure" and block modern browser APIs (like Service Workers, Geolocation, and Web Cryptography) on insecure HTTP origins.
+</Tip>

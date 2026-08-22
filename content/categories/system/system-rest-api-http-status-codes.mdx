@@ -1,0 +1,37 @@
+---
+id: "system-rest-api-http-status-codes"
+level: "Junior"
+q: "What is a REST API, and what are the essential HTTP Status Code families (2xx, 3xx, 4xx, 5xx)?"
+wrong: "APIs can just return <Bad>status 200 OK for everything with `{ error: 'failed' }`</Bad> inside the body."
+takeaway: "REST (Representational State Transfer) uses <Good>stateless resource URLs, standardized HTTP verbs (`GET`, `POST`, `PUT`, `DELETE`), and canonical status codes</Good> to enable predictable client-server contracts."
+---
+
+# Why it misses
+Returning HTTP `200 OK` when an operation failed breaks HTTP caching proxies, makes client error handling awkward, and breaks automated monitoring tools like Datadog or Sentry.
+
+| Code Category | Range | Meaning | Common Examples |
+|---|---|---|---|
+| **2xx** | Success | Request was received, understood, and accepted | `200 OK`, `201 Created`, `204 No Content` |
+| **3xx** | Redirection | Further action must be taken by client | `301 Moved Permanently`, `304 Not Modified` |
+| **4xx** | Client Error | The client sent invalid data or lacks permission | `400 Bad Request`, `401 Unauthorized`, `403 Forbidden`, `404 Not Found` |
+| **5xx** | Server Error | The server failed to fulfill an otherwise valid request | `500 Internal Server Error`, `502 Bad Gateway`, `503 Service Unavailable` |
+
+<Steps>
+  <Step icon="key" title="1. 401 Unauthorized vs 403 Forbidden">
+    - **401 Unauthorized**: *"Who are you?"* (User has not provided valid authentication credentials).
+    - **403 Forbidden**: *"I know who you are, but you don't have permission to access this resource."* (Role-based access rejection).
+  </Step>
+  <Step icon="globe" title="2. Idempotency of HTTP Verbs">
+    - `GET`, `PUT`, `DELETE` are **idempotent**: Calling them 1 time or 100 times produces the exact same server state.
+    - `POST` is **non-idempotent**: Calling it multiple times creates multiple duplicate resources.
+  </Step>
+  <Step icon="layers" title="3. RESTful Resource URLs">
+    URLs represent nouns (resources), not verbs:
+    - Good: `GET /api/users/123/orders`
+    - Bad: `POST /api/getUserOrders?userId=123`
+  </Step>
+</Steps>
+
+<Tip title="API Design Rule">
+Always use semantic HTTP status codes. If creating a user, return `201 Created` with a `Location` header, not `200 OK`.
+</Tip>

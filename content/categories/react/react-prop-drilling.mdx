@@ -1,0 +1,37 @@
+---
+id: "react-prop-drilling"
+level: "Junior"
+q: "What is Prop Drilling in React, and what are the best ways to solve it?"
+wrong: "Prop Drilling is a <Bad>syntax error</Bad> that requires you to install Redux immediately."
+takeaway: "Prop Drilling is <Bad>passing props through intermediary components that don't need them</Bad>. It is solved by <Good>Component Composition (`children` prop), React Context, or state management stores</Good>."
+---
+
+# Why it misses
+Prop drilling is not a crash or error; it is an architectural code smell that makes refactoring difficult and couples unrelated intermediary components to data shapes they never use.
+
+```tsx
+// Prop Drilling: GrandParent -> Parent -> Child
+function GrandParent() { return <Parent user={user} />; }
+function Parent({ user }) { return <Child user={user} />; } // Parent doesn't need user!
+
+// Solution 1: Component Composition (pass children directly)
+function GrandParent() { 
+  return <Parent><Child user={user} /></Parent>; 
+}
+```
+
+<Steps>
+  <Step icon="layers" title="1. The Problem (Tightly Coupled Chain)">
+    When a deeply nested component needs data from a top-level parent, passing that data through 4 levels of intermediate components pollutes their props interface.
+  </Step>
+  <Step icon="box" title="2. Solution A: Component Composition (First Choice)">
+    Passing JSX components via the `children` prop allows the top-level parent to pass props directly to the child, bypassing intermediate containers completely.
+  </Step>
+  <Step icon="globe" title="3. Solution B: React Context API & State Stores">
+    For truly global data (current user auth, theme, language), `createContext` and `useContext` allow any deep child component to consume state directly without passing props.
+  </Step>
+</Steps>
+
+<Tip title="Decision Rule">
+Before reaching for Context or external state libraries (Zustand, Redux), see if simple component composition (`children` prop) solves the issue without global state overhead.
+</Tip>

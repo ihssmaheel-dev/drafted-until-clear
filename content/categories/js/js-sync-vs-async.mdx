@@ -1,0 +1,39 @@
+---
+id: "js-sync-vs-async"
+level: "Junior"
+q: "What is Synchronous vs Asynchronous JavaScript, and how do Promises and async/await work?"
+wrong: "Asynchronous JavaScript means the browser <Bad>creates multiple threads to run JS code simultaneously</Bad>."
+takeaway: "JavaScript remains strictly single-threaded; asynchronous operations are <Good>delegated to host Web APIs/libuv and queued back onto the event loop via Promises</Good>."
+---
+
+# Why it misses
+JavaScript never runs your script logic on background threads. When you invoke `fetch()` or `setTimeout()`, the browser/Node C++ background runtime handles the waiting, and pushes your callback function onto the Event Loop queue when finished.
+
+```javascript
+// async/await is syntactic sugar over Promises:
+async function loadUserData(userId) {
+  try {
+    const res = await fetch(`/api/users/${userId}`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to load user:", error);
+  }
+}
+```
+
+<Steps>
+  <Step icon="clock" title="1. Synchronous (Blocking Execution)">
+    Statements execute sequentially top-to-bottom. Each line must finish before the next line starts. If a line takes 5 seconds, the browser freezes completely.
+  </Step>
+  <Step icon="zap" title="2. Asynchronous (Non-Blocking Promises)">
+    Asynchronous operations return a `Promise` object representing an eventual completion (`pending`, `fulfilled`, `rejected`). The main call stack continues immediately without freezing.
+  </Step>
+  <Step icon="key" title="3. async / await Syntactic Clarity">
+    `async` marks a function to return a Promise automatically. `await` pauses execution inside that specific async function until the Promise settles, letting you write asynchronous code that reads cleanly like synchronous code.
+  </Step>
+</Steps>
+
+<Tip title="Error Handling Rule">
+Always wrap `await` calls in a `try...catch` block, or attach a `.catch()` handler to avoid unhandled promise rejection crashes in production.
+</Tip>

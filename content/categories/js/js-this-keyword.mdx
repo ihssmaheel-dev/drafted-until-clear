@@ -1,0 +1,35 @@
+---
+id: "js-this-keyword"
+level: "Junior"
+q: "What is the this keyword in JavaScript, and how is its value determined?"
+wrong: "`this` always points to the <Bad>function where it is written</Bad>."
+takeaway: "The value of `this` is determined by <Good>how a function is called at runtime (Call-site)</Good>, unless bound by Arrow Functions, `.bind()`, `.call()`, or `.apply()`."
+---
+
+# Why it misses
+`this` is not static. In regular functions, `this` has zero relationship with where the function was declared—it is entirely evaluated dynamically when the function is invoked.
+
+<Steps>
+  <Step icon="key" title="1. Default Binding (Standalone Invocation)">
+    Calling `fn()` directly sets `this` to the global object (`window` in browsers), or `undefined` in strict mode (`"use strict"`).
+  </Step>
+  <Step icon="box" title="2. Implicit Binding (Method Invocation)">
+    Calling `user.fn()` binds `this` to the object preceding the dot (`user`). Passing `user.fn` as a callback loses this binding.
+  </Step>
+  <Step icon="wrench" title="3. Explicit Binding (call, apply, bind)">
+    - `fn.call(obj, arg1, arg2)`: Invokes function immediately with `this = obj`.
+    - `fn.apply(obj, [args])`: Same as call, but takes arguments as an array.
+    - `fn.bind(obj)`: Returns a **brand new function** permanently locked with `this = obj`.
+  </Step>
+  <Step icon="cpu" title="4. new Binding (Constructor Invocation)">
+    Calling `new Constructor()` creates a brand new empty object and binds `this` to that new instance.
+  </Step>
+</Steps>
+
+<Tip title="The 4-Rule Priority Order">
+When determining `this`, check in this exact order:
+1. Called with `new`? -> Newly created object.
+2. Called with `call/apply/bind`? -> Explicit object.
+3. Called as object method (`obj.fn()`)? -> Context object.
+4. Default -> `undefined` (strict mode) or `window`.
+</Tip>

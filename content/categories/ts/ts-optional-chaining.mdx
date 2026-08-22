@@ -1,0 +1,38 @@
+---
+id: "ts-optional-chaining"
+level: "Junior"
+q: "What is Optional Chaining (?.) and Nullish Coalescing (??) in TypeScript / Modern JS?"
+wrong: "Optional chaining is just a <Bad>try-catch block</Bad>, and `??` is the exact same thing as `||`."
+takeaway: "Optional Chaining (`?.`) <Good>short-circuits to `undefined` if a reference is nullish</Good>, while Nullish Coalescing (`??`) <Good>falls back only on `null` or `undefined` (safely preserving `0`, `false`, and `\"\")`</Good>."
+---
+
+# Why it misses
+Using the logical OR operator (`||`) for default values causes bugs because it treats valid falsy values (`0`, `false`, `""`) as missing, replacing them with the default value unintentionally.
+
+```typescript
+// Problem with || (falsy bug):
+const count = 0;
+const displayCount = count || 10; // Result: 10 (BUG! 0 was a valid count)
+
+// Solution with ?? (nullish only):
+const safeDisplay = count ?? 10; // Result: 0 (Correct!)
+
+// Optional Chaining safe navigation:
+const city = user?.address?.city; // Returns undefined without crashing if user/address is null
+```
+
+<Steps>
+  <Step icon="zap" title="1. Optional Chaining (?.)">
+    Safely reads deeply nested object properties or invokes optional methods (`onClick?.()`). If any link in the chain is `null` or `undefined`, evaluation stops immediately and returns `undefined`.
+  </Step>
+  <Step icon="key" title="2. Nullish Coalescing (??)">
+    Returns the right-hand operand **only if the left-hand operand is strictly `null` or `undefined`**. It does not fall back on `0`, `false`, or `""`.
+  </Step>
+  <Step icon="shield" title="3. Elimination of Boilerplate">
+    Replaces long, error-prone defensive chains like `user && user.address && user.address.city` with a single, clean expression `user?.address?.city`.
+  </Step>
+</Steps>
+
+<Tip title="Clean Code Standard">
+Always use `??` instead of `||` when setting default configuration options or numerical values where `0` or `false` are valid inputs.
+</Tip>

@@ -1,0 +1,37 @@
+---
+id: "db-crud-operations"
+level: "Fresher"
+q: "What are the 4 fundamental CRUD operations in databases, and how do they map to HTTP methods and SQL commands?"
+wrong: "CRUD is just a <Bad>special database programming language</Bad>."
+takeaway: "CRUD stands for <Good>Create, Read, Update, Delete</Good>—the four universal data actions that power all database operations and RESTful APIs."
+---
+
+# Why it misses
+CRUD is the universal vocabulary connecting Frontend UI actions, HTTP network methods, and backend SQL database commands.
+
+| CRUD Action | SQL Command | HTTP REST Method | Example Action |
+|---|---|---|---|
+| **Create** | `INSERT INTO` | `POST` | User registers a new account |
+| **Read** | `SELECT ... FROM` | `GET` | User views their profile |
+| **Update** | `UPDATE ... SET` | `PUT` / `PATCH` | User edits their bio |
+| **Delete** | `DELETE FROM` | `DELETE` | User deletes an old post |
+
+<Steps>
+  <Step icon="box" title="1. Create (POST / INSERT)">
+    Adds a brand-new entity or record to the database table with a newly generated primary key ID.
+  </Step>
+  <Step icon="search" title="2. Read (GET / SELECT)">
+    Retrieves records matching query filters (`WHERE id = 5`, `ORDER BY created_at DESC`). Read operations must be idempotent and should never mutate data.
+  </Step>
+  <Step icon="gear" title="3. Update (PUT / PATCH / UPDATE)">
+    - `PUT`: Replaces the entire entity record with new payload.
+    - `PATCH`: Modifies only specific fields (partial update).
+  </Step>
+  <Step icon="flag" title="4. Delete (DELETE / DELETE FROM)">
+    Removes the record permanently (Hard Delete) or sets a timestamp flag like `deleted_at = NOW()` (Soft Delete).
+  </Step>
+</Steps>
+
+<Tip title="Safe Delete Standard">
+In production systems, preferred practice is **Soft Deletion** (`is_deleted = true` or `deleted_at`), allowing users to recover accidentally deleted data and preserving audit history.
+</Tip>

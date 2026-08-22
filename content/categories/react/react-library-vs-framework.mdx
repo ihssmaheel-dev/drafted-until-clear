@@ -1,0 +1,26 @@
+---
+id: "react-library-vs-framework"
+level: "Fresher"
+q: "What is a Library vs a Framework, and why is React called a library while Next.js or Angular are frameworks?"
+wrong: "Libraries and frameworks are the <Bad>exact same thing</Bad>, people just use whatever word they like."
+takeaway: "The difference is <Good>Inversion of Control</Good>: With a Library, your code calls the library. With a Framework, the framework calls your code."
+---
+
+# Why it misses
+The core difference between a library and a framework comes down to **who is in charge of the application architecture and execution flow**.
+
+<Steps>
+  <Step icon="box" title="1. Library (You are in control)">
+    A library is a collection of helper functions and tools you import into your own code. You decide your project folder structure, your routing solution, and your state management. You call the library whenever you need it (e.g. React for UI, Lodash for utilities).
+  </Step>
+  <Step icon="layers" title="2. Framework (The framework is in control)">
+    A framework provides a rigid scaffold, architectural rules, and opinions. It dictates where files must live, how routing works, and how data is fetched. The framework runs the main loop and calls your code at specific lifecycle moments (e.g. Next.js, Angular, Django).
+  </Step>
+  <Step icon="scale" title="3. Why React is technically a Library">
+    React only handles rendering UI components to the screen (`View = f(state)`). It does not include built-in routing, API data fetching, or server build tooling—you choose those yourself or use a framework built on top of React like Next.js.
+  </Step>
+</Steps>
+
+<Tip title="The Hollywood Principle">
+Frameworks follow the Hollywood Principle: *"Don't call us, we'll call you."* You write functions that fit into the framework's predefined slots, and the framework executes them when needed.
+</Tip>

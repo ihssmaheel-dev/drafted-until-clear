@@ -1,0 +1,35 @@
+---
+id: "node-middleware-concept"
+level: "Junior"
+q: "What is Middleware in Node.js / Express, and how does the next() function work?"
+wrong: "Middleware is just a <Bad>plugin</Bad> that runs after the route sends the response."
+takeaway: "Middleware is a <Good>pipeline function `(req, res, next)` that intercepts incoming requests, mutates them or checks auth, and calls `next()` to pass control to the next handler</Good>."
+---
+
+# Why it misses
+Middleware functions run **sequentially in a pipeline** between the moment a request reaches the server and the moment a response is returned. If a middleware fails to call `next()` or send a response, the request hangs forever.
+
+```javascript
+// Express middleware pipeline:
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  req.requestTime = Date.now(); // Mutate request object
+  next(); // Pass control to the next middleware or route
+});
+```
+
+<Steps>
+  <Step icon="layers" title="1. The Pipeline Chain (Onion Model)">
+    Requests flow through a sequential stack of middleware functions: Logging -> Body Parsing (`express.json()`) -> Authentication -> Route Handler -> Error Handling.
+  </Step>
+  <Step icon="key" title="2. The Role of next()">
+    Invoking `next()` tells the runtime: *"I'm done with my step, pass this request to the next middleware in line."* Calling `next(error)` immediately jumps past all remaining middleware to the global error handler.
+  </Step>
+  <Step icon="shield" title="3. Short-Circuiting (Early Response)">
+    If an auth middleware checks a token and finds it invalid, it immediately calls `res.status(401).json({ error: 'Unauthorized' })` without calling `next()`, stopping the request from ever reaching private database handlers.
+  </Step>
+</Steps>
+
+<Tip title="Common Gotcha">
+Never write code *after* calling `next()` that attempts to send another response (`res.send()`), as this triggers the infamous `ERR_HTTP_HEADERS_SENT` server crash.
+</Tip>

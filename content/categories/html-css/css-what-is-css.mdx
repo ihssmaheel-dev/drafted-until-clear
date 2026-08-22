@@ -1,0 +1,30 @@
+---
+id: "css-what-is-css"
+level: "Fresher"
+q: "What is CSS, and what are the 3 different ways to add CSS to an HTML document?"
+wrong: "CSS can only be written in a <Bad>separate .css file</Bad>, and inline styles are the exact same thing."
+takeaway: "CSS styles the DOM using 3 methods: <Good>External stylesheets (recommended for caching), Internal `<style>` tags, and Inline `style` attributes</Good>."
+---
+
+# Why it misses
+Understanding the 3 ways to apply styles is critical because they have completely different performance characteristics, caching rules, and specificity weights.
+
+<Steps>
+  <Step icon="box" title="1. External Stylesheet (<link rel='stylesheet' href='...'>)">
+    Styles live in dedicated `.css` files.
+    - *Pros*: Cached by the browser across pages, separates concerns, clean and maintainable.
+  </Step>
+  <Step icon="layers" title="2. Internal Styles (<style> in <head>)">
+    CSS written directly inside a `<style>` block inside the HTML document.
+    - *Pros*: Great for single-page templates or critical above-the-fold styling without blocking extra HTTP requests.
+  </Step>
+  <Step icon="zap" title="3. Inline Styles (style='...')">
+    Styles written directly onto an HTML element attribute.
+    - *Pros*: Highest specificity priority; great for dynamic runtime values (e.g. calculated widths).
+    - *Cons*: Cannot be cached, violates separation of concerns, cannot use media queries or pseudo-classes (`:hover`).
+  </Step>
+</Steps>
+
+<Tip title="Best Practice">
+Always default to external stylesheets or modern utility classes (like Tailwind CSS) for maintainable, cacheable web applications.
+</Tip>

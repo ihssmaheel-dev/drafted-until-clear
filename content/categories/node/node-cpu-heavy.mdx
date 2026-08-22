@@ -1,6 +1,6 @@
 ---
 id: "node-cpu-heavy"
-level: "Intermediate"
+level: "Mid-Level"
 q: "Why is running CPU-heavy work directly in a request handler a problem in Node?"
 wrong: "It's fine <Bad>as long as the function is marked async</Bad>."
 takeaway: "async/await manages waiting, not computing. Heavy computation needs to <Good>leave the main thread entirely</Good>, not just get an await in front of it."

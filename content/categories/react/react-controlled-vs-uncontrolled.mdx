@@ -1,0 +1,38 @@
+---
+id: "react-controlled-vs-uncontrolled"
+level: "Junior"
+q: "What is the difference between Controlled and Uncontrolled Components in React forms?"
+wrong: "Controlled components are <Bad>modern</Bad>, and uncontrolled components are <Bad>deprecated</Bad>."
+takeaway: "Controlled components have their form data <Good>driven by React state via `value` and `onChange`</Good>, while Uncontrolled components let the <Good>DOM handle its own form state, accessed via a `useRef`</Good>."
+---
+
+# Why it misses
+Uncontrolled components are not deprecated; they are the foundation for high-performance form libraries like React Hook Form because they prevent re-rendering the entire component on every keystroke.
+
+```tsx
+// Controlled: React controls every keystroke via state
+const [name, setName] = useState("");
+<input value={name} onChange={(e) => setName(e.target.value)} />
+
+// Uncontrolled: DOM stores value; React reads it on submit via Ref
+const inputRef = useRef<HTMLInputElement>(null);
+<input ref={inputRef} defaultValue="John" />
+```
+
+<Steps>
+  <Step icon="gear" title="1. Controlled Components (Single Source of Truth)">
+    The input value is bound directly to a `useState` variable. Whenever the user types, an `onChange` handler updates state, triggering a re-render to update the display.
+    - *Best for*: Instant UI feedback, character limits, dynamic disabling, inline validation.
+  </Step>
+  <Step icon="box" title="2. Uncontrolled Components (DOM-Driven)">
+    The browser manages the input field's state internally. React reads the current value only when needed (e.g. form submission) by querying the DOM node using a `useRef()`.
+    - *Best for*: Large complex forms, file uploads (`<input type="file" />`), and non-React UI integration.
+  </Step>
+  <Step icon="scale" title="3. Performance & Complexity Trade-off">
+    Controlled components offer instant validation at the cost of re-renders per character. Uncontrolled components provide zero-re-render performance.
+  </Step>
+</Steps>
+
+<Tip title="Form Library Standard">
+Libraries like **React Hook Form** use uncontrolled components under the hood, registering native inputs to give you instant validation without re-rendering the whole page.
+</Tip>
